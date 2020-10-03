@@ -12,6 +12,11 @@ We are developing a "resource finder" for Project SHARE so that they can better 
 
 # Quickstart
 
+### Clone the Repo
+
+- Make sure you have git installed: https://git-scm.com/book/en/v2/Getting-Started-Installing-Git
+- Run `git clone https://github.com/JumboCode/ProjectShare.git` to get all of the files on this repo. 
+
 Have two tabs open in whatever terminal you're using (Terminal, iTerm, etc) so that
 you can run both the server (back end) and the client (front end) at the same time. 
 
@@ -40,53 +45,3 @@ for everyone's operating systems compared to venv and conda and other Python pac
   whenever you save changes.
 
 Start coding!
-
-### A Note on Style
-
-In this team, we will be using linters to enforce consistent coding style. Depending on the set up,
-linters can also make sure that you're writing code accessible for screen readers, that you're not
-making careless errors, and that you do't have typos.
-
-If you are agnostic about code editors, please use VSCode since they have the easiest set up
-for linters. (I used to use Sublime and switched over to VSCode - it's very easy and you can
-even import Sublime-style key bindings!)
-
-- VSCode:
-  - I've pushed my own vs code settings in the repo, so things should be fairly automatic.
-  - Frontend
-    - install ESLint extension. This should automatically detect the `.eslintrc.json` file I
-    set up.
-    - Restart VSCode. 
-    - See if the linter is working by adding some extraneous indentation in App.js and check that
-  the linter complains about it.
-  - Backend
-    - Install the Python extension.
-    - In the command palette (Shift Command P), search "Python: Select Interpreter" and choose
-    our virtual environment "share".
-
-- Sublime:
-  - install Package Control: https://packagecontrol.io/installation
-  - Frontend
-    - install Babel. This will allow syntax highlighting for JSX files.
-    - install SublimeLinter: http://www.sublimelinter.com/en/stable/
-    - install the Eslint extension for SublimeLinter: https://github.com/SublimeLinter/SublimeLinter-eslint
-  - Backend
-    - install SublimeLinter-flake8 through Package Control.
-    - Run `pipenv run which python` to get the path of where pipenv installed python. Copy this
-    and replace it with the word "path" in the file `share.sublime-project`. 
-    - From the Sublime menu, open this folder from `Project` > `Open Project ...`.
-
-- Atom:
-  - Frontend
-    - Install the linter: https://atom.io/packages/linter
-    - Install ESLint extension https://atom.io/packages/linter-eslint
-  - Backend
-    - Install the flake8 exension https://atom.io/packages/linter-flake8
-    - Run `pipenv run which flake8` to get the path of where pipenv installed flake8.
-    Then copy the path and paste it into the "Executable Path" section of the linter-flake8 settings.
-    For example, mine is: `$PROJECT/backend/.venv/bin/flake8`.
-  - If it doesn't work try restarting Atom.
-
-I've tested out the settings on the above IDEs so (in theory) that should be enough to get
-all of the required linters installed. If you use another IDE, please figure out yourself how
-to lint Javascript with ESLint and Python with Pylint.
