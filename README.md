@@ -1,5 +1,7 @@
 # Project SHARE
 
+If you have any development questions, check the Wiki first!
+
 ## About the Client
 
 We are developing a "resource finder" for Project SHARE so that they can better distribute their wealth of healthcare resources, which are currently stored haphazardly in varying formats. 
