@@ -25,7 +25,9 @@ you can run both the server (back end) and the client (front end) at the same t
 ### Run the server
 
 - cd into the `backend` directory.
-- Make sure you have pipenv installed: https://pypi.org/project/pipenv/ 
+- Make sure you have Python3 installed: https://www.python.org/downloads/
+- If you're on mac, make sure you have homebrew installed: https://brew.sh/
+- Make sure you have pipenv installed: https://pypi.org/project/pipenv/.
 - Run `pipenv install` to install the required python packages.
 - Run `pipenv run python3 manage.py runserver` to start the backend server.
   - We run our command under `pipenv run` so that pipenv makes the installed packages
