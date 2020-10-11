@@ -11,10 +11,10 @@ class Posts(models.Model):
     date = models.DateTimeField(auto_now_add = True)
 
     # which category is better 
-    category = models.ManyToManyField(Category)
-    # category = models.ForeignKey(Category) 
-    tag = models.ManyToManyField(Tag)
-    # tag = models.ForeignKey(Tag)
+    # category = models.ManyToManyField(Category)
+    category = models.ForeignKey(Category) 
+    #tag = models.ManyToManyField(Tag)
+    tag = models.ForeignKey(Tag)
     content = models.TextField()
     img = models.ImageField(upload_to = user_directory_path) 
     language = models.CharField(max_length=20)
