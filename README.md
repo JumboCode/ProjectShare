@@ -1,3 +1,5 @@
+Peter Horvath - Developer
+
 # Project SHARE
 
 If you have any development questions, check the Wiki first!
