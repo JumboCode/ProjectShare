@@ -8,6 +8,11 @@ If you have any development questions, check the Wiki first!
 
 We are developing a "resource finder" for Project SHARE so that they can better distribute their wealth of healthcare resources, which are currently stored haphazardly in varying formats. 
 
+## The Team
+
+- Project Manager: Meguna Okawa
+- Technical Lead: Anthony Tranduc
+
 # Project Structure
 
 - Db: mysql 
