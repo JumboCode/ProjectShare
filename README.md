@@ -1,5 +1,3 @@
-Peter Horvath - Developer
-
 # Project SHARE
 
 If you have any development questions, check the Wiki first!
@@ -12,6 +10,7 @@ We are developing a "resource finder" for Project SHARE so that they can better 
 
 - Project Manager: Meguna Okawa
 - Technical Lead: Anthony Tranduc
+- Developer: Peter Horvath
 
 # Project Structure
 
