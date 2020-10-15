@@ -10,6 +10,7 @@ We are developing a "resource finder" for Project SHARE so that they can better 
 
 - Project Manager: Meguna Okawa
 - Technical Lead: Anthony Tranduc
+- Designer: Jennifer Weng
 - Developer: Peter Horvath
 
 # Project Structure
