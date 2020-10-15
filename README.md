@@ -13,6 +13,7 @@ We are developing a "resource finder" for Project SHARE so that they can better 
 - Designer: Jennifer Weng
 - Developer: Peter Horvath
 - Developer: Meghan Kloud
+- Developer: Linh Tran
 
 # Project Structure
 
