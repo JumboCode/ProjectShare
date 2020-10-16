@@ -16,6 +16,7 @@ We are developing a "resource finder" for Project SHARE so that they can better 
 - Developer: Linh Tran
 - Developer: Kristin Ng 
 
+
 # Project Structure
 
 - Db: mysql 
