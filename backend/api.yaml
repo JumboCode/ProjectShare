@@ -7,7 +7,7 @@ servers:
 paths:
   /tags:
     get:
-      summary: Your GET endpoint
+      summary: Tags Endpoint
       tags: []
       responses:
         '200':
@@ -35,7 +35,7 @@ paths:
       description: obtain a full list of tags or a queried subset of tags
   /categories:
     get:
-      summary: Your GET endpoint
+      summary: Categories Endpoint
       tags: []
       responses:
         '200':
