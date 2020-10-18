@@ -5,5 +5,6 @@
   "eslint.workingDirectories": [
     "./frontend"
   ],
-  "css.validate": true
+  "css.validate": true,
+  "python.pythonPath": "/Users/jmcd/.local/share/virtualenvs/backend-atsD56dA/bin/python"
 }

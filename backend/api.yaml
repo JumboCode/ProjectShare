@@ -1,0 +1,53 @@
+# api.yaml
+openapi: 3.0.0
+info:
+  title: api
+  version: '1.0'
+servers:
+  - url: 'http://localhost:3000'
+paths:
+  /posts/:
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+      operationId: get-posts
+      parameters:
+        - schema:
+            type: integer
+          in: query
+          name: id
+        - schema:
+            type: string
+          in: query
+          name: title
+        - schema:
+            type: string
+          in: query
+          name: location
+        - schema:
+            type: string
+          in: query
+          name: category
+        - schema:
+            type: string
+          in: query
+          name: tag
+        - schema:
+            type: string
+          in: query
+          name: subtag
+        - schema:
+            type: string
+          in: query
+          name: keyword
+components:
+  schemas: {}
