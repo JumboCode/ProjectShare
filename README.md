@@ -15,6 +15,7 @@ We are developing a "resource finder" for Project SHARE so that they can better 
 - Developer: Meghan Kloud
 - Developer: Linh Tran
 - Developer: Kristin Ng 
+- Developer: Tianyi Ma
 
 
 # Project Structure
