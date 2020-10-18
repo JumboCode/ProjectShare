@@ -4,11 +4,10 @@ from __future__ import unicode_literals
 from django.db import models
 
 # Create your models here.
-
 class Posts(models.Model):
-    title = models.CharField(max_length=5000)
+    title = models.CharField(max_length = 5000)
     date = models.DateTimeField(auto_now_add = True)
-    category = models.ForeignKey(Category) 
+    category = models.ForeignKey(Category)
     tag = models.ForeignKey(Tag)
     content = models.TextField()
     img = models.ImageField(upload_to = user_directory_path) 
@@ -19,4 +18,13 @@ class Location(models.Model):
     latitude = models.CharField(max_length=50)
     longitude = models.CharField(max_length=50)
 
-    
+class Subtag(models.Model):
+    name = models.CharField(max_length = 30)
+    keywords = models.TextField()
+
+class Tag(models.Model):
+    name = models.CharField(max_length = 30)
+    subtag = models.ForeignKey(Subtag, on_delete = models.CASCADE)
+
+class Category(models.Model):
+    name = models.CharField(max_length = 30)
