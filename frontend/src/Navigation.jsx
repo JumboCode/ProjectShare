@@ -2,11 +2,11 @@ import React from 'react';
 // import ReactDOM from 'react-dom';
 import './Navigation.css';
 
-class Navigation extends React.Component {
+class Navigation extends React.PureComponent {
   render() {
-  return (
-    <hi>Navigation Bar</hi> 
-   );
+    return (
+      <hi>Navigation Bar</hi>
+    );
   }
 }
 
