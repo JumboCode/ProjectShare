@@ -52,6 +52,13 @@ paths:
   /tags:
     get:
       summary: Tags Endpoint
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
                 type: object
                 properties:
                   getAllTags:
