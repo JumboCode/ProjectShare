@@ -7,6 +7,9 @@
 .lets-SHARE {
     width: 640px;
     height: 62px;
+    position: absolute;
+    left: 400px;
+    top: 230px;
     font-family: NotoSans;
     font-size: 48px;
     font-weight: 800;
@@ -30,6 +33,9 @@
     letter-spacing: normal;
     text-align: left;
     color: var(--text);
+    position: absolute;
+    left: 400px;
+    top: 297px;
   }
 
   .Project-SHARE-focuses-on-reducing-disparities-amon {
@@ -44,18 +50,27 @@
     letter-spacing: normal;
     text-align: left;
     color: var(--text);
+    position: absolute;
+    left: 400px;
+    top: 358px;
   }
 
   .Rectangle-6 {
     width: 1440px;
     height: 540px;
     background-color: #f6f6f6;
+    position: absolute;
+    left: 0px;
+    top: 554px;
   }
 
   .Rectangle-5 {
     width: 359px;
     height: 352px;
     background-color: #C4C4C4;
+    position: absolute;
+    left: 300px;
+    top: 648px;
   }
 
   .Were-a-team-of-students-at-Tufts-University {
@@ -70,6 +85,9 @@
     letter-spacing: normal;
     text-align: left;
     color: var(--text);
+    position: absolute;
+    left: 703px;
+    top: 653px;
   }
 
   .Lorem-ipsum-dolor-sit-amet-consectetur-adipiscing {
@@ -84,6 +102,9 @@
     letter-spacing: normal;
     text-align: left;
     color: var(--text);
+    position: absolute;
+    left: 705px;
+    top: 771px;
   }
 
   .Get-involved {
@@ -98,6 +119,9 @@
     letter-spacing: normal;
     text-align: left;
     color: var(--text);
+    position: absolute;
+    left: 400px;
+    top: 1194px;
   }
 
   .Lorem-ipsum-dolor-sit-amet-consectetur-adipiscing2 {
@@ -112,6 +136,9 @@
     letter-spacing: normal;
     text-align: left;
     color: var(--text);
+    position: absolute;
+    left: 400px;
+    top: 1268px;
   }
 
   .buttonprimary {
@@ -119,6 +146,9 @@
     height: 55px;
     border-radius: 3px;
     background-color: #292929;
+    position: absolute;
+    left: 400px;
+    top: 1362px;
   }
 
   .View-Club-Website {
@@ -133,12 +163,18 @@
     letter-spacing: normal;
     text-align: left;
     color: #FFFFFF; 
+    position: absolute;
+    left: 415px;
+    top: 1377px;
   }
 
   .Rectangle-7 {
     width: 1440px;
     height: 261px;
     background-color: #2929;
+    position: absolute;
+    left: 0px;
+    top: 1517px;
   }
 
   .Brought-to-you-by-Project-SHARE {
@@ -153,6 +189,9 @@
     letter-spacing: normal;
     text-align: left;
     color: #FFFFFF;
+    position: absolute;
+    left: 300px;
+    top: 1567px;
   }
 
   .Spreading-Health-Access-Resources-and-Education {
@@ -167,6 +206,9 @@
     letter-spacing: normal;
     text-align: left;
     color: #FFFFFF;
+    position: absolute;
+    left: 300px;
+    top: 1592px;
   }
 
   .About {
@@ -181,6 +223,9 @@
     letter-spacing: normal;
     text-align: left;
     color: #FFFFFF;
+    position: absolute;
+    left: 300px;
+    top: 1654px;
   }
 
   .Contact-Us {
@@ -195,6 +240,9 @@
     letter-spacing: normal;
     text-align: left;
     color: #FFFFFF;
+    position: absolute;
+    left: 300px;
+    top: 1694px;
   }
 
 
