@@ -1,3 +1,4 @@
+# api.yaml
 openapi: 3.0.0
 info:
   title: api
@@ -5,6 +6,49 @@ info:
 servers:
   - url: 'http://localhost:3000'
 paths:
+  /posts/:
+    get:
+      summary: Posts Endpoint
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+      operationId: get-posts
+      parameters:
+        - schema:
+            type: integer
+          in: query
+          name: id
+        - schema:
+            type: string
+          in: query
+          name: title
+        - schema:
+            type: string
+          in: query
+          name: location
+        - schema:
+            type: string
+          in: query
+          name: category
+        - schema:
+            type: string
+          in: query
+          name: tag
+        - schema:
+            type: string
+          in: query
+          name: subtag
+        - schema:
+            type: string
+          in: query
+          name: keyword
   /tags:
     get:
       summary: Tags Endpoint
@@ -32,7 +76,7 @@ paths:
                             type: string
               examples: {}
       operationId: get-tags
-      description: obtain a full list of tags or a queried subset of tags
+      description: Obtain a full list of tags or a queried subset of tags
   /categories:
     get:
       summary: Categories Endpoint
@@ -50,6 +94,6 @@ paths:
                     items:
                       type: string
       operationId: get-categories
-      description: obtain a list of categories
+      description: Obtain a list of categories
 components:
   schemas: {}
