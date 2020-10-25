@@ -8,7 +8,7 @@ servers:
 paths:
   /posts/:
     get:
-      summary: Your GET endpoint
+      summary: Posts Endpoint
       tags: []
       responses:
         '200':
@@ -76,7 +76,7 @@ paths:
                             type: string
               examples: {}
       operationId: get-tags
-      description: obtain a full list of tags or a queried subset of tags
+      description: Obtain a full list of tags or a queried subset of tags
   /categories:
     get:
       summary: Categories Endpoint
@@ -94,6 +94,6 @@ paths:
                     items:
                       type: string
       operationId: get-categories
-      description: obtain a list of categories
+      description: Obtain a list of categories
 components:
   schemas: {}
