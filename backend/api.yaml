@@ -49,5 +49,44 @@ paths:
             type: string
           in: query
           name: keyword
+  /tags:
+    get:
+      summary: Tags Endpoint
+                type: object
+                properties:
+                  getAllTags:
+                    type: boolean
+                  tags:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        thisTag:
+                          type: string
+                        subTags:
+                          type: array
+                          items:
+                            type: string
+              examples: {}
+      operationId: get-tags
+      description: obtain a full list of tags or a queried subset of tags
+  /categories:
+    get:
+      summary: Categories Endpoint
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  categories:
+                    type: array
+                    items:
+                      type: string
+      operationId: get-categories
+      description: obtain a list of categories
 components:
   schemas: {}
