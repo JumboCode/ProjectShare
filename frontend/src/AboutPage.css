@@ -1,0 +1,202 @@
+.landing {
+    width: 1440px;
+    height: 1778px;
+    background-color: #FFFF;
+}
+
+.lets-SHARE {
+    width: 640px;
+    height: 62px;
+    font-family: NotoSans;
+    font-size: 48px;
+    font-weight: 800;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.3;
+    letter-spacing: normal;
+    text-align: left;
+    color: var(--text);
+}
+
+.Spread-Health-Access-Resources-and-Education {
+    width: 640px;
+    height: 31px;
+    font-family: NotoSans;
+    font-size: 24px;
+    font-weight: 600;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.3;
+    letter-spacing: normal;
+    text-align: left;
+    color: var(--text);
+  }
+
+  .Project-SHARE-focuses-on-reducing-disparities-amon {
+    width: 640px;
+    height: 96px;
+    font-family: NotoSerif;
+    font-size: 18px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.75;
+    letter-spacing: normal;
+    text-align: left;
+    color: var(--text);
+  }
+
+  .Rectangle-6 {
+    width: 1440px;
+    height: 540px;
+    background-color: #f6f6f6;
+  }
+
+  .Rectangle-5 {
+    width: 359px;
+    height: 352px;
+    background-color: #C4C4C4;
+  }
+
+  .Were-a-team-of-students-at-Tufts-University {
+    width: 447px;
+    height: 94px;
+    font-family: NotoSans;
+    font-size: 36px;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.3;
+    letter-spacing: normal;
+    text-align: left;
+    color: var(--text);
+  }
+
+  .Lorem-ipsum-dolor-sit-amet-consectetur-adipiscing {
+    width: 439px;
+    height: 224px;
+    font-family: NotoSerif;
+    font-size: 18px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.75;
+    letter-spacing: normal;
+    text-align: left;
+    color: var(--text);
+  }
+
+  .Get-involved {
+    width: 640px;
+    height: 47px;
+    font-family: NotoSans;
+    font-size: 36px;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.3;
+    letter-spacing: normal;
+    text-align: left;
+    color: var(--text);
+  }
+
+  .Lorem-ipsum-dolor-sit-amet-consectetur-adipiscing2 {
+    width: 640px;
+    height: 64px;
+    font-family: NotoSerif;
+    font-size: 18px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.75;
+    letter-spacing: normal;
+    text-align: left;
+    color: var(--text);
+  }
+
+  .buttonprimary {
+    width: 191px;
+    height: 55px;
+    border-radius: 3px;
+    background-color: #292929;
+  }
+
+  .View-Club-Website {
+    width: 161px;
+    height: 25px;
+    font-family: NotoSans;
+    font-size: 18px;
+    font-weight: 600;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    text-align: left;
+    color: #FFFFFF; 
+  }
+
+  .Rectangle-7 {
+    width: 1440px;
+    height: 261px;
+    background-color: #2929;
+  }
+
+  .Brought-to-you-by-Project-SHARE {
+    width: 287px;
+    height: 25px;
+    font-family: NotoSans;
+    font-size: 18px;
+    font-weight: 600;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    text-align: left;
+    color: #FFFFFF;
+  }
+
+  .Spreading-Health-Access-Resources-and-Education {
+    width: 430px;
+    height: 32px;
+    font-family: NotoSerif;
+    font-size: 18px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: italic;
+    line-height: 1.75;
+    letter-spacing: normal;
+    text-align: left;
+    color: #FFFFFF;
+  }
+
+  .About {
+    width: 54px;
+    height: 25px;
+    font-family: NotoSans;
+    font-size: 18px;
+    font-weight: 600;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    text-align: left;
+    color: #FFFFFF;
+  }
+
+  .Contact-Us {
+    width: 96px;
+    height: 25px;
+    font-family: NotoSans;
+    font-size: 18px;
+    font-weight: 600;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    text-align: left;
+    color: #FFFFFF;
+  }
+
+
+
+
