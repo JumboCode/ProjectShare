@@ -1,6 +1,7 @@
 import React from 'react';
 import './Navigation.css';
 import logo from './projectSHARELogo.jpeg';
+import searchIcon from './searchIcon.png';
 
 class Navigation extends React.Component {
   constructor(props) {
@@ -47,15 +48,20 @@ class Navigation extends React.Component {
           >
             Help Me Find a Resource
           </button>
-
-          <input 
-            className="SearchBar"
-            placeholder="Search for a resource" 
-            type="text" 
-            searchInput={input} 
-            onChange={this.handleChange} 
-          />
-
+          <div className="Search">
+            <img 
+              className="SearchIcon" 
+              src={searchIcon}
+              alt="Icon for Search Bar"
+            />
+            <input 
+              className="SearchBar"
+              placeholder="Search for a resource" 
+              type="text" 
+              searchInput={input} 
+              onChange={this.handleChange} 
+            />
+          </div>
         </form>
       </div>
     );

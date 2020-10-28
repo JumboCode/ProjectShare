@@ -5,7 +5,7 @@
         rgba(0, 0, 0, 0.26);
     background-color: #ffffff;
     white-space: nowrap;
-    display: inline;
+    display: inline-block;
     top: 0;
 }
 
@@ -64,4 +64,40 @@
     height: 52px;
     border-radius: 3px;
     background-color: #ececec;
+    padding-left: 48px;
+    border: none;
+    font-family: NotoSans;
+    font-size: 16px;
+    font-weight: 600;
+    font-stretch: normal;
+    font-style: normal;
+    color: #555555;
+}
+
+.Search {
+    position: relative;
+    display: inline-block;
+}
+
+.Search img {
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    top: 38px;
+    left: 15px;
+    border-radius: 3px;
+}
+
+input::placeholder {
+    width: 166px;
+    height: 22px;
+    font-family: NotoSans;
+    font-size: 16px;
+    font-weight: 600;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    text-align: left;
+    color: #555555;
 }
