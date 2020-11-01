@@ -1,7 +1,7 @@
 import React from 'react';
 import './Navigation.css';
-import logo from './projectSHARELogo.jpeg';
-import searchIcon from './searchIcon.png';
+import logo from './static/projectSHARELogo.jpeg';
+import searchIcon from './static/searchIcon.png';
 
 class Navigation extends React.Component {
   constructor(props) {
