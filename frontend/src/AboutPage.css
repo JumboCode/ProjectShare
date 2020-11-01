@@ -1,6 +1,10 @@
+
 .landing {
     width: 1440px;
-    height: 1778px;
+    height: 1768px;
+    position: absolute; 
+    left: 0;
+    top: 0;
     background-color: #FFFF;
 }
 
@@ -10,7 +14,7 @@
     position: absolute;
     left: 400px;
     top: 230px;
-    font-family: NotoSans;
+    font-family: NotoSans, sans-serif;
     font-size: 48px;
     font-weight: 800;
     font-stretch: normal;
@@ -24,7 +28,7 @@
 .Spread-Health-Access-Resources-and-Education {
     width: 640px;
     height: 31px;
-    font-family: NotoSans;
+    font-family: NotoSans, sans-serif;
     font-size: 24px;
     font-weight: 600;
     font-stretch: normal;
@@ -40,7 +44,7 @@
 
   .Project-SHARE-focuses-on-reducing-disparities-amon {
     width: 640px;
-    height: 96px;
+    height: 84px;
     font-family: NotoSerif;
     font-size: 18px;
     font-weight: normal;
@@ -57,26 +61,26 @@
 
   .Rectangle-6 {
     width: 1440px;
-    height: 540px;
+    height: 552px;
     background-color: #f6f6f6;
     position: absolute;
     left: 0px;
-    top: 554px;
+    top: 542px;
   }
 
   .Rectangle-5 {
-    width: 359px;
+    width: 352px;
     height: 352px;
     background-color: #C4C4C4;
     position: absolute;
     left: 300px;
-    top: 648px;
+    top: 642px;
   }
 
   .Were-a-team-of-students-at-Tufts-University {
     width: 447px;
-    height: 94px;
-    font-family: NotoSans;
+    height: 90px;
+    font-family: NotoSans, sans-serif;
     font-size: 36px;
     font-weight: bold;
     font-stretch: normal;
@@ -86,13 +90,13 @@
     text-align: left;
     color: var(--text);
     position: absolute;
-    left: 703px;
-    top: 653px;
+    left: 702px;
+    top: 660px;
   }
 
   .Lorem-ipsum-dolor-sit-amet-consectetur-adipiscing {
     width: 439px;
-    height: 224px;
+    height: 196px;
     font-family: NotoSerif;
     font-size: 18px;
     font-weight: normal;
@@ -103,14 +107,14 @@
     text-align: left;
     color: var(--text);
     position: absolute;
-    left: 705px;
-    top: 771px;
+    left: 704px;
+    top: 780px;
   }
 
   .Get-involved {
     width: 640px;
-    height: 47px;
-    font-family: NotoSans;
+    height: 45px;
+    font-family: NotoSans, sans-serif;
     font-size: 36px;
     font-weight: bold;
     font-stretch: normal;
@@ -126,7 +130,7 @@
 
   .Lorem-ipsum-dolor-sit-amet-consectetur-adipiscing2 {
     width: 640px;
-    height: 64px;
+    height: 56px;
     font-family: NotoSerif;
     font-size: 18px;
     font-weight: normal;
@@ -138,24 +142,25 @@
     color: var(--text);
     position: absolute;
     left: 400px;
-    top: 1268px;
+    top: 1269px;
   }
 
   .buttonprimary {
-    width: 191px;
-    height: 55px;
+    width: 173px;
+    height: 52px;
     border-radius: 3px;
+    padding: 0;
     background-color: #292929;
     position: absolute;
-    left: 400px;
-    top: 1362px;
+    left: 440px;
+    top: 1355px;
   }
 
   .View-Club-Website {
-    width: 161px;
-    height: 25px;
-    font-family: NotoSans;
-    font-size: 18px;
+    width: 143px;
+    height: 22px;
+    font-family: NotoSans, sans-serif;
+    font-size: 16px;
     font-weight: 600;
     font-stretch: normal;
     font-style: normal;
@@ -165,23 +170,23 @@
     color: #FFFFFF; 
     position: absolute;
     left: 415px;
-    top: 1377px;
+    top: 1370px;
   }
 
   .Rectangle-7 {
     width: 1440px;
     height: 261px;
-    background-color: #2929;
+    background-color: #292929;
     position: absolute;
     left: 0px;
-    top: 1517px;
+    top: 1507px;
   }
 
   .Brought-to-you-by-Project-SHARE {
-    width: 287px;
-    height: 25px;
-    font-family: NotoSans;
-    font-size: 18px;
+    width: 255px;
+    height: 22px;
+    font-family: NotoSans, sans-serif;
+    font-size: 16px;
     font-weight: 600;
     font-stretch: normal;
     font-style: normal;
@@ -191,14 +196,14 @@
     color: #FFFFFF;
     position: absolute;
     left: 300px;
-    top: 1567px;
+    top: 1557px;
   }
 
   .Spreading-Health-Access-Resources-and-Education {
-    width: 430px;
-    height: 32px;
+    width: 382px;
+    height: 28px;
     font-family: NotoSerif;
-    font-size: 18px;
+    font-size: 16px;
     font-weight: normal;
     font-stretch: normal;
     font-style: italic;
@@ -208,14 +213,14 @@
     color: #FFFFFF;
     position: absolute;
     left: 300px;
-    top: 1592px;
+    top: 1582px;
   }
 
   .About {
-    width: 54px;
-    height: 25px;
-    font-family: NotoSans;
-    font-size: 18px;
+    width: 48px;
+    height: 22px;
+    font-family: NotoSans, sans-serif;
+    font-size: 16px;
     font-weight: 600;
     font-stretch: normal;
     font-style: normal;
@@ -225,14 +230,14 @@
     color: #FFFFFF;
     position: absolute;
     left: 300px;
-    top: 1654px;
+    top: 1644px;
   }
 
   .Contact-Us {
-    width: 96px;
-    height: 25px;
-    font-family: NotoSans;
-    font-size: 18px;
+    width: 85px;
+    height: 22px;
+    font-family: NotoSans, sans-serif;
+    font-size: 16px;
     font-weight: 600;
     font-stretch: normal;
     font-style: normal;
@@ -242,7 +247,7 @@
     color: #FFFFFF;
     position: absolute;
     left: 300px;
-    top: 1694px;
+    top: 1684px;
   }
 
 
