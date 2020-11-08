@@ -1,0 +1,13 @@
+{
+	"settings":
+    {
+        "SublimeLinter.linters.flake8.python": "path",
+        "rulers": [100, 20]
+    },
+  "folders":
+	[
+		{
+			"path": "."
+		}
+	]
+}
