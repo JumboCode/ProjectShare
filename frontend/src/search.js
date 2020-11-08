@@ -27,6 +27,7 @@ class Search extends React.Component {
   }
   
   render() {
+    const {searchTerm, locationFilter} = this.state;
     return (
       <form>
         <label>
@@ -34,7 +35,7 @@ class Search extends React.Component {
           <input
             name="searchTerm"
             type="text"
-            value={this.state.searchTerm}
+            value={searchTerm}
             onChange={this.handleInputChange}
           />
         </label>
@@ -43,7 +44,7 @@ class Search extends React.Component {
           Location Filter:
           <select
             name="locationFilter"
-            value={this.state.locationFilter}
+            value={locationFilter}
             onChange={this.handleInputChange}
           >
             <option value="Medford/Somerville">Medford/Somerville</option>
