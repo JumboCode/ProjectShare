@@ -4,6 +4,7 @@ import {
   Switch,
   Route
 } from "react-router-dom";
+import NotFound from "./NotFound";
 
 function AppRouter() {
   return ( 
@@ -12,6 +13,7 @@ function AppRouter() {
         <Switch>
           <Route exact path="/" />
           <Route path="/about" />
+          <Route component={NotFound} />
         </Switch>
       </div>
     </Router>
