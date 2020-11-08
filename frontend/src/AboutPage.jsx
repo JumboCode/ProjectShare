@@ -47,8 +47,8 @@ class AboutPage extends Component {
         <ul className="Lorem-ipsum-dolor-sit-amet-consectetur-adipiscing2">
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
         </ul>
-        <button className="buttonprimary" type="button" onClick={this.handleClick} > 
-        </button>
+        <Button className="buttonprimary" type="button" onClick={this.handleClick} > 
+        </Button>
         <ul className="View-Club-Website">
           View Club Website
         </ul>

@@ -19,7 +19,7 @@
     font-weight: 800;
     font-stretch: normal;
     font-style: normal;
-    line-height: 1.3;
+    line-height: 31.2px;
     letter-spacing: normal;
     text-align: left;
     color: var(--text);
@@ -33,7 +33,7 @@
     font-weight: 600;
     font-stretch: normal;
     font-style: normal;
-    line-height: 1.3;
+    line-height: 32.4px;
     letter-spacing: normal;
     text-align: left;
     color: var(--text);
@@ -50,7 +50,7 @@
     font-weight: normal;
     font-stretch: normal;
     font-style: normal;
-    line-height: 1.75;
+    line-height: 28px;
     letter-spacing: normal;
     text-align: left;
     color: var(--text);
@@ -85,7 +85,7 @@
     font-weight: bold;
     font-stretch: normal;
     font-style: normal;
-    line-height: 1.3;
+    line-height: 45.5px;
     letter-spacing: normal;
     text-align: left;
     color: var(--text);
@@ -102,7 +102,7 @@
     font-weight: normal;
     font-stretch: normal;
     font-style: normal;
-    line-height: 1.75;
+    line-height: 28px;
     letter-spacing: normal;
     text-align: left;
     color: var(--text);
@@ -119,7 +119,7 @@
     font-weight: bold;
     font-stretch: normal;
     font-style: normal;
-    line-height: 1.3;
+    line-height: 45.5px;
     letter-spacing: normal;
     text-align: left;
     color: var(--text);
@@ -136,7 +136,7 @@
     font-weight: normal;
     font-stretch: normal;
     font-style: normal;
-    line-height: 1.75;
+    line-height: 28px;
     letter-spacing: normal;
     text-align: left;
     color: var(--text);
@@ -153,7 +153,7 @@
     background-color: #292929;
     position: absolute;
     left: 440px;
-    top: 1355px;
+    top: 1367px;
   }
 
   .View-Club-Website {
@@ -183,7 +183,7 @@
   }
 
   .Brought-to-you-by-Project-SHARE {
-    width: 255px;
+    width: 257px;
     height: 22px;
     font-family: NotoSans, sans-serif;
     font-size: 16px;
@@ -207,7 +207,7 @@
     font-weight: normal;
     font-stretch: normal;
     font-style: italic;
-    line-height: 1.75;
+    line-height: 28px;
     letter-spacing: normal;
     text-align: left;
     color: #FFFFFF;
