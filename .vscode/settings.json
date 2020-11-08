@@ -5,5 +5,5 @@
   "eslint.workingDirectories": [
     "./frontend"
   ],
-  "css.validate": true
+  "css.validate": true,
 }
