@@ -1,15 +1,14 @@
 import React from 'react';
-import AboutPage from './AboutPage';
 import './App.css';
-import Navigation from './Navigation';
+import AppRouter from './Router';
 
-function App() {
-  return (
-    <div className="App">    
-      <AboutPage />
-      <Navigation> </Navigation>
-    </div>
-  );
+class Router extends React.PureComponent {
+  render() {
+    return <AppRouter />;
+   
+  }
 }
 
-export default App;
+export default Router; 
+
+ 
