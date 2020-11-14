@@ -36,21 +36,25 @@ class ResourceFinder extends React.Component {
 
     if (!locationSelected) {
       select = (
-        <select name="LocationType" location={this.state} onChange={this.handleChangeLoc}>
-          {/* <option value=""> </option> */}
-          <option value="Tufts">Tufts</option>
-          <option value="Sherwood">Sherwood</option>
-          <option value="Medford">Medford</option>
-        </select>
+        <div className="FirstSelection">
+          <select name="LocationType" location={this.state} onChange={this.handleChangeLoc}>
+            <option value="default" selected disabled hidden>Choose Location</option>
+            <option value="Tufts">Tufts</option>
+            <option value="Sherwood">Sherwood</option>
+            <option value="Medford">Medford</option>
+          </select>
+        </div>
       );
     } else {
       select = (
-        <select name="ResourceType" resource={this.state} onChange={this.handleChangeRes}>
-          {/* <option value=""> </option> */}
-          <option value="COVID-19">COVID-19</option>
-          <option value="Woman's Health">Woman&apos;s Health</option>
-          <option value="LGBT">LGBT</option>
-        </select>
+        <div className="SecondSelection">
+          <select name="ResourceType" resource={this.state} onChange={this.handleChangeRes}>
+            <option value="default" selected disabled hidden>Choose Resource</option>
+            <option value="COVID-19">COVID-19</option>
+            <option value="Woman's Health">Woman&apos;s Health</option>
+            <option value="LGBT">LGBT</option>
+          </select>
+        </div>
       );
     }
 
