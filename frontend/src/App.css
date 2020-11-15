@@ -1,3 +1,110 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+ 
+@font-face {
+ font-family: NotoSans;
+ src: local(NotoSans-SemiBold),
+   url(/path/to/NotoSans-SemiBold.woff2) format("woff2"),
+   url(/path/to/NotoSans-SemiBold.woff) format("woff"),
+   url(/path/to/NotoSans-SemiBold.ttf) format("truetype");
+ font-weight: 600;
+ font-style: normal;
+ font-stretch: normal;
+}
+@font-face {
+ font-family: NotoSans;
+ src: local(NotoSans-Bold),
+   url(/path/to/NotoSans-Bold.woff2) format("woff2"),
+   url(/path/to/NotoSans-Bold.woff) format("woff"),
+   url(/path/to/NotoSans-Bold.ttf) format("truetype");
+ font-weight: bold;
+ font-style: normal;
+ font-stretch: normal;
+}
+@font-face {
+ font-family: NotoSans;
+ src: local(NotoSans-ExtraBold),
+   url(/path/to/NotoSans-ExtraBold.woff2) format("woff2"),
+   url(/path/to/NotoSans-ExtraBold.woff) format("woff"),
+   url(/path/to/NotoSans-ExtraBold.ttf) format("truetype");
+ font-weight: 800;
+ font-style: normal;
+ font-stretch: normal;
+}
+@font-face {
+ font-family: NotoSerif;
+ src: local(NotoSerif-Italic),
+   url(/path/to/NotoSerif-Italic.woff2) format("woff2"),
+   url(/path/to/NotoSerif-Italic.woff) format("woff"),
+   url(/path/to/NotoSerif-Italic.ttf) format("truetype");
+ font-weight: normal;
+ font-style: italic;
+ font-stretch: normal;
+}
+@font-face {
+ font-family: NotoSerif;
+ src: local(NotoSerif-Regular),
+   url(/path/to/NotoSerif-Regular.woff2) format("woff2"),
+   url(/path/to/NotoSerif-Regular.woff) format("woff"),
+   url(/path/to/NotoSerif-Regular.ttf) format("truetype");
+ font-weight: normal;
+ font-style: normal;
+ font-stretch: normal;
+}
+ 
+html{
+ margin: 0;
+ font-family: 'Noto Sans', sans-serif;
+ -webkit-font-smoothing: antialiased;
+ -moz-osx-font-smoothing: grayscale;
+}
+ 
+h2 {
+ font-family: NotoSans;
+ font-size: 35px;
+ font-weight: 800;
+ font-stretch: normal;
+ font-style: normal;
+ line-height: 1.3;
+ letter-spacing: normal;
+}
+h3 {
+ font-family: NotoSans;
+ font-size: 24px;
+ font-weight: bold;
+ font-stretch: normal;
+ font-style: normal;
+ line-height: 1.3;
+ letter-spacing: normal;
+}
+h4 {
+ font-family: NotoSans;
+ font-size: 16px;
+ font-weight: 600;
+ font-stretch: normal;
+ font-style: normal;
+ line-height: normal;
+ letter-spacing: normal;
+}
+caption {
+ font-family: NotoSerif;
+ font-size: 16px;
+ font-weight: normal;
+ font-stretch: normal;
+ font-style: italic;
+ line-height: 1.75;
+ letter-spacing: normal;
+}
+body {
+ font-family: NotoSerif;
+ font-size: 16px;
+ font-weight: normal;
+ font-stretch: normal;
+ font-style: normal;
+ line-height: 1.75;
+ letter-spacing: normal;
+}
+
+
 .App {
   text-align: center;
 }
