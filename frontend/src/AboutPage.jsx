@@ -10,7 +10,6 @@ class AboutPage extends Component {
   }
   
   handleClick = () => {
-    console.log('this is:', this); //placeholder for where button will eventually go
   }
 
 
@@ -19,7 +18,7 @@ class AboutPage extends Component {
     return (
       <div className="landing">
         <ul className="lets-SHARE"> 
-          Let's SHARE
+          Let&apos;s SHARE
         </ul>
         <ul className="Spread-Health-Access-Resources-and-Education">
           Spread Health Access, Resources, and Eudcation
@@ -28,10 +27,8 @@ class AboutPage extends Component {
           Project SHARE focuses on reducing disparities among Tufts and local communities by advancing access to health care, 
           and providing resources and education in support of the universal right to health.
         </ul>
-        <ul className="Rectangle-6"> 
-        </ul>
-        <ul className="Rectangle-5">
-        </ul>
+        <ul className="Rectangle-6">  </ul>
+        <ul className="Rectangle-5">  </ul>
         <ul className="Were-a-team-of-students-at-Tufts-University">
           We’re a team of students at Tufts University
         </ul>
@@ -47,24 +44,9 @@ class AboutPage extends Component {
         <ul className="Lorem-ipsum-dolor-sit-amet-consectetur-adipiscing2">
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
         </ul>
-        <Button className="buttonprimary" type="button" onClick={this.handleClick} > 
-        </Button>
+        <Button className="buttonprimary" type="button" onClick={this.handleClick}>  </Button>
         <ul className="View-Club-Website">
           View Club Website
-        </ul>
-        <ul className="Rectangle-7"> 
-        </ul>
-        <ul className="Brought-to-you-by-Project-SHARE">
-          Brought to you by Project SHARE
-        </ul>
-        <ul className="Spreading-Health-Access-Resources-and-Education">
-          Spreading Health Access, Resources, and Education
-        </ul>
-        <ul className="About">
-          About
-        </ul>
-        <ul className="Contact-Us">
-          Contact Us
         </ul>
       </div>
     );
