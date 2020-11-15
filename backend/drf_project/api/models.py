@@ -29,3 +29,16 @@ class Posts(models.Model):
     # img = models.ImageField(upload_to=user_directory_path)
     language = models.CharField(max_length=20)
     location = models.ForeignKey(Location, on_delete=models.CASCADE)
+
+'''
+class CSVUpload(models.Model):
+    title = models.CharField(max_length=150)
+    date = models.DateTimeField()
+    category = models.ForeignKey(Category, on_delete=models.CASCADE)
+    tags = models.ForeignKey(Tag, on_delete=models.CASCADE)
+    content = models.TextField()
+    language = models.CharField(max_length=20)
+    location = models.ForeignKey(Location, on_delete=models.CASCADE)
+    # Cannot use ImageField because Pillow is not installed.
+    # img = models.ImageField(upload_to=user_directory_path) 
+'''
