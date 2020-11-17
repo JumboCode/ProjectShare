@@ -1,0 +1,80 @@
+
+
+.Rectangle-7 {
+    width: 1440px;
+    height: 261px;
+    background-color: #292929;
+    position: absolute;
+    left: 0px;
+    top: 1507px;
+    z-index:1;
+    position: relative;
+  }
+
+.Brought-to-you-by-Project-SHARE {
+    width: 257px;
+    height: 22px;
+    font-family: NotoSans, sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    text-align: left;
+    color: #FFFFFF;
+    position: absolute;
+    left: 300px;
+    top: 50px;
+  }
+
+  .Spreading-Health-Access-Resources-and-Education {
+    width: 382px;
+    height: 28px;
+    font-family: NotoSerif;
+    font-size: 16px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: italic;
+    line-height: 28px;
+    letter-spacing: normal;
+    text-align: left;
+    color: #FFFFFF;
+    position: absolute;
+    left: 300px;
+    top: 75px;
+  }
+
+  .About {
+    width: 48px;
+    height: 22px;
+    font-family: NotoSans, sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    text-align: left;
+    color: #FFFFFF;
+    position: absolute;
+    left: 300px;
+    top: 137px;
+  }
+
+  .Contact-Us {
+    width: 85px;
+    height: 22px;
+    font-family: NotoSans, sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    text-align: left;
+    color: #FFFFFF;
+    position: absolute;
+    left: 300px;
+    top: 174px;
+  }
