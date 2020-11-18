@@ -3,6 +3,7 @@ import './Navigation.css';
 import logo from './static/projectSHARELogo.jpeg';
 import searchIcon from './static/searchIcon.png';
 
+
 class Navigation extends React.Component {
   constructor(props) {
     super(props);
@@ -40,6 +41,13 @@ class Navigation extends React.Component {
             type="button"
           >
             Home
+          </button>
+
+          <button 
+            className="Topics" 
+            type="button"
+          >
+            Topics
           </button>
 
           <button 

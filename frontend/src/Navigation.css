@@ -1,6 +1,7 @@
 .NavBar {
-    width: 100%;
+    width: 1440px;
     height: 90px;
+    padding: 25px 219px 13px 300px;
     box-shadow: 0 4px 17px -11px 
         rgba(0, 0, 0, 0.26);
     background-color: #ffffff;
@@ -10,20 +11,16 @@
 }
 
 .Logo {
-    margin-top: 20px;
     vertical-align: middle;
-    margin-left: 300px;
-    margin-right: 60px;
     width: 40px;
     height: 40px;
+    margin: 6px 60px 6px 0;
 }
 
 .Home {
     border: none;
     background-color: transparent;
-    margin-top: 20px;
-    vertical-align: middle;
-    margin-right: 30px;
+    margin: 14px 30px 16px 60px;
     width: 47px;
     height: 22px;
     font-family: NotoSans;
@@ -35,15 +32,29 @@
     letter-spacing: normal;
     color: #555555;
     text-align: left;
-    padding-right: 45px;
+}
+
+.Topics {
+    border: none;
+    background-color: transparent;
+    margin: 14px 30px 16px;
+    width: 49px;
+    height: 22px;
+    font-family: NotoSans;
+    font-size: 16px;
+    font-weight: 600;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #555555;
+    text-align: left;
 }
 
 .FindResource {
     border: none;
     background-color: transparent;
-    margin-top: 20px;
-    vertical-align: middle;
-    margin-right: 50px;
+    margin: 14px 45px 16px 30px;
     width: 193px;
     height: 22px;
     font-family: NotoSans;
@@ -58,20 +69,19 @@
 }
 
 .SearchBar {
-    margin-top: 20px;
-    vertical-align: middle;
-    width: 430px;
+    width: 346px;
     height: 52px;
+    margin: 0 38px 0 45px;
+    padding: 15px 132px 15px 45px;
     border-radius: 3px;
     background-color: #ececec;
-    padding-left: 48px;
     border: none;
+    color: #555555;
     font-family: NotoSans;
     font-size: 16px;
-    font-weight: 600;
+    font-weight: 300;
     font-stretch: normal;
     font-style: normal;
-    color: #555555;
 }
 
 .Search {
@@ -81,16 +91,18 @@
 
 .Search img {
     position: absolute;
-    width: 18px;
-    height: 18px;
-    top: 38px;
-    left: 15px;
+    width: 20px;
+    height: 20px;
+    margin: 0 1.5px 1.5px 0;
+    top: 31px;
+    left: 58px;
     border-radius: 3px;
 }
 
 input::placeholder {
     width: 166px;
     height: 22px;
+    margin: 0 0 0 15px;
     font-family: NotoSans;
     font-size: 16px;
     font-weight: 600;
