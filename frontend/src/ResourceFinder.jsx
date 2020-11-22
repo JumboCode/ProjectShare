@@ -1,5 +1,6 @@
 import React from 'react';
 
+// still needs to be fixed.
 class ResourceFinder extends React.Component {
   constructor(props) {
     super(props);
