@@ -1,56 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap');
  
-@font-face {
- font-family: NotoSans;
- src: local(NotoSans-SemiBold),
-   url(/path/to/NotoSans-SemiBold.woff2) format("woff2"),
-   url(/path/to/NotoSans-SemiBold.woff) format("woff"),
-   url(/path/to/NotoSans-SemiBold.ttf) format("truetype");
- font-weight: 600;
- font-style: normal;
- font-stretch: normal;
-}
-@font-face {
- font-family: NotoSans;
- src: local(NotoSans-Bold),
-   url(/path/to/NotoSans-Bold.woff2) format("woff2"),
-   url(/path/to/NotoSans-Bold.woff) format("woff"),
-   url(/path/to/NotoSans-Bold.ttf) format("truetype");
- font-weight: bold;
- font-style: normal;
- font-stretch: normal;
-}
-@font-face {
- font-family: NotoSans;
- src: local(NotoSans-ExtraBold),
-   url(/path/to/NotoSans-ExtraBold.woff2) format("woff2"),
-   url(/path/to/NotoSans-ExtraBold.woff) format("woff"),
-   url(/path/to/NotoSans-ExtraBold.ttf) format("truetype");
- font-weight: 800;
- font-style: normal;
- font-stretch: normal;
-}
-@font-face {
- font-family: NotoSerif;
- src: local(NotoSerif-Italic),
-   url(/path/to/NotoSerif-Italic.woff2) format("woff2"),
-   url(/path/to/NotoSerif-Italic.woff) format("woff"),
-   url(/path/to/NotoSerif-Italic.ttf) format("truetype");
- font-weight: normal;
- font-style: italic;
- font-stretch: normal;
-}
-@font-face {
- font-family: NotoSerif;
- src: local(NotoSerif-Regular),
-   url(/path/to/NotoSerif-Regular.woff2) format("woff2"),
-   url(/path/to/NotoSerif-Regular.woff) format("woff"),
-   url(/path/to/NotoSerif-Regular.ttf) format("truetype");
- font-weight: normal;
- font-style: normal;
- font-stretch: normal;
-}
- 
 html{
  margin: 0;
  font-family: 'Noto Sans', sans-serif;
