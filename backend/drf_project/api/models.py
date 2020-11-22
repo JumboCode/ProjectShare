@@ -1,22 +1,21 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
-
 from django.db import models
+
 
 class Location(models.Model):
     latitude = models.CharField(max_length=50)
     longitude = models.CharField(max_length=50)
 
-class Subtag(models.Model):
-    name = models.CharField(max_length=30)
-    keywords = models.TextField()
 
 class Tag(models.Model):
     name = models.CharField(max_length=30)
-    subtag = models.ForeignKey(Subtag, on_delete=models.CASCADE)
+    keywords = models.TextField()
+
 
 class Category(models.Model):
     name = models.CharField(max_length=30)
+
 
 # Create your models here.
 class Posts(models.Model):
