@@ -1,17 +1,15 @@
 import React from 'react';
-import AboutPage from './AboutPage';
 import './App.css';
-import Navigation from './Navigation';
-import FooterElement from './FooterElement';
+import AppRouter from './Router';
 
-function App() {
-  return (
-    <div className="App">
-      <Navigation> </Navigation>
-      <AboutPage />
-      <FooterElement> </FooterElement>
-    </div>
-  );
+// eslint-disable-next-line react/prefer-stateless-function
+class App extends React.Component {
+  render() {
+    return <AppRouter />;
+   
+  }
 }
 
-export default App;
+export default App; 
+
+ 

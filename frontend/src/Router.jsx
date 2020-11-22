@@ -1,21 +1,28 @@
-import React from "react";
+import React from 'react';
 import {
   BrowserRouter as Router,
   Switch,
   Route
 } from "react-router-dom";
 
-function AppRouter() {
-  return ( 
-    <Router>
-      <div>
-        <Switch>
-          <Route exact path="/" />
-          <Route path="/about" />
-        </Switch>
-      </div>
-    </Router>
-  );
+import AboutPage from './AboutPage';
+import Navigation from './Navigation';
+
+// eslint-disable-next-line react/prefer-stateless-function
+class AppRouter extends React.Component {
+  render(){
+    return ( 
+      <Router>
+        <div>
+          <Switch>
+            <Route exact path="/" component={Navigation} />
+            <Route path="/about" component={AboutPage} />
+          </Switch>
+        </div>
+      </Router>
+    );
+  }
 }
 
-export default React.memo(AppRouter)
+export default AppRouter;
+
