@@ -1,0 +1,9 @@
+.tag {
+    width: 81px;
+    height: 32px;
+    margin: 0 10px 0 0;
+    padding: 5px 15px;
+    border-radius: 20px;
+    border: solid 1px var(--text);
+    background-color: #ffffff;
+  }
