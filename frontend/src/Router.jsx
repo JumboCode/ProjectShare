@@ -4,24 +4,22 @@ import {
   Switch,
   Route
 } from "react-router-dom";
-
+import NotFound from "./NotFound";
 import AboutPage from './AboutPage';
 import Navigation from './Navigation';
 
-// eslint-disable-next-line react/prefer-stateless-function
-class AppRouter extends React.Component {
-  render(){
-    return ( 
-      <Router>
-        <div>
-          <Switch>
-            <Route exact path="/" component={Navigation} />
-            <Route path="/about" component={AboutPage} />
-          </Switch>
-        </div>
-      </Router>
-    );
-  }
+function AppRouter() {
+  return ( 
+    <Router>
+      <div>
+        <Switch>
+          <Route exact path="/" component={Navigation} />
+          <Route path="/about" component={AboutPage} />
+          <Route component={NotFound} />
+        </Switch>
+      </div>
+    </Router>
+  );
 }
 
 export default AppRouter;
