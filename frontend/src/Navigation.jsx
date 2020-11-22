@@ -7,7 +7,9 @@ import searchIcon from './static/searchIcon.png';
 class Navigation extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {searchInput: ''};
+    this.state = {
+      searchInput: '',
+    };
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
