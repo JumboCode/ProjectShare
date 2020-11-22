@@ -8,8 +8,8 @@ import {
 import AboutPage from './AboutPage';
 import Navigation from './Navigation';
 
-
-class AppRouter extends React.PureComponent {
+// eslint-disable-next-line react/prefer-stateless-function
+class AppRouter extends React.Component {
   render(){
     return ( 
       <Router>
