@@ -18,7 +18,7 @@ class Category(models.Model):
 
 
 # Create your models here.
-class Posts(models.Model):
+class Post(models.Model):
     title = models.CharField(max_length=5000)
     date = models.DateTimeField(auto_now_add=True)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)

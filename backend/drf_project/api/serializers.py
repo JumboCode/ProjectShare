@@ -43,7 +43,7 @@ class CategorySerializer(serializers.Serializer):
         return instance
 
 
-class PostsSerializer(serializers.Serializer):
+class PostSerializer(serializers.Serializer):
     id = serializers.IntegerField(read_only=True)
     title = serializers.CharField(max_length=5000)
     date = serializers.DateTimeField()
