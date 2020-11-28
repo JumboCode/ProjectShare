@@ -2,20 +2,41 @@
   margin-left: 401px;
 }
 
-.tag {
-    width: 81px;
+.Tags {
+    width: max-content;
     height: 32px;
-    margin: 0 10px 0 0;
+    margin: 0 10px 0 10px;
     padding: 5px 15px;
     border-radius: 20px;
     border: solid 1px var(--text);
+    background-color: #ffffff;
+    display: inline-block;
+    white-space: nowrap;
+    position: relative;
+  }
+
+  .tagElem {
+    width: max-content;
+    height: 30px;
+    font-family: NotoSans;
+    font-size: 16px;
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    text-align: left;
+    color: var(--text);
+    margin: 0 10px 0 0;
+    padding: 5px 10px 10px 10px;
+    border-radius: 20px;
+    border: solid 1px;
     background-color: #ffffff;
   }
 
   .Title {
     width: 404px;
     height: 45px;
-    margin: 50px 76px 10px 401px;
     font-family: NotoSans;
     font-size: 35px;
     font-weight: 800;
@@ -25,9 +46,6 @@
     letter-spacing: normal;
     text-align: left;
     color: var(--text);
-    position: absolute; 
-    left: 401;
-    top: 252;
   }
 
   .Author {
@@ -43,9 +61,6 @@
     letter-spacing: normal;
     text-align: left;
     color: #6a6a6a;
-    position: absolute; 
-    left: 401;
-    top: 307;
   }
 
   .Date {
@@ -61,7 +76,47 @@
     letter-spacing: normal;
     text-align: left;
     color: #6a6a6a;
-    position: absolute; 
-    left: 401;
-    top: 334;
+  }
+
+  .Image {
+    width: 640px;
+    height: 346px;
+    background-color: pink;
+    text-align: center;
+  }
+
+  .Caption {
+    width: 639px;
+    height: 56px;
+    margin: 15px 0 0 1px;
+    font-family: NotoSerif;
+    font-size: 16px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: italic;
+    line-height: 1.75;
+    letter-spacing: normal;
+    text-align: left;
+    color: var(--text);
+  }
+
+  .Contents {
+    width: 640px;
+    height: 168px;
+    font-family: NotoSerif;
+    font-size: 16px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.75;
+    letter-spacing: normal;
+    text-align: left;
+    color: var(--text);
+  }
+
+  .Map {
+    width: 640px;
+    height: 450px;
+    position: absolute;
+    padding: 300px 137px 176px 0px;
   }
