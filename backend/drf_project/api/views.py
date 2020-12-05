@@ -1,12 +1,10 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
-from django.shortcuts import render
 from django.http import JsonResponse
 from rest_framework.views import APIView
+from rest_framework import viewsets
 
-# Create your views here.
 
-class Test(APIView):
+class TestView(APIView):
     def get(self, request):
         return JsonResponse({'testResponse': 'success'})
-
