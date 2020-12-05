@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from api.models import Posts, Location, Tag, Category
+from api.models import Post, Location, Tag, Category
 
 
 class LocationSerializer(serializers.Serializer):
@@ -43,7 +43,7 @@ class CategorySerializer(serializers.Serializer):
         return instance
 
 
-class PostsSerializer(serializers.Serializer):
+class PostSerializer(serializers.Serializer):
     id = serializers.IntegerField(read_only=True)
     title = serializers.CharField(max_length=5000)
     date = serializers.DateTimeField()
@@ -55,7 +55,7 @@ class PostsSerializer(serializers.Serializer):
     location = LocationSerializer()
 
     def create(self, validated_data):
-        return Posts.object.create(**validated_data)
+        return Post.object.create(**validated_data)
 
     def update(self, instance, validated_data):
         instance.id = validated_data.get('id', instance.id)
