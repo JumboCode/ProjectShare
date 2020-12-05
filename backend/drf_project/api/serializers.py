@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from api.models import Post, Location, Tag, Category
+from drf_project.api.models import Post, Location, Tag, Category
 
 
 class LocationSerializer(serializers.Serializer):
@@ -19,7 +19,7 @@ class LocationSerializer(serializers.Serializer):
 
 class TagSerializer(serializers.Serializer):
     name = serializers.CharField(max_length=30)
-    keywords = serializers.TextField()
+    keywords = serializers.CharField()
 
     def create(self, validated_data):
         return Tag.object.create(**validated_data)
@@ -49,7 +49,7 @@ class PostSerializer(serializers.Serializer):
     date = serializers.DateTimeField()
     category = CategorySerializer()
     tag = TagSerializer()
-    content = serializers.TextField()
+    content = serializers.CharField()
     img = serializers.ImageField()
     language = serializers.CharField(max_length=20)
     location = LocationSerializer()
