@@ -2,17 +2,24 @@
 from __future__ import unicode_literals
 
 import csv, io
+import pandas as pd 
 from django.shortcuts import render
 from django.contrib import messages 
 
+from drf_project.models import Posts, Location, Subtag, Category
 
 
 # Create your views here.
 
 def csv_upload(request):
-    template = 'csv_upload.html'
-    data = Posts.objects.all()
-
+    if request.method == 'POST':
+        form = UploadFileForm(request.POST, request.FILES)
+        if form.is_valid():
+            handle_uploaded_file(request.FILES['file'])
+            return HttpResponseRedirect('/success/url/')
+    else:
+        form = UploadFileForm()
+        
 prompt = {
         'order': 'Order of the CSV should be title,date,category,tags,content,language,location,img',
         'profiles': data    
@@ -30,7 +37,7 @@ prompt = {
 io_string = io.StringIO(data_set)
 next(io_string)
 for column in csv.reader(io_string, delimiter=',', quotechar="|"):
-    _, created = Posts.objects.update_or_create(
+    _, postsCreated = Posts.objects.update_or_create(
         title=column[0],
         date=column[1],
         category=column[2],
@@ -39,7 +46,22 @@ for column in csv.reader(io_string, delimiter=',', quotechar="|"):
         language=column[5], 
         location=column[6], 
         img=column[7]
+    ) 
+    _, locationCreated = Location.object.update_or_create(
+        latitude=column[0],
+        longitude=column[1],
     )
-context = {}
+    _, subtagCreated = Subtag.object.update_or_create(
+        name=column[0],
+        keywords=column[1],
+    )
+    _, tagCreated = Subtag.object.update_or_create(
+        name=column[0],
+        subtag=column[1],
+    )
+    _, categoryCreated = Category.object.update_or_create(
+        name=column[0],
+        context=column[1],
+
 return render(request, template, context)
 
