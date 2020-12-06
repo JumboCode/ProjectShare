@@ -1,0 +1,23 @@
+.error {   
+    flex: 1;    
+    flex-direction: 'column';    
+    justify-content: center;    
+    align-items: center; 
+    display: block;
+}
+
+.message {   
+    flex: 1;    
+    flex-direction: 'column';    
+    justify-content: center;    
+    align-items: center; 
+    display: block;
+}
+
+.link {   
+    flex: 1;    
+    flex-direction: 'column';    
+    justify-content: center;    
+    align-items: center; 
+    display: block;
+}
