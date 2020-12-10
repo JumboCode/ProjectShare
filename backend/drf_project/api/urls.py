@@ -6,4 +6,7 @@ urlpatterns = [
     path('categories/',
          views.CategoryViewSet.as_view({'get': 'list'}),
          name='category'),
+    path('posts/',
+         views.PostViewSet.as_view({'get': 'list'}),
+         name='post'),
 ]
