@@ -3,7 +3,7 @@ from . import views
 
 urlpatterns = [
     path('test', views.TestView.as_view(), name='test'),
-    path('categories/', 
+    path('categories/',
          views.CategoryViewSet.as_view({'get': 'list'}),
          name='category'),
 ]

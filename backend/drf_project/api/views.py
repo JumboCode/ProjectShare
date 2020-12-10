@@ -11,6 +11,7 @@ class TestView(APIView):
     def get(self, request):
         return JsonResponse({'testResponse': 'success'})
 
+
 class CategoryViewSet(viewsets.ModelViewSet):
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
