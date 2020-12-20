@@ -18,66 +18,21 @@
     margin: 6px 60px 6px 0;
 }
 
-.Home {
+.navbarLink, .Home, .Topics, .FindResource {
+    position: inline;
+    display: inline-block;
     border: none;
     background-color: transparent;
-    margin: 14px 30px 16px 60px;
-    width: 53px;
     height: 22px;
-    font-family: NotoSans;
-    font-size: 16px;
-    font-weight: 600;
-    font-stretch: normal;
-    font-style: normal;
+    width: max-content;
     line-height: normal;
     letter-spacing: normal;
     color: #555555;
     text-align: left;
+    margin: 14px 30px 16px 30px
 }
 
-.Home:hover {
-    cursor: pointer;
-}
-
-.Topics {
-    border: none;
-    background-color: transparent;
-    margin: 14px 30px 16px;
-    width: 55px;
-    height: 22px;
-    font-family: NotoSans;
-    font-size: 16px;
-    font-weight: 600;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: normal;
-    letter-spacing: normal;
-    color: #555555;
-    text-align: left;
-}
-
-.Topics:hover {
-    cursor: pointer;
-}
-
-.FindResource {
-    border: none;
-    background-color: transparent;
-    margin: 14px 45px 16px 30px;
-    width: 185px;
-    height: 22px;
-    font-family: NotoSans;
-    font-size: 16px;
-    font-weight: 600;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: normal;
-    letter-spacing: normal;
-    text-align: left;
-    color: #555555;
-}
-
-.FindResource:hover {
+.Home:hover, .Topics:hover, .FindResource:hover {
     cursor: pointer;
 }
 
@@ -90,11 +45,6 @@
     background-color: #ececec;
     border: none;
     color: #555555;
-    font-family: NotoSans;
-    font-size: 16px;
-    font-weight: 300;
-    font-stretch: normal;
-    font-style: normal;
 }
 
 .Search {
@@ -116,11 +66,6 @@ input::placeholder {
     width: 166px;
     height: 22px;
     margin: 0 0 0 15px;
-    font-family: NotoSans;
-    font-size: 16px;
-    font-weight: 600;
-    font-stretch: normal;
-    font-style: normal;
     line-height: normal;
     letter-spacing: normal;
     text-align: left;
