@@ -24,7 +24,7 @@ class Post extends React.Component {
       <div className="Post">
         <ul className="Tags">
           {post.tags.map(tag => (
-            <a href="/" style={{ textDecoration: 'none' }} className="tagElem" key={tag}>{tag}</a>
+            <a href="/" className="tagElem" key={tag}>{tag}</a>
           ))}
         </ul>
         <ul className="Title">
