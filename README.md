@@ -17,6 +17,7 @@ We are developing a "resource finder" for Project SHARE so that they can better 
 - Developer: Kristin Ng 
 - Developer: Tianyi Ma
 - Developer: Julia McDowell
+- Developer: Emma Paterson
 
 
 # Project Structure
