@@ -50,7 +50,8 @@ class PostSerializer(serializers.Serializer):
     category = CategorySerializer()
     tag = TagSerializer()
     content = serializers.CharField()
-    img = serializers.ImageField()
+    # Cannot use ImageField because Pillow is not installed.
+    # img = serializers.ImageField()
     language = serializers.CharField(max_length=20)
     location = LocationSerializer()
 
@@ -63,7 +64,8 @@ class PostSerializer(serializers.Serializer):
         instance.category = validated_data.get('category', instance.category)
         instance.tag = validated_data.get('tag', instance.tag)
         instance.content = validated_data.get('content', instance.content)
-        instance.img = validated_data.get('img', instance.img)
+        # Cannot use ImageField because Pillow is not installed.
+        # instance.img = validated_data.get('img', instance.img)
         instance.language = validated_data.get('language', instance.language)
         instance.location = validated_data.get('location', instance.location)
         instance.save()
