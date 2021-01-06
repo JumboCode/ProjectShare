@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Post, Location, Tag, Category
+from .models import Post, Location, Tag, Category, Image
 
 
 class LocationSerializer(serializers.Serializer):
@@ -19,14 +19,12 @@ class LocationSerializer(serializers.Serializer):
 
 class TagSerializer(serializers.Serializer):
     name = serializers.CharField(max_length=30)
-    keywords = serializers.CharField()
 
     def create(self, validated_data):
         return Tag.object.create(**validated_data)
 
     def update(self, instance, validated_data):
         instance.name = validated_data.get('name', instance.name)
-        instance.keywords = validated_data.get('keywords', instance.keywords)
         instance.save()
         return instance
 
@@ -43,15 +41,26 @@ class CategorySerializer(serializers.Serializer):
         return instance
 
 
+class ImageSerializer(serializers.Serializer):
+    img_path = serializers.ImageField()
+
+    def create(self, validated_data):
+        return Image.object.create(**validated_data)
+
+    def update(self, instance, validated_data):
+        instance.img_path = validated_data.get('img_path', instance.img_path)
+        instance.save()
+        return instance
+
+
 class PostSerializer(serializers.Serializer):
     id = serializers.IntegerField(read_only=True)
     title = serializers.CharField(max_length=5000)
     date = serializers.DateTimeField()
     category = CategorySerializer()
-    tag = TagSerializer()
+    tags = TagSerializer(read_only=True, many=True)
     content = serializers.CharField()
-    # Cannot use ImageField because Pillow is not installed.
-    # img = serializers.ImageField()
+    images = ImageSerializer(many=True)
     language = serializers.CharField(max_length=20)
     location = LocationSerializer()
 
@@ -64,8 +73,7 @@ class PostSerializer(serializers.Serializer):
         instance.category = validated_data.get('category', instance.category)
         instance.tag = validated_data.get('tag', instance.tag)
         instance.content = validated_data.get('content', instance.content)
-        # Cannot use ImageField because Pillow is not installed.
-        # instance.img = validated_data.get('img', instance.img)
+        instance.images = validated_data.get('img', instance.images)
         instance.language = validated_data.get('language', instance.language)
         instance.location = validated_data.get('location', instance.location)
         instance.save()

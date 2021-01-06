@@ -17,7 +17,7 @@ class Category(models.Model):
 
 
 class Image(models.Model):
-    img = models.ImageField()
+    img_path = models.ImageField()
 
 
 class Post(models.Model):
