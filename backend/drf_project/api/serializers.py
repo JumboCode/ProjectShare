@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from drf_project.api.models import Post, Location, Tag, Category
+from .models import Post, Location, Tag, Category
 
 
 class LocationSerializer(serializers.Serializer):
