@@ -16,6 +16,10 @@ class Category(models.Model):
     name = models.CharField(max_length=30)
 
 
+class Image(models.Model):
+    img = models.ImageField()
+
+
 class Post(models.Model):
     LANG_CHOICES = [
             ('EN', 'English'),
@@ -25,12 +29,15 @@ class Post(models.Model):
     title = models.CharField(max_length=5000)
     date = models.DateTimeField(auto_now_add=True)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
-    tag = models.ManyToManyField(
+    tags = models.ManyToManyField(
         Tag,
         related_name='posts',
     )
+    images = models.ManyToManyField(
+        Image,
+        related_name='posts',
+    )
     content = models.TextField()
-    # img = models.ImageField(upload_to=user_directory_path)
     language = models.CharField(
         max_length=20,
         choices=LANG_CHOICES,
