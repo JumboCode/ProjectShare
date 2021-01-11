@@ -1,86 +1,109 @@
-# api.yaml
 openapi: 3.0.0
 info:
   title: api
   version: '1.0'
 servers:
-  - url: 'http://localhost:3000'
+  - url: 'http://localhost:8000'
 paths:
-  /posts/:
+  /posts/add:
+    post:
+      summary: Add Post
+      tags:
+        - posts
+      responses:
+        '200':
+          description: OK
+      operationId: get-posts
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                content:
+                  type: string
+                language:
+                  type: string
+                images:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      img_file:
+                        type: string
+                        format: byte
+                      img_name:
+                        type: string
+                    required:
+                      - img_file
+                tags:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      name:
+                        type: string
+                    required:
+                      - name
+                category:
+                  type: object
+                  required:
+                    - name
+                  properties:
+                    name:
+                      type: string
+                date:
+                  type: string
+                  format: date
+                locations:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      latitude:
+                        type: number
+                        format: float
+                      longitude:
+                        type: number
+                        format: float
+              required:
+                - title
+                - content
+      description: ''
+    parameters: []
+  /tags:
     get:
-      summary: Posts Endpoint
-      tags: []
+      summary: Get Tags
+      tags:
+        - tags
       responses:
         '200':
           description: OK
           content:
             application/json:
+              schema:
+                type: object
+                properties:
+                  name:
+                    type: string
+                  id:
+                    type: integer
+              examples: {}
+            application/xml:
               schema:
                 type: array
                 items:
-                  type: object
-      operationId: get-posts
-      parameters:
-        - schema:
-            type: integer
-          in: query
-          name: id
-        - schema:
-            type: string
-          in: query
-          name: title
-        - schema:
-            type: string
-          in: query
-          name: location
-        - schema:
-            type: string
-          in: query
-          name: category
-        - schema:
-            type: string
-          in: query
-          name: tag
-        - schema:
-            type: string
-          in: query
-          name: subtag
-        - schema:
-            type: string
-          in: query
-          name: keyword
-  /tags:
-    get:
-      summary: Tags Endpoint
-      tags: []
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  getAllTags:
-                    type: boolean
-                  tags:
-                    type: array
-                    items:
-                      type: object
-                      properties:
-                        thisTag:
-                          type: string
-                        subTags:
-                          type: array
-                          items:
-                            type: string
-              examples: {}
+                  type: string
       operationId: get-tags
-      description: Obtain a full list of tags or a queried subset of tags
+      description: Obtain a list of tags
   /categories:
     get:
-      summary: Categories Endpoint
-      tags: []
+      summary: Get Categories
+      tags:
+        - categories
       responses:
         '200':
           description: OK
@@ -89,11 +112,392 @@ paths:
               schema:
                 type: object
                 properties:
-                  categories:
-                    type: array
-                    items:
-                      type: string
+                  id:
+                    type: integer
+                  name:
+                    type: string
+            application/xml:
+              schema:
+                type: array
+                items:
+                  type: string
       operationId: get-categories
       description: Obtain a list of categories
+  /tags/add:
+    post:
+      summary: Add Tag
+      operationId: post-tags-add
+      responses:
+        '200':
+          description: OK
+      description: ''
+      tags:
+        - tags
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+              required:
+                - name
+  '/posts/{post_id}/update':
+    patch:
+      summary: Update Post by ID
+      operationId: patch-posts-post_id-update
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+      description: ''
+      tags:
+        - posts
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                content:
+                  type: string
+                language:
+                  type: string
+                images:
+                  type: string
+                tags:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      name:
+                        type: string
+                category:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                date:
+                  type: string
+                  format: date
+                locations:
+                  type: object
+                  properties:
+                    latitude:
+                      type: number
+                    longitude:
+                      type: number
+    parameters:
+      - schema:
+          type: string
+        name: post_id
+        in: path
+        required: true
+  '/posts/{post_id}/delete':
+    parameters:
+      - schema:
+          type: string
+        name: post_id
+        in: path
+        required: true
+    delete:
+      summary: Delete Post by ID
+      operationId: delete-posts-post_id-delete
+      responses:
+        '200':
+          description: OK
+      tags:
+        - posts
+  '/tags/{tag_id}/delete':
+    parameters:
+      - schema:
+          type: string
+        name: tag_id
+        in: path
+        required: true
+    delete:
+      summary: Delete Tag by ID
+      operationId: delete-tags-tag_id-delete
+      responses:
+        '200':
+          description: OK
+      tags:
+        - tags
+  '/categories/{category_id}/delete':
+    parameters:
+      - schema:
+          type: string
+        name: category_id
+        in: path
+        required: true
+    delete:
+      summary: Delete Category by ID
+      operationId: delete-categories-category_id-delete
+      responses:
+        '200':
+          description: OK
+      tags:
+        - categories
+  /categories/add:
+    post:
+      summary: Add Category
+      operationId: post-categories-add
+      responses:
+        '200':
+          description: OK
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+              required:
+                - name
+      tags:
+        - categories
+  '/categories/{category_id}/update':
+    parameters:
+      - schema:
+          type: string
+        name: category_id
+        in: path
+        required: true
+    patch:
+      summary: Update Category by ID
+      operationId: patch-categories-category_id-update
+      responses:
+        '200':
+          description: OK
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+              required:
+                - name
+        description: ''
+      tags:
+        - categories
+  /posts:
+    get:
+      summary: Get Posts
+      tags:
+        - posts
+      responses: {}
+      operationId: get-posts
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                content:
+                  type: string
+                language:
+                  type: string
+                images:
+                  type: string
+                tags:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      name:
+                        type: string
+                category:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                date:
+                  type: string
+                  format: date
+                locations:
+                  type: object
+                  properties:
+                    latitude:
+                      type: number
+                    longitude:
+                      type: number
+                id:
+                  type: integer
+        description: ''
+  '/tags/{tag_id}/update':
+    parameters:
+      - schema:
+          type: string
+        name: tag_id
+        in: path
+        required: true
+    patch:
+      summary: Update Tag by ID
+      operationId: patch-tags-tag_id-update
+      responses:
+        '200':
+          description: OK
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+              required:
+                - name
+      tags:
+        - tags
+  /images/add:
+    post:
+      summary: Add Image
+      operationId: post-images-add
+      responses:
+        '200':
+          description: OK
+      tags:
+        - images
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                img_file:
+                  type: string
+                  format: byte
+                img_name:
+                  type: string
+              required:
+                - img_file
+        description: ''
+  '/images/{image_id}/delete':
+    parameters:
+      - schema:
+          type: string
+        name: image_id
+        in: path
+        required: true
+    delete:
+      summary: Delete Image
+      operationId: delete-images-image_id-delete
+      responses:
+        '200':
+          description: OK
+      tags:
+        - images
+  /locations:
+    get:
+      summary: Get Locations
+      tags:
+        - locations
+      responses: {}
+      operationId: get-locations
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: object
+                properties:
+                  id:
+                    type: string
+                  longitude:
+                    type: number
+                    format: float
+                  latitude:
+                    type: number
+                    format: float
+                  name:
+                    type: string
+  /locations/add:
+    post:
+      summary: Add Location
+      operationId: post-locations-add
+      responses:
+        '200':
+          description: OK
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                latitude:
+                  type: number
+                  format: float
+                longitude:
+                  type: number
+                  format: float
+                name:
+                  type: string
+              required:
+                - latitude
+                - longitude
+      tags:
+        - locations
+  '/locations/{location_id}/update':
+    parameters:
+      - schema:
+          type: string
+        name: location_id
+        in: path
+        required: true
+    patch:
+      summary: Update Location by ID
+      operationId: patch-locations-location_id-update
+      responses:
+        '200':
+          description: OK
+      tags:
+        - locations
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                latitude:
+                  type: number
+                  format: float
+                longitude:
+                  type: number
+                  format: float
+                name:
+                  type: string
+  '/locations/{location_id}/delete':
+    parameters:
+      - schema:
+          type: string
+        name: location_id
+        in: path
+        required: true
+    delete:
+      summary: Delete Location by ID
+      operationId: delete-locations-location_id-delete
+      responses:
+        '200':
+          description: OK
+      tags:
+        - locations
 components:
   schemas: {}
+tags:
+  - name: tags
+  - name: posts
+  - name: categories
+  - name: images
+  - name: locations
