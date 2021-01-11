@@ -2,22 +2,26 @@ from django.urls import path
 from . import views
 
 
-def generate_urls(viewset, obj_name, obj_name_plural):
+def generate_urls(viewset, obj_name, obj_name_pl):
     # generate CRUD urls given a viewset and a base strings for the url
     return [
         path(
-            '%s/add' % (obj_name_plural),
+            '%s/add' % (obj_name_pl),
             viewset.as_view({'post': 'create'}),
             name='add %s' % (obj_name)
         ),
-        path('tags', viewset.as_view({'get': 'list'}), name='tags'),
         path(
-            '%s/<int:%s_id>/update' % (obj_name_plural, obj_name),
+            '%s' % (obj_name_pl),
+            viewset.as_view({'get': 'list'}),
+            name='%s' % (obj_name_pl)
+        ),
+        path(
+            '%s/<int:%s_id>/update' % (obj_name_pl, obj_name),
             viewset.as_view({'patch': 'partial_update'}),
             name='update %s' % (obj_name)
         ),
         path(
-            '%s/<int:%s_id>/delete' % (obj_name_plural, obj_name),
+            '%s/<int:%s_id>/delete' % (obj_name_pl, obj_name),
             viewset.as_view({'delete': 'destroy'}),
             name='delete %s' % (obj_name))
     ]
