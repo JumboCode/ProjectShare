@@ -1,16 +1,15 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 from rest_framework import viewsets, permissions
-from .serializers import TagSerializer, CategorySerializer, \
-    PostSerializer, ImageSerializer, LocationSerializer
-from .models import Tag, Category, Post, Image, Location
+from . import serializers
+from . import models
 from rest_framework.response import Response
 
 
 class TagViewSet(viewsets.ModelViewSet):
     lookup_url_kwarg = 'tag_id'
-    queryset = Tag.objects.all()
-    serializer_class = TagSerializer
+    queryset = models.Tag.objects.all()
+    serializer_class = serializers.TagSerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
 
     # only return the contents of the name field
@@ -21,8 +20,8 @@ class TagViewSet(viewsets.ModelViewSet):
 
 class CategoryViewSet(viewsets.ModelViewSet):
     lookup_url_kwarg = 'category_id'
-    queryset = Category.objects.all()
-    serializer_class = CategorySerializer
+    queryset = models.Category.objects.all()
+    serializer_class = serializers.CategorySerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
 
     # only return the contents of the name field
@@ -33,20 +32,20 @@ class CategoryViewSet(viewsets.ModelViewSet):
 
 class ImageViewSet(viewsets.ModelViewSet):
     lookup_url_kwarg = 'image_id'
-    queryset = Image.objects.all()
-    serializer_class = ImageSerializer
+    queryset = models.Image.objects.all()
+    serializer_class = serializers.ImageSerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
 
 
 class PostViewSet(viewsets.ModelViewSet):
     lookup_url_kwarg = 'post_id'
-    queryset = Post.objects.all()
-    serializer_class = PostSerializer
+    queryset = models.Post.objects.all()
+    serializer_class = serializers.PostSerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
 
 
 class LocationViewSet(viewsets.ModelViewSet):
     lookup_url_kwarg = 'location_id'
-    queryset = Location.objects.all()
-    serializer_class = LocationSerializer
+    queryset = models.Location.objects.all()
+    serializer_class = serializers.LocationSerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
