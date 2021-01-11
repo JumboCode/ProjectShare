@@ -2,51 +2,40 @@ from rest_framework import serializers
 from .models import Post, Location, Tag, Category, Image
 
 
-class LocationSerializer(serializers.Serializer):
+class LocationSerializer(serializers.ModelSerializer):
     latitude = serializers.CharField(max_length=50)
     longitude = serializers.CharField(max_length=50)
 
-    def create(self, validated_data):
-        return Location.object.create(**validated_data)
-
-    def update(self, instance, validated_data):
-        instance.latitude = validated_data.get('latitude', instance.latitude)
-        instance.longitude = validated_data.get('longitude',
-                                                instance.longitude)
-        instance.save()
-        return instance
+    class Meta:
+        model = Location
+        fields = ['latitude', 'longitude']
 
 
-class TagSerializer(serializers.Serializer):
+class TagSerializer(serializers.ModelSerializer):
     name = serializers.CharField(max_length=30)
 
-    def create(self, validated_data):
-        return Tag.object.create(**validated_data)
-
-    def update(self, instance, validated_data):
-        instance.name = validated_data.get('name', instance.name)
-        instance.save()
-        return instance
+    class Meta:
+        model = Tag
+        fields = ['name']
 
 
-class CategorySerializer(serializers.Serializer):
+class CategorySerializer(serializers.ModelSerializer):
     name = serializers.CharField(max_length=30)
 
-    def create(self, validated_data):
-        return Category.object.create(**validated_data)
-
-    def update(self, instance, validated_data):
-        instance.name = validated_data.get('name', instance.name)
-        instance.save()
-        return instance
+    class Meta:
+        model = Category
+        fields = ['name']
 
 
-class ImageSerializer(serializers.Serializer):
+class ImageSerializer(serializers.ModelSerializer):
     img_file = serializers.ImageField(required=False)
     img_name = serializers.CharField(max_length=50, required=False)
 
+    class Meta:
+        model = Image
+        fields = ['img_file', 'img_name']
+
     def create(self, validated_data):
-        print('aaaaaaaa')
         if 'img_name' in validated_data:
             instance = Image.objects.create(**validated_data)
         else:
@@ -63,31 +52,46 @@ class PostSerializer(serializers.ModelSerializer):
     title = serializers.CharField(max_length=5000)
     date = serializers.DateTimeField()
     category = CategorySerializer()
-    tags = TagSerializer(read_only=True, many=True)
+    tags = TagSerializer(many=True)
     content = serializers.CharField()
     images = ImageSerializer(many=True)
-    language = serializers.CharField(max_length=20)
-    location = LocationSerializer()
+    language = serializers.CharField(max_length=20, required=False)
+    locations = LocationSerializer(required=False, many=True)
 
     class Meta:
         model = Post
         fields = ['id', 'title', 'date', 'category', 'tags',
-                  'content', 'images', 'language', 'location']
+                  'content', 'images', 'language', 'locations']
 
     def create(self, validated_data):
-        print(validated_data['category'])
         category, _ = Category.objects.get_or_create(
-            **validated_data['category'])
-        location, _ = Location.objects.get_or_create(
-            **validated_data['location'])
-        data = {**validated_data, 'category': category, 'location': location}
-        del data['images']
+            **validated_data['category']
+        )
+        data = {
+            'title': validated_data['title'],
+            'date': validated_data['date'],
+            'content': validated_data['content'],
+            'category': category,
+        }
+        if 'language' in validated_data:
+            data['language'] = validated_data['language']
         instance = Post.objects.create(**data)
 
         images = validated_data['images']
         for image_data in images:
-            print(image_data)
             image, created = Image.objects.get_or_create(**image_data)
-            print(image, created)
             instance.images.add(image)
+
+        tags = validated_data['tags']
+        for tag_data in tags:
+            tag, created = Tag.objects.get_or_create(**tag_data)
+            instance.tags.add(tag)
+
+        if 'locations' in validated_data:
+            locations = validated_data['locations']
+            for location_data in locations:
+                location, created = Location.objects.get_or_create(
+                    **location_data)
+                instance.locations.add(location)
+
         return instance

@@ -1,20 +1,20 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
-from django.http import JsonResponse
-from rest_framework.views import APIView
 from rest_framework import viewsets, permissions
 from .serializers import TagSerializer, CategorySerializer, \
     PostSerializer, ImageSerializer
 from .models import Tag, Category, Post, Image
 
 
-class TagView(viewsets.ModelViewSet):
-    serializer_class = TagSerializer
+class TagViewSet(viewsets.ModelViewSet):
+    lookup_url_kwarg = 'tag_id'
     queryset = Tag.objects.all()
+    serializer_class = TagSerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
 
 
 class CategoryViewSet(viewsets.ModelViewSet):
+    lookup_url_kwarg = 'category_id'
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
@@ -32,8 +32,3 @@ class PostViewSet(viewsets.ModelViewSet):
     queryset = Post.objects.all()
     serializer_class = PostSerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
-
-
-class TestView(APIView):
-    def get(self, request):
-        return JsonResponse({'testResponse': 'success'})
