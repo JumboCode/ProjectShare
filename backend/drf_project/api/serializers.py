@@ -42,18 +42,23 @@ class CategorySerializer(serializers.Serializer):
 
 
 class ImageSerializer(serializers.Serializer):
-    img_path = serializers.ImageField()
+    img_file = serializers.ImageField(required=False)
+    img_name = serializers.CharField(max_length=50, required=False)
 
     def create(self, validated_data):
-        return Image.object.create(**validated_data)
-
-    def update(self, instance, validated_data):
-        instance.img_path = validated_data.get('img_path', instance.img_path)
-        instance.save()
+        print('aaaaaaaa')
+        if 'img_name' in validated_data:
+            instance = Image.objects.create(**validated_data)
+        else:
+            instance = Image.objects.create(
+                img_file=validated_data['img_file'],
+                img_name="")
+            instance.img_name = instance.img_file.name
+            instance.save()
         return instance
 
 
-class PostSerializer(serializers.Serializer):
+class PostSerializer(serializers.ModelSerializer):
     id = serializers.IntegerField(read_only=True)
     title = serializers.CharField(max_length=5000)
     date = serializers.DateTimeField()
@@ -64,17 +69,25 @@ class PostSerializer(serializers.Serializer):
     language = serializers.CharField(max_length=20)
     location = LocationSerializer()
 
-    def create(self, validated_data):
-        return Post.object.create(**validated_data)
+    class Meta:
+        model = Post
+        fields = ['id', 'title', 'date', 'category', 'tags',
+                  'content', 'images', 'language', 'location']
 
-    def update(self, instance, validated_data):
-        instance.id = validated_data.get('id', instance.id)
-        instance.date = validated_data.get('date', instance.date)
-        instance.category = validated_data.get('category', instance.category)
-        instance.tag = validated_data.get('tag', instance.tag)
-        instance.content = validated_data.get('content', instance.content)
-        instance.images = validated_data.get('img', instance.images)
-        instance.language = validated_data.get('language', instance.language)
-        instance.location = validated_data.get('location', instance.location)
-        instance.save()
+    def create(self, validated_data):
+        print(validated_data['category'])
+        category, _ = Category.objects.get_or_create(
+            **validated_data['category'])
+        location, _ = Location.objects.get_or_create(
+            **validated_data['location'])
+        data = {**validated_data, 'category': category, 'location': location}
+        del data['images']
+        instance = Post.objects.create(**data)
+
+        images = validated_data['images']
+        for image_data in images:
+            print(image_data)
+            image, created = Image.objects.get_or_create(**image_data)
+            print(image, created)
+            instance.images.add(image)
         return instance
