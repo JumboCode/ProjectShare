@@ -3,7 +3,6 @@ from __future__ import unicode_literals
 from rest_framework import viewsets, permissions
 from . import serializers
 from . import models
-from rest_framework.response import Response
 
 
 class TagViewSet(viewsets.ModelViewSet):
@@ -12,22 +11,12 @@ class TagViewSet(viewsets.ModelViewSet):
     serializer_class = serializers.TagSerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
 
-    # only return the contents of the name field
-    def list(self, request, *args, **kwargs):
-        queryset = self.filter_queryset(self.get_queryset())
-        return Response(queryset.values_list('name', flat=True))
-
 
 class CategoryViewSet(viewsets.ModelViewSet):
     lookup_url_kwarg = 'category_id'
     queryset = models.Category.objects.all()
     serializer_class = serializers.CategorySerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
-
-    # only return the contents of the name field
-    def list(self, request, *args, **kwargs):
-        queryset = self.filter_queryset(self.get_queryset())
-        return Response(queryset.values_list('name', flat=True))
 
 
 class ImageViewSet(viewsets.ModelViewSet):

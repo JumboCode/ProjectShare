@@ -9,7 +9,7 @@ class LocationSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Location
-        fields = ['latitude', 'longitude', 'name']
+        fields = ['id', 'latitude', 'longitude', 'name']
 
 
 class TagSerializer(serializers.ModelSerializer):
@@ -17,7 +17,7 @@ class TagSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Tag
-        fields = ['name']
+        fields = ['id', 'name']
 
 
 class CategorySerializer(serializers.ModelSerializer):
@@ -25,7 +25,7 @@ class CategorySerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Category
-        fields = ['name']
+        fields = ['id', 'name']
 
 
 class ImageSerializer(serializers.ModelSerializer):
@@ -34,7 +34,7 @@ class ImageSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Image
-        fields = ['img_file', 'img_name']
+        fields = ['id', 'img_file', 'img_name']
 
     def create(self, validated_data):
         if 'img_name' in validated_data:
