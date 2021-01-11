@@ -3,12 +3,13 @@ from .models import Post, Location, Tag, Category, Image
 
 
 class LocationSerializer(serializers.ModelSerializer):
-    latitude = serializers.CharField(max_length=50)
-    longitude = serializers.CharField(max_length=50)
+    latitude = serializers.DecimalField(max_digits=8, decimal_places=5)
+    longitude = serializers.DecimalField(max_digits=8, decimal_places=5)
+    name = serializers.CharField(max_length=80)
 
     class Meta:
         model = Location
-        fields = ['latitude', 'longitude']
+        fields = ['latitude', 'longitude', 'name']
 
 
 class TagSerializer(serializers.ModelSerializer):

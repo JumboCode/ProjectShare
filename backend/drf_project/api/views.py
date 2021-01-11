@@ -2,8 +2,8 @@
 from __future__ import unicode_literals
 from rest_framework import viewsets, permissions
 from .serializers import TagSerializer, CategorySerializer, \
-    PostSerializer, ImageSerializer
-from .models import Tag, Category, Post, Image
+    PostSerializer, ImageSerializer, LocationSerializer
+from .models import Tag, Category, Post, Image, Location
 from rest_framework.response import Response
 
 
@@ -42,4 +42,11 @@ class PostViewSet(viewsets.ModelViewSet):
     lookup_url_kwarg = 'post_id'
     queryset = Post.objects.all()
     serializer_class = PostSerializer
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+
+
+class LocationViewSet(viewsets.ModelViewSet):
+    lookup_url_kwarg = 'location_id'
+    queryset = Location.objects.all()
+    serializer_class = LocationSerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]

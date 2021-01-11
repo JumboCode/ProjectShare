@@ -4,8 +4,9 @@ from django.db import models
 
 
 class Location(models.Model):
-    latitude = models.CharField(max_length=50)
-    longitude = models.CharField(max_length=50)
+    latitude = models.DecimalField(max_digits=8, decimal_places=5)
+    longitude = models.DecimalField(max_digits=8, decimal_places=5)
+    name = models.CharField(max_length=80, blank=True)
 
     class Meta:
         unique_together = ('latitude', 'longitude')

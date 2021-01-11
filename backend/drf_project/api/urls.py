@@ -30,6 +30,7 @@ def generate_urls(viewset, obj_name, obj_name_pl):
 tag_urls = generate_urls(views.TagViewSet, 'tag', 'tags')
 category_urls = generate_urls(views.CategoryViewSet, 'category', 'categories')
 post_urls = generate_urls(views.PostViewSet, 'post', 'posts')
+location_urls = generate_urls(views.LocationViewSet, 'location', 'locations')
 
 image_urls = [
     path(
@@ -44,4 +45,4 @@ image_urls = [
     ),
 ]
 
-urlpatterns = tag_urls + category_urls + image_urls + post_urls
+urlpatterns = tag_urls + category_urls + image_urls + post_urls + location_urls
