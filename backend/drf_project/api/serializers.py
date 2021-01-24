@@ -5,7 +5,7 @@ from .models import Post, Location, Tag, Category, Image
 class LocationSerializer(serializers.ModelSerializer):
     latitude = serializers.DecimalField(max_digits=8, decimal_places=5)
     longitude = serializers.DecimalField(max_digits=8, decimal_places=5)
-    name = serializers.CharField(max_length=80)
+    name = serializers.CharField(max_length=80, required=False)
 
     class Meta:
         model = Location
@@ -95,4 +95,26 @@ class PostSerializer(serializers.ModelSerializer):
                     **location_data)
                 instance.locations.add(location)
 
+        return instance
+
+    def update(self, instance, validated_data):
+        instance.title = validated_data.get('title', instance.title)
+        instance.date = validated_data.get('date', instance.date)
+        instance.content = validated_data.get('content', instance.content)
+        instance.category = validated_data.get('category', instance.category)
+        instance.language = validated_data.get('language', instance.language)
+        if 'images' in validated_data:
+            for image_data in validated_data['images']:
+                image, created = Image.objects.update_or_create(**image_data)
+                instance.images.add(image)
+        if 'tags' in validated_data:
+            for tag_data in validated_data['tags']:
+                tag, created = Tag.objects.update_or_create(**tag_data)
+                instance.tags.add(tag)
+        if 'locations' in validated_data:
+            for location_data in validated_data['locations']:
+                location, created = Location.objects.update_or_create(
+                    **location_data)
+                instance.locations.add(location)
+        instance.save()
         return instance

@@ -9,7 +9,7 @@ class Location(models.Model):
     name = models.CharField(max_length=80, blank=True)
 
     class Meta:
-        unique_together = ('latitude', 'longitude')
+        unique_together = ('latitude', 'longitude', 'name')
 
 
 class Tag(models.Model):
