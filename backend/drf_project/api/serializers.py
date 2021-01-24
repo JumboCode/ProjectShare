@@ -78,19 +78,16 @@ class PostSerializer(serializers.ModelSerializer):
             data['language'] = validated_data['language']
         instance = Post.objects.create(**data)
 
-        images = validated_data['images']
-        for image_data in images:
+        for image_data in validated_data['images']:
             image, created = Image.objects.get_or_create(**image_data)
             instance.images.add(image)
 
-        tags = validated_data['tags']
-        for tag_data in tags:
+        for tag_data in validated_data['tags']:
             tag, created = Tag.objects.get_or_create(**tag_data)
             instance.tags.add(tag)
 
         if 'locations' in validated_data:
-            locations = validated_data['locations']
-            for location_data in locations:
+            for location_data in validated_data['locations']:
                 location, created = Location.objects.get_or_create(
                     **location_data)
                 instance.locations.add(location)

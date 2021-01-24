@@ -25,4 +25,8 @@ class Migration(migrations.Migration):
             name='longitude',
             field=models.DecimalField(decimal_places=5, max_digits=8),
         ),
+        migrations.AlterUniqueTogether(
+            name='location',
+            unique_together={('latitude', 'longitude', 'name')},
+        ),
     ]
