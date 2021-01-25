@@ -32,13 +32,10 @@ paths:
                   items:
                     type: object
                     properties:
-                      img_file:
-                        type: string
-                        format: byte
                       img_name:
                         type: string
-                    required:
-                      - img_file
+                      id:
+                        type: integer
                 tags:
                   type: array
                   items:
@@ -46,15 +43,19 @@ paths:
                     properties:
                       name:
                         type: string
+                      id:
+                        type: number
                     required:
                       - name
                 category:
                   type: object
-                  required:
-                    - name
                   properties:
                     name:
                       type: string
+                    id:
+                      type: number
+                  required:
+                    - name
                 date:
                   type: string
                   format: date
@@ -69,9 +70,19 @@ paths:
                       longitude:
                         type: number
                         format: float
+                      name:
+                        type: string
+                      id:
+                        type: number
               required:
                 - title
                 - content
+        description: |-
+          Make sure to send data as `application/json`.
+
+          Images, tags, categories, and locations can optionally be identified by an `id` integer if it is already known. That is, if you are adding a Post with a category that already exists, you may use that category's `id` to identify it. Otherwise,  disregard the id parameter.
+
+          Images in the `images` array must be those that already exist. If you want to create a new post and also upload new images, you must first send a separate request to add a new image. The response to this request will include the identifying `id` or `img_name`, which you can then use to create a post linked to those images.
       description: ''
     parameters: []
   /tags:
@@ -170,7 +181,14 @@ paths:
                 language:
                   type: string
                 images:
-                  type: string
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      img_name:
+                        type: string
+                      id:
+                        type: integer
                 tags:
                   type: array
                   items:
@@ -178,11 +196,15 @@ paths:
                     properties:
                       name:
                         type: string
+                      id:
+                        type: number
                 category:
                   type: object
                   properties:
                     name:
                       type: string
+                    id:
+                      type: number
                 date:
                   type: string
                   format: date
@@ -192,6 +214,10 @@ paths:
                     latitude:
                       type: number
                     longitude:
+                      type: number
+                    name:
+                      type: string
+                    id:
                       type: number
     parameters:
       - schema:
@@ -309,7 +335,16 @@ paths:
                 language:
                   type: string
                 images:
-                  type: string
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      id:
+                        type: number
+                      img_name:
+                        type: string
+                      img_file:
+                        type: string
                 tags:
                   type: array
                   items:
@@ -317,11 +352,15 @@ paths:
                     properties:
                       name:
                         type: string
+                      id:
+                        type: number
                 category:
                   type: object
                   properties:
                     name:
                       type: string
+                    id:
+                      type: number
                 date:
                   type: string
                   format: date
@@ -331,6 +370,10 @@ paths:
                     latitude:
                       type: number
                     longitude:
+                      type: number
+                    name:
+                      type: string
+                    id:
                       type: number
                 id:
                   type: integer
@@ -371,7 +414,7 @@ paths:
         - images
       requestBody:
         content:
-          application/json:
+          multipart/form-data:
             schema:
               type: object
               properties:
@@ -382,7 +425,7 @@ paths:
                   type: string
               required:
                 - img_file
-        description: ''
+        description: Make sure to send data as `multipart/form-data`.
   '/images/{image_id}/delete':
     parameters:
       - schema:
