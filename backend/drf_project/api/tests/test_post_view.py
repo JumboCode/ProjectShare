@@ -6,7 +6,7 @@ from rest_framework.test import APIClient
 from rest_framework import status
 from django.contrib.auth.models import User
 from django.urls import reverse
-from ... import models
+from .. import models
 from django.conf import settings
 from django.core.files.uploadedfile import SimpleUploadedFile
 import os
@@ -24,7 +24,7 @@ class PostViewTestCase(TestCase):
     def setUpTestData(self):
         path = os.path.join(settings.MEDIA_ROOT, 'test_image.png')
         self.test_image = SimpleUploadedFile(
-            name='test_image.png',
+            name='test.png',
             content=open(path, 'rb').read(),
             content_type='image/png')
 
