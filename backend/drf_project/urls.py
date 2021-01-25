@@ -21,5 +21,6 @@ from django.conf import settings
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^api/', include('drf_project.api.urls')),
-    url(r'^auth/', include('rest_framework.urls')),
+    url(r'^auth/', include('rest_auth.urls')),
+    url(r'^auth/signup/', include('rest_auth.registration.urls'))
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

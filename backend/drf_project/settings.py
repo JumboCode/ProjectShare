@@ -36,10 +36,19 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
+    'django.contrib.sites',  # needed for rest_auth
     'django.contrib.staticfiles',
+    'rest_framework',
+    'allauth',  # needed for rest_auth.registration
+    'allauth.account',  # needed for rest_auth.registration
+    'rest_auth.registration',
+    'rest_framework.authtoken',  # needed for rest_auth
+    'rest_auth',
     'drf_project.api',
     'corsheaders',
 ]
+
+SITE_ID = 1  # needed for allauth
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -123,3 +132,7 @@ USE_TZ = True
 STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+# help view stdout when running tests
+NOSE_ARGS = ['--nocapture',
+             '--nologcapture', ]
