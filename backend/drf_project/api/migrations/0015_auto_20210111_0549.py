@@ -20,8 +20,4 @@ class Migration(migrations.Migration):
             name='name',
             field=models.CharField(max_length=30, unique=True),
         ),
-        migrations.AlterUniqueTogether(
-            name='location',
-            unique_together={('latitude', 'longitude')},
-        ),
     ]

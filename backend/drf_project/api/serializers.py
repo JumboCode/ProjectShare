@@ -3,8 +3,8 @@ from .models import Post, Location, Tag, Category, Image
 
 
 class LocationSerializer(serializers.ModelSerializer):
-    latitude = serializers.DecimalField(max_digits=8, decimal_places=5)
-    longitude = serializers.DecimalField(max_digits=8, decimal_places=5)
+    latitude = serializers.DecimalField(max_digits=8, decimal_places=5, required=False)
+    longitude = serializers.DecimalField(max_digits=8, decimal_places=5, required=False)
     name = serializers.CharField(max_length=80, required=False)
 
     class Meta:
@@ -57,7 +57,7 @@ class PostSerializer(serializers.ModelSerializer):
     content = serializers.CharField()
     images = ImageSerializer(many=True)
     language = serializers.CharField(max_length=20, required=False)
-    locations = LocationSerializer(required=False, many=True)
+    locations = LocationSerializer(many=True)
 
     class Meta:
         model = Post
@@ -86,11 +86,10 @@ class PostSerializer(serializers.ModelSerializer):
             tag, created = Tag.objects.get_or_create(**tag_data)
             instance.tags.add(tag)
 
-        if 'locations' in validated_data:
-            for location_data in validated_data['locations']:
-                location, created = Location.objects.get_or_create(
-                    **location_data)
-                instance.locations.add(location)
+        for location_data in validated_data['locations']:
+            location, created = Location.objects.get_or_create(
+                **location_data)
+            instance.locations.add(location)
 
         return instance
 

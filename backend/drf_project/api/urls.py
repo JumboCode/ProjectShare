@@ -13,7 +13,7 @@ def generate_urls(viewset, obj_name, obj_name_pl):
         path(
             '%s' % (obj_name_pl),
             viewset.as_view({'get': 'list'}),
-            name='%s' % (obj_name_pl)
+            name='view %s' % (obj_name_pl)
         ),
         path(
             '%s/<int:%s_id>/update' % (obj_name_pl, obj_name),
