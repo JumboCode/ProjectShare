@@ -13,14 +13,20 @@ Including another URLconf
     1. Import the include() function: from django.conf.urls import url, include
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
+from django.urls import path
 from django.conf.urls import url, include
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.conf import settings
+from rest_auth.views import PasswordResetConfirmView
+
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^api/', include('drf_project.api.urls')),
+    path('auth/password/reset/confirm/<uidb64>/<token>/',
+         PasswordResetConfirmView.as_view(),
+         name='password_reset_confirm'),
     url(r'^auth/', include('rest_auth.urls')),
     url(r'^auth/signup/', include('rest_auth.registration.urls'))
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

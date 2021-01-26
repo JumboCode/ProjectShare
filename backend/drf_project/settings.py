@@ -136,3 +136,20 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # help view stdout when running tests
 NOSE_ARGS = ['--nocapture',
              '--nologcapture', ]
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+# all-auth configuration
+ACCOUNT_UNIQUE_EMAIL = True
+ACCOUNT_EMAIL_REQUIRED = False
+ACCOUNT_USERNAME_REQUIRED = False
+ACCOUNT_USER_MODEL_EMAIL_FIELD = 'email'
+AUTHENTICATION_METHOD = 'email'
+ACCOUNT_AUTHENTICATION_METHOD = 'email'
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_EMAIL_VERIFICATION = 'none'
+
+AUTHENTICATION_BACKENDS = (
+    "django.contrib.auth.backends.ModelBackend",
+    "allauth.account.auth_backends.AuthenticationBackend"
+)
