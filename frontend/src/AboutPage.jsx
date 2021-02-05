@@ -9,12 +9,10 @@ class AboutPage extends Component {
   }
   
   handleClick = () => {
-    console.log('this is:', this); // placeholder for where button will eventually go
   }
 
 
   render() {
-
     return (
       <div>
         <div className="landing">

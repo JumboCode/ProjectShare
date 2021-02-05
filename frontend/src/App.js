@@ -1,13 +1,17 @@
 import React from 'react';
 import './App.css';
-import AppRouter from './Router';
+import Navigation from './Navigation';
+import FooterElement from './FooterElement';
+import Post from './Post';
 
-// eslint-disable-next-line react/prefer-stateless-function
-class App extends React.Component {
-  render() {
-    return <AppRouter />;
-   
-  }
+function App() {
+  return (
+    <div className="App">
+      <Navigation> </Navigation>
+      <FooterElement> </FooterElement>
+      <Post />
+    </div>
+  );
 }
 
 export default App; 
