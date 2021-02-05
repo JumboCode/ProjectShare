@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import './AboutPage.css';
 import Button from 'react-bootstrap/Button';
-import Footer from './FooterElement';
-import Navigation from './Navigation';
 
 class AboutPage extends Component {
   constructor(props) {
@@ -17,7 +15,6 @@ class AboutPage extends Component {
   render() {
     return (
       <div>
-        <Navigation />
         <div className="landing">
           <ul className="lets-SHARE"> 
             Let&apos;s SHARE
@@ -51,7 +48,6 @@ class AboutPage extends Component {
             View Club Website
           </ul>
         </div>
-        <Footer />
       </div>
     );
   }
