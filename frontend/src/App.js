@@ -3,7 +3,6 @@ import AboutPage from './AboutPage';
 import './App.css';
 import Navigation from './Navigation';
 import FooterElement from './FooterElement';
-import PostContent from './PostContent';
 
 function App() {
   return (
@@ -11,7 +10,6 @@ function App() {
       <Navigation> </Navigation>
       <AboutPage />
       <FooterElement> </FooterElement>
-      <PostContent> </PostContent>
     </div>
   );
 }
