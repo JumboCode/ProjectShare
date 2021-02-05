@@ -1,29 +1,40 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
-from django.http import JsonResponse
-from rest_framework.views import APIView
 from rest_framework import viewsets, permissions
-from .serializers import TagSerializer,CategorySerializer, PostSerializer
-from .models import Tag, Category, Post
+from . import serializers
+from . import models
 
 
-class TagView(viewsets.ModelViewSet):
-    serializer_class = TagSerializer
-    queryset = Tag.objects.all()
+class TagViewSet(viewsets.ModelViewSet):
+    lookup_url_kwarg = 'tag_id'
+    queryset = models.Tag.objects.all()
+    serializer_class = serializers.TagSerializer
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
 
-
-class TestView(APIView):
-    def get(self, request):
-        return JsonResponse({'testResponse': 'success'})
-      
 
 class CategoryViewSet(viewsets.ModelViewSet):
-    queryset = Category.objects.all()
-    serializer_class = CategorySerializer
+    lookup_url_kwarg = 'category_id'
+    queryset = models.Category.objects.all()
+    serializer_class = serializers.CategorySerializer
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+
+
+class ImageViewSet(viewsets.ModelViewSet):
+    lookup_url_kwarg = 'image_id'
+    queryset = models.Image.objects.all()
+    serializer_class = serializers.ImageSerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
 
 
 class PostViewSet(viewsets.ModelViewSet):
-    queryset = Post.objects.all()
-    serializer_class = PostSerializer
+    lookup_url_kwarg = 'post_id'
+    queryset = models.Post.objects.all()
+    serializer_class = serializers.PostSerializer
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+
+
+class LocationViewSet(viewsets.ModelViewSet):
+    lookup_url_kwarg = 'location_id'
+    queryset = models.Location.objects.all()
+    serializer_class = serializers.LocationSerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
