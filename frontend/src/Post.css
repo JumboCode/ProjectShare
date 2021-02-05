@@ -1,8 +1,8 @@
-.Post {
+.post {
   margin: 0 20vw;
 }
 
-.Tags {
+.tags {
     width: max-content;
     height: 32px;
     margin: 51px 10px 0 10px;
@@ -14,7 +14,7 @@
     position: relative;
   }
 
-  .tagElem {
+.tagElem {
     width: max-content;
     height: 30px;
     font-family: NotoSans;
@@ -34,7 +34,7 @@
     text-decoration: none;
   }
 
-  .Title {
+.title {
     width: 404px;
     height: 45px;
     font-family: NotoSans;
@@ -48,7 +48,7 @@
     color: var(--text);
   }
 
-  .Author {
+.author {
     width: 134px;
     height: 22px;
     margin: 0 0 5px;
@@ -63,7 +63,7 @@
     color: #6a6a6a;
   }
 
-  .Date {
+.Date {
     width: 132px;
     height: 22px;
     margin: 5px 2px 0 0;
@@ -78,14 +78,14 @@
     color: #6a6a6a;
   }
 
-  .Image {
+.image {
     width: 640px;
     height: 346px;
     background-color: pink;
     text-align: center;
   }
 
-  .Caption {
+.caption {
     width: 639px;
     height: 56px;
     margin: 15px 0 0 1px;
@@ -100,7 +100,7 @@
     color: var(--text);
   }
 
-  .Contents {
+.contents {
     width: 640px;
     height: 168px;
     font-family: NotoSerif;
@@ -114,7 +114,7 @@
     color: var(--text);
   }
 
-  .Map {
+.map {
     position: absolute;
     padding: 300px 137px 176px 0px;
   }
