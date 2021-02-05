@@ -1,14 +1,13 @@
 
 
 .Rectangle-7 {
-    width: 1440px;
+    position: absolute;
+    width: 103vw;
     height: 261px;
     background-color: #292929;
-    position: absolute;
     left: 0px;
     top: 1507px;
     z-index:1;
-    position: relative;
   }
 
 .Brought-to-you-by-Project-SHARE {

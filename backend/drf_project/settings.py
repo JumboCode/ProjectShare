@@ -36,9 +36,19 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
+    'django.contrib.sites',  # needed for rest_auth
     'django.contrib.staticfiles',
+    'rest_framework',
+    'allauth',  # needed for rest_auth.registration
+    'allauth.account',  # needed for rest_auth.registration
+    'rest_auth.registration',
+    'rest_framework.authtoken',  # needed for rest_auth
+    'rest_auth',
     'drf_project.api',
+    'corsheaders',
 ]
+
+SITE_ID = 1  # needed for allauth
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -48,6 +58,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
 ]
 
 ROOT_URLCONF = 'drf_project.urls'
@@ -119,3 +130,26 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
 STATIC_URL = '/static/'
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+# help view stdout when running tests
+NOSE_ARGS = ['--nocapture',
+             '--nologcapture', ]
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+# all-auth configuration
+ACCOUNT_UNIQUE_EMAIL = True
+ACCOUNT_EMAIL_REQUIRED = False
+ACCOUNT_USERNAME_REQUIRED = False
+ACCOUNT_USER_MODEL_EMAIL_FIELD = 'email'
+AUTHENTICATION_METHOD = 'email'
+ACCOUNT_AUTHENTICATION_METHOD = 'email'
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_EMAIL_VERIFICATION = 'none'
+
+AUTHENTICATION_BACKENDS = (
+    "django.contrib.auth.backends.ModelBackend",
+    "allauth.account.auth_backends.AuthenticationBackend"
+)
