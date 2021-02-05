@@ -7,8 +7,8 @@ import Post from './Post';
 function App() {
   return (
     <div className="App">
-      <Navigation> </Navigation>
-      <FooterElement> </FooterElement>
+      <Navigation />
+      <FooterElement />
       <Post />
     </div>
   );

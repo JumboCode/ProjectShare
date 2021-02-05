@@ -1,5 +1,6 @@
 .NavBar {
-    width: 100%;
+    position: sticky;
+    width: 100vw;
     height: 90px;
     box-shadow: 0 4px 17px -11px 
         rgba(0, 0, 0, 0.26);
@@ -12,68 +13,40 @@
 }
 
 .Logo {
-    margin-top: 20px;
     vertical-align: middle;
-    margin-left: 300px;
-    margin-right: 60px;
     width: 40px;
     height: 40px;
+    margin: 6px 60px 6px 0;
 }
 
-.Home {
+.navbarLink, .Home, .Topics, .FindResource {
+    position: inline;
+    display: inline-block;
     border: none;
     background-color: transparent;
-    margin-top: 20px;
-    vertical-align: middle;
-    margin-right: 30px;
-    width: 47px;
     height: 22px;
-    font-family: NotoSans;
-    font-size: 16px;
-    font-weight: 600;
-    font-stretch: normal;
-    font-style: normal;
+    width: max-content;
     line-height: normal;
     letter-spacing: normal;
     color: #555555;
     text-align: left;
-    padding-right: 45px;
+    margin: 14px 30px 16px 30px
 }
 
-.FindResource {
-    border: none;
-    background-color: transparent;
-    margin-top: 20px;
-    vertical-align: middle;
-    margin-right: 50px;
-    width: 193px;
-    height: 22px;
-    font-family: NotoSans;
-    font-size: 16px;
-    font-weight: 600;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: normal;
-    letter-spacing: normal;
-    text-align: left;
-    color: #555555;
+.Home:hover, .Topics:hover, .FindResource:hover {
+    cursor: pointer;
 }
 
 .SearchBar {
-    margin-top: 20px;
-    vertical-align: middle;
-    width: 430px;
-    height: 52px;
+    width: 20vw;
+    height: 80%;
+    padding: 15px;
+    padding-left: 35px;
     border-radius: 3px;
     background-color: #ececec;
-    padding-left: 48px;
     border: none;
-    font-family: NotoSans;
-    font-size: 16px;
-    font-weight: 600;
-    font-stretch: normal;
-    font-style: normal;
     color: #555555;
+    vertical-align: middle;
 }
 
 .Search {
@@ -82,22 +55,18 @@
 }
 
 .Search img {
-    position: absolute;
-    width: 18px;
-    height: 18px;
-    top: 38px;
-    left: 15px;
+    width: 20px;
+    height: 20px;
+    left: 30px;
     border-radius: 3px;
+    vertical-align: middle;
+    position: relative;
 }
 
 input::placeholder {
     width: 166px;
     height: 22px;
-    font-family: NotoSans;
-    font-size: 16px;
-    font-weight: 600;
-    font-stretch: normal;
-    font-style: normal;
+    margin: 0 0 0 15px;
     line-height: normal;
     letter-spacing: normal;
     text-align: left;
