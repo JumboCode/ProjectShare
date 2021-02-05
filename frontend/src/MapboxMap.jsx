@@ -72,7 +72,13 @@ class Map extends Component {
           places.map(
             city => 
               (
-                <Marker key={city.id} longitude={city.pos.lng} latitude={city.pos.lat}>
+                <Marker
+                  key={city.id}
+                  longitude={city.pos.lng}
+                  latitude={city.pos.lat}
+                  offsetLeft={-32/2}
+                  offsetTop={-32}
+                >
                   <img src={Pin} alt="pin" width="32px" height="32px" />
                 </Marker>
               )
