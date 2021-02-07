@@ -1,5 +1,7 @@
 .post {
-  margin: 8vh 20vw;
+  margin: 8vh auto;
+  width: 40vw;
+  min-width: 640px;
 }
 
 .tags {
@@ -80,7 +82,6 @@
   }
 
 .contents {
-    width: 640px;
     font-family: 'Noto Serif';
     font-size: 16px;
     line-height: 1.75;
