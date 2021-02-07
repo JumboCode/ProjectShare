@@ -22,31 +22,31 @@ class Post extends React.Component {
     const post = templateData[0]
     return (
       <div className="post">
-        <ul className="tags">
+        <p className="tags">
           {post.tags.map(tag => (
             <a href="/" className="tagElem" key={tag}>{tag}</a>
           ))}
-        </ul>
-        <ul className="title">
+        </p>
+        <p className="title">
           { post.title }
-        </ul>
-        <ul className="author">
+        </p>
+        <p className="author">
           By Project SHARE
-        </ul>
-        <ul className="date">
+        </p>
+        <p className="date">
           { post.date }
-        </ul>
-        <ul>
+        </p>
+        <p>
           <div className="image">
             {/* Image */}
           </div>
-        </ul>
-        <ul className="caption">
+        </p>
+        <p className="caption">
           { post.caption }
-        </ul>
-        <ul className="contents">
+        </p>
+        <p className="contents">
           { post.content }
-        </ul>
+        </p>
         <div className="map">
           <Map />
         </div>

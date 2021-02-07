@@ -1,12 +1,11 @@
 .post {
-  margin: 0 20vw;
+  margin: 8vh 20vw;
 }
 
 .tags {
     width: max-content;
     height: 32px;
-    margin: 51px 10px 0 10px;
-    padding: 5px 15px;
+    margin-top: 51px;
     border-radius: 20px;
     border: solid 1px var(--text);
     background-color: #ffffff;
@@ -20,7 +19,6 @@
     font-family: 'Noto Sans';
     font-size: 16px;
     font-weight: 500;
-    line-height: normal;
     text-align: left;
     color: var(--text);
     margin: 0 10px 0 0;
@@ -43,25 +41,21 @@
   }
 
 .author {
-    width: 134px;
     height: 22px;
     margin: 0 0 5px;
     font-family: 'Noto Sans';
     font-size: 16px;
     font-weight: 600;
-    line-height: normal;
     text-align: left;
     color: #6a6a6a;
   }
 
-.Date {
-    width: 132px;
+.date {
     height: 22px;
     margin: 5px 2px 0 0;
     font-family: 'Noto Sans';
     font-size: 16px;
     font-weight: 600;
-    line-height: normal;
     text-align: left;
     color: #6a6a6a;
   }
