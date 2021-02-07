@@ -1,5 +1,5 @@
 import React from "react";
-import Map from "./Map";
+import Map from "./MapboxMap";
 import "./Post.css";
 
 const templateData = [{
