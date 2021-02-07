@@ -95,8 +95,6 @@
   }
 
 .map {
-    position: absolute;
-    padding: 300px 137px 176px 0px;
     width: 640px;
     height: 480px;
   }
