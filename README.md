@@ -11,13 +11,15 @@ We are developing a "resource finder" for Project SHARE so that they can better 
 - Project Manager: Meguna Okawa
 - Technical Lead: Anthony Tranduc
 - Designer: Jennifer Weng
-- Developer: Peter Horvath
-- Developer: Meghan Kloud
+- Developer: Emma Paterson
 - Developer: Linh Tran
 - Developer: Kristin Ng 
+- Developer: Mary-Joy Sidhom
+- Developer: Maxwell Anavian
+- Developer: Meghan Kloud
+- Developer: Peter Horvath
 - Developer: Tianyi Ma
-- Developer: Julia McDowell
-- Developer: Emma Paterson
+
 
 
 # Project Structure
