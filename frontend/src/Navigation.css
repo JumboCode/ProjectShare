@@ -1,9 +1,7 @@
 .NavBar {
-    position: sticky;
-    width: 100vw;
-    height: 90px;
-    box-shadow: 0 4px 17px -11px 
-        rgba(0, 0, 0, 0.26);
+    width: 100%;
+    box-shadow: 0 4px 5px 1px 
+        rgba(0, 0, 0, 0.05);
     background-color: #ffffff;
     white-space: nowrap;
     display: inline-block;
@@ -20,17 +18,15 @@
 }
 
 .navbarLink, .Home, .Topics, .FindResource {
-    position: inline;
     display: inline-block;
     border: none;
     background-color: transparent;
-    height: 22px;
     width: max-content;
     line-height: normal;
     letter-spacing: normal;
     color: #555555;
     text-align: left;
-    margin: 14px 30px 16px 30px
+    margin: 14px 30px;
 }
 
 .Home:hover, .Topics:hover, .FindResource:hover {
