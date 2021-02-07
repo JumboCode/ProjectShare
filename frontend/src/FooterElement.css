@@ -1,5 +1,3 @@
-
-
 .Rectangle-7 {
     position: absolute;
     width: 103vw;
@@ -11,15 +9,10 @@
   }
 
 .Brought-to-you-by-Project-SHARE {
-    width: 257px;
     height: 22px;
-    font-family: NotoSans, sans-serif;
+    font-family: 'Noto Sans', sans-serif;
     font-size: 16px;
     font-weight: 600;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: normal;
-    letter-spacing: normal;
     text-align: left;
     color: #FFFFFF;
     position: absolute;
@@ -28,15 +21,11 @@
   }
 
   .Spreading-Health-Access-Resources-and-Education {
-    width: 382px;
     height: 28px;
-    font-family: NotoSerif;
+    font-family: 'Noto Serif';
     font-size: 16px;
-    font-weight: normal;
-    font-stretch: normal;
     font-style: italic;
     line-height: 28px;
-    letter-spacing: normal;
     text-align: left;
     color: #FFFFFF;
     position: absolute;
@@ -45,15 +34,10 @@
   }
 
   .About {
-    width: 48px;
     height: 22px;
-    font-family: NotoSans, sans-serif;
+    font-family: 'Noto Sans', sans-serif;
     font-size: 16px;
     font-weight: 600;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: normal;
-    letter-spacing: normal;
     text-align: left;
     color: #FFFFFF;
     position: absolute;
@@ -62,15 +46,10 @@
   }
 
   .Contact-Us {
-    width: 85px;
     height: 22px;
-    font-family: NotoSans, sans-serif;
+    font-family: 'Noto Sans', sans-serif;
     font-size: 16px;
     font-weight: 600;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: normal;
-    letter-spacing: normal;
     text-align: left;
     color: #FFFFFF;
     position: absolute;
