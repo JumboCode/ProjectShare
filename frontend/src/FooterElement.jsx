@@ -9,11 +9,11 @@ class FooterElement extends Component {
 
   render() {
     return (
-      <div className="Rectangle-7">
-        <ul className="Brought-to-you-by-Project-SHARE">
+      <div className="footer-wrapper">
+        <ul className="footer-credits">
           Brought to you by Project SHARE
         </ul>
-        <ul className="Spreading-Health-Access-Resources-and-Education">
+        <ul className="footer-credits-subtitle">
           Spreading Health Access, Resources, and Education
         </ul>
         <ul className="About">

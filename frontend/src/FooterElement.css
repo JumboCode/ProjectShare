@@ -1,4 +1,4 @@
-.Rectangle-7 {
+.footer-wrapper {
     position: absolute;
     width: 103vw;
     height: 261px;
@@ -8,7 +8,7 @@
     z-index:1;
   }
 
-.Brought-to-you-by-Project-SHARE {
+.footer-credits {
     height: 22px;
     font-family: 'Noto Sans', sans-serif;
     font-size: 16px;
@@ -20,7 +20,7 @@
     top: 50px;
   }
 
-  .Spreading-Health-Access-Resources-and-Education {
+  .footer-credits-subtitle {
     height: 28px;
     font-family: 'Noto Serif';
     font-size: 16px;
