@@ -45,8 +45,8 @@ class Map extends Component {
 
     this.setState({ 
       viewport: {
-        width: "100vw",
-        height: "100vh",
+        width: "100%",
+        height: "100%",
       }, 
       viewState: {
         latitude,
@@ -72,7 +72,13 @@ class Map extends Component {
           places.map(
             city => 
               (
-                <Marker key={city.id} longitude={city.pos.lng} latitude={city.pos.lat}>
+                <Marker
+                  key={city.id}
+                  longitude={city.pos.lng}
+                  latitude={city.pos.lat}
+                  offsetLeft={-32/2}
+                  offsetTop={-32}
+                >
                   <img src={Pin} alt="pin" width="32px" height="32px" />
                 </Marker>
               )

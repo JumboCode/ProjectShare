@@ -1,0 +1,178 @@
+
+.landing {
+    width: 100vw;
+    height: 1768px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    background-color: #FFFF;
+}
+
+.lets-SHARE {
+    width: 640px;
+    height: 62px;
+    position: absolute;
+    left: 400px;
+    top: 230px;
+    font-family: NotoSans, sans-serif;
+    font-size: 48px;
+    font-weight: 800;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 31.2px;
+    letter-spacing: normal;
+    text-align: left;
+    color: var(--text);
+}
+
+.Spread-Health-Access-Resources-and-Education {
+    width: 640px;
+    height: 31px;
+    font-family: NotoSans, sans-serif;
+    font-size: 24px;
+    font-weight: 600;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 32.4px;
+    letter-spacing: normal;
+    text-align: left;
+    color: var(--text);
+    position: absolute;
+    left: 400px;
+    top: 297px;
+  }
+
+  .Project-SHARE-focuses-on-reducing-disparities-amon {
+    width: 640px;
+    height: 84px;
+    font-family: NotoSerif;
+    font-size: 18px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 28px;
+    letter-spacing: normal;
+    text-align: left;
+    color: var(--text);
+    position: absolute;
+    left: 400px;
+    top: 358px;
+  }
+
+  .Rectangle-6 {
+    width: 100vw;
+    height: 552px;
+    background-color: #f6f6f6;
+    position: absolute;
+    left: 0px;
+    top: 542px;
+  }
+
+  .Rectangle-5 {
+    width: 352px;
+    height: 352px;
+    background-color: #C4C4C4;
+    position: absolute;
+    left: 300px;
+    top: 642px;
+  }
+
+  .Were-a-team-of-students-at-Tufts-University {
+    width: 447px;
+    height: 90px;
+    font-family: NotoSans, sans-serif;
+    font-size: 36px;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 45.5px;
+    letter-spacing: normal;
+    text-align: left;
+    color: var(--text);
+    position: absolute;
+    left: 702px;
+    top: 660px;
+  }
+
+  .Lorem-ipsum-dolor-sit-amet-consectetur-adipiscing {
+    width: 439px;
+    height: 196px;
+    font-family: NotoSerif;
+    font-size: 18px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 28px;
+    letter-spacing: normal;
+    text-align: left;
+    color: var(--text);
+    position: absolute;
+    left: 704px;
+    top: 780px;
+  }
+
+  .Get-involved {
+    width: 640px;
+    height: 45px;
+    font-family: NotoSans, sans-serif;
+    font-size: 36px;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 45.5px;
+    letter-spacing: normal;
+    text-align: left;
+    color: var(--text);
+    position: absolute;
+    left: 400px;
+    top: 1194px;
+  }
+
+  .Lorem-ipsum-dolor-sit-amet-consectetur-adipiscing2 {
+    width: 640px;
+    height: 56px;
+    font-family: NotoSerif;
+    font-size: 18px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 28px;
+    letter-spacing: normal;
+    text-align: left;
+    color: var(--text);
+    position: absolute;
+    left: 400px;
+    top: 1269px;
+  }
+
+  .buttonprimary {
+    width: 173px;
+    height: 52px;
+    border-radius: 3px;
+    padding: 0;
+    background-color: #292929;
+    position: absolute;
+    left: 440px;
+    top: 1367px;
+  }
+
+  .View-Club-Website {
+    width: 143px;
+    height: 22px;
+    font-family: NotoSans, sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    text-align: left;
+    color: #FFFFFF; 
+    position: absolute;
+    left: 415px;
+    top: 1370px;
+  }
+
+
+
+

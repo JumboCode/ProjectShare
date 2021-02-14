@@ -1,0 +1,70 @@
+.NavBar {
+    width: 100%;
+    box-shadow: 0 4px 5px 1px 
+        rgba(0, 0, 0, 0.05);
+    background-color: #ffffff;
+    white-space: nowrap;
+    display: inline-block;
+    top: 0;
+    z-index:1;
+    position: relative;
+}
+
+.Logo {
+    vertical-align: middle;
+    width: 40px;
+    height: 40px;
+    margin: 6px 60px 6px 0;
+}
+
+.navbarLink, .Home, .Topics, .FindResource {
+    display: inline-block;
+    border: none;
+    background-color: transparent;
+    width: max-content;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #555555;
+    text-align: left;
+    margin: 14px 30px;
+}
+
+.Home:hover, .Topics:hover, .FindResource:hover {
+    cursor: pointer;
+}
+
+.SearchBar {
+    width: 20vw;
+    height: 80%;
+    padding: 15px;
+    padding-left: 35px;
+    border-radius: 3px;
+    background-color: #ececec;
+    border: none;
+    color: #555555;
+    vertical-align: middle;
+}
+
+.Search {
+    position: relative;
+    display: inline-block;
+}
+
+.Search img {
+    width: 20px;
+    height: 20px;
+    left: 30px;
+    border-radius: 3px;
+    vertical-align: middle;
+    position: relative;
+}
+
+input::placeholder {
+    width: 166px;
+    height: 22px;
+    margin: 0 0 0 15px;
+    line-height: normal;
+    letter-spacing: normal;
+    text-align: left;
+    color: #555555;
+}
