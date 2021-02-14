@@ -22,18 +22,18 @@ class PostComposer extends React.Component {
       "language": "EN",
       "images": [
         {
-          "img_name": "img1",
+          "img_name": "img",
           "id": 1
         }
       ],
       "tags": [
         {
-          "name": "Tag 1",
+          "name": "tag",
           "id": 1
         }
       ],
       "category": {
-        "name": "Category 1",
+        "name": "category",
         "id": 1
       },
       "date": "2021-01-06T02:50:24.052412Z",
