@@ -2,12 +2,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Noto+Serif&display=swap');
 
 :root {
-  --header: #094067;
-  --paragraph: #556474;
-  --primary: #3da9fc;
-  --shade: #efefef;
-  --secondary: #90b4ce;
-  --background: #e3f3ff;
+  --header-color: #094067;
+  --paragraph-color: #556474;
+  --primary-color: #3da9fc;
+  --shade-color: #efefef;
+  --secondary-color: #90b4ce;
+  --background-color: #e3f3ff;
 }
 
 html {
