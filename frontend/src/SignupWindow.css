@@ -1,0 +1,19 @@
+.signupForm {
+    padding: 50px 0px 50px 0px;
+}
+
+.email {
+    padding: 2px 0px 2px 0px;
+}
+
+.password1 {
+    padding: 2px 0px 2px 0px;
+}
+
+.password2 {
+    padding: 2px 0px 10px 0px;
+}
+
+.submit {
+    padding: 5px 5px 5px 5px;
+}
