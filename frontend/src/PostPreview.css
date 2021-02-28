@@ -1,0 +1,73 @@
+.PostPreview {
+  width: 536px;
+  height: 437px;
+  position: relative;
+  left: 585px;
+  top: 268px;
+  border-radius: 3px;
+  border: solid 1px #e9e9e9;
+  background-color: #ffffff;
+}
+
+.PhotoPlaceHolder {
+    position: relative;
+    left: 25px;
+    top: 15px;
+    width: 486px;
+    height: 224px;
+    background-color: pink;
+    text-align: center;
+}
+
+.DatePosted {
+  position: relative;
+  width: 400px;
+  height: 5px;
+  left: 25px;
+  top: 10px;
+  font-family: NotoSans;
+  font-size: 16px;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  text-align: left;
+}
+
+.Title {
+  position: relative;
+  width: 270px;
+  height: 5px;
+  left: 25px;
+  top: 5px;
+  text-align: left;
+  background-color: #ffffff;
+}
+
+.Tags {
+  position: relative;
+  width: 470px;
+  height: 5px;
+  left: 25px;
+  top: 65px;
+  text-align: left;
+  background-color: #ffffff;
+}
+
+.PostContent {
+  position: relative;
+  width: 470px;
+  height: 1px;
+  left: 25px;
+  top: 30px;
+  /* margin: 5px 0 0; */
+  font-family: NotoSerif;
+  /* font-size: 15px; */
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  /* line-height: 1.75; */
+  letter-spacing: normal;
+  text-align: left;
+}
