@@ -1,27 +1,39 @@
 import React from 'react';
-import List from './HomePageArray';
+import './HomePage.css';
 
+const topics = ["Access", "Education", "Environment", "Equality", "Food Insecurity", "Gender Equality", "Maternal & Child Health", 
+  "Mental Health", "Sharewood Project", "Women's Health", "Vulnerable Groups (at risk)"];
 
-class Home extends React.Component(){
-  render(){
-    return (
-      <>
-        <div className="topicList"> 
-          <List />
-        </div>
-        <div className="featured">  </div>
+function Home(){
 
-        <div className="needHelp">  
-          <h3> Need Help? </h3>
-          <p> Use our resource finder to find the information you are looking for </p>
-          <button type="button"> Resource Finder </button>
-        </div>
-      </>
-    );
-  }
+  const listItems = topics.map((topic) => (
+    <li key={topic.toString()}>
+      {topic}
+    </li>
+  )
+  );
+  return (
+    <>
+      <div className="sortBy"> 
+        <h3 className="sortByHeader"> Sort By </h3>
+        <button type="button" className="mostRecent"> Most Recent </button>
+      </div>
+      <div className="topicList"> 
+        <h3 className="filters">
+          Filters
+        </h3>
+        <ul className="filterList">
+          {listItems} 
+        </ul>
+      </div>
+      <div className="needHelp">  
+        <h3 className="helpHeader"> Need Help? </h3>
+        <p className="helpParagraph"> Use our resource finder to find the information you are looking for. </p>
+        <button className="helpButton" type="button"> Resource Finder </button>
+      </div>
+      <div className="featured">  </div>
+    </>
+  );
 }
-
 export default Home;
 
-
-// source: https://reactjs.org/docs/lists-and-keys.html
