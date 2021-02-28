@@ -1,5 +1,6 @@
 import React from 'react';
 import './Navigation.css';
+import { Link } from "react-router-dom";
 import logo from './static/projectSHARELogo.jpeg';
 import searchIcon from './static/searchIcon.png';
 
@@ -38,13 +39,14 @@ class Navigation extends React.Component {
           />
           
           <div className="navbarLink">
-            <button 
-              className="Home" 
-              type="button"
-            >
-              Home
-            </button>
-
+            <Link to="/home">
+              <button 
+                className="Home" 
+                type="button"
+              >
+                Home
+              </button>
+            </Link>
             <button 
               className="Topics" 
               type="button"

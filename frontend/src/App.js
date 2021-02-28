@@ -1,15 +1,12 @@
 import React from 'react';
 import './App.css';
-import Navigation from './Navigation';
-import FooterElement from './FooterElement';
-import Post from './Post';
+import Router from './Router';
 
 function App() {
   return (
     <div className="App">
-      <Navigation />
-      <Post />
-      <FooterElement />
+      <Router />
+ 
     </div>
   );
 }
