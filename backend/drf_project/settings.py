@@ -141,7 +141,13 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 NOSE_ARGS = ['--nocapture',
              '--nologcapture', ]
 
+# email info for contact form
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = ''
+EMAIL_HOST_PASSWORD = ''
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
 
 # all-auth configuration
 ACCOUNT_UNIQUE_EMAIL = True

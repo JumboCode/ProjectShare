@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './AboutPage.css';
-import Button from 'react-bootstrap/Button';
+import ContactForm from './ContactForm';
 
 class AboutPage extends Component {
   constructor(props) {
@@ -37,16 +37,7 @@ class AboutPage extends Component {
             quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
             Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
           </ul>
-          <ul className="Get-involved">
-            Get involved
-          </ul>
-          <ul className="Lorem-ipsum-dolor-sit-amet-consectetur-adipiscing2">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-          </ul>
-          <Button className="buttonprimary" type="button" onClick={this.handleClick} />
-          <ul className="View-Club-Website">
-            View Club Website
-          </ul>
+          <ContactForm />
         </div>
       </div>
     );

@@ -1,8 +1,14 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
-from rest_framework import viewsets, permissions
+from rest_framework import viewsets, permissions, views
+from rest_framework.decorators import api_view
 from . import serializers
 from . import models
+from django.core.mail import send_mail, BadHeaderError
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+import json
+import os
 
 
 class TagViewSet(viewsets.ModelViewSet):
@@ -38,3 +44,25 @@ class LocationViewSet(viewsets.ModelViewSet):
     queryset = models.Location.objects.all()
     serializer_class = serializers.LocationSerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+
+
+# temporarily disable csrf token
+@csrf_exempt
+def contact(request):
+    if request.method == 'POST':
+        data = json.loads(request.body.decode("utf-8"))
+        subject = "Project Share Website Inquiry"
+        body = {
+            'email': data['email'],
+            'message': data['message'],
+        }
+        message = "\n".join(body.values())
+
+        try:
+            send_mail(subject, message, os.environ['CONTACT_EMAIL'],
+                      [os.environ['CONTACT_EMAIL']])
+        except BadHeaderError:
+            return JsonResponse({'status': 'fail',
+                                 'message': 'Invalid header found.'})
+        return JsonResponse({'status': 'success',
+                             'message': 'Email sent!'})

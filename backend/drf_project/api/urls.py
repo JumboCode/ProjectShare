@@ -1,4 +1,5 @@
 from django.urls import path
+from django.conf.urls import url
 from . import views
 
 
@@ -45,4 +46,7 @@ image_urls = [
     ),
 ]
 
-urlpatterns = tag_urls + category_urls + image_urls + post_urls + location_urls
+contact_url = [path('contact', views.contact, name='contact')]
+
+urlpatterns = (tag_urls + category_urls + image_urls + post_urls
+               + location_urls + contact_url)
