@@ -16,7 +16,10 @@ function Home(){
     <>
       <div className="sortBy"> 
         <h3 className="sortByHeader"> Sort By </h3>
-        <button type="button" className="mostRecent"> Most Recent </button>
+        <button type="button" className="mostRecent"> 
+          Most Recent
+          <i className="arrow down"> </i> 
+        </button>
       </div>
       <div className="topicList"> 
         <h3 className="filters">
