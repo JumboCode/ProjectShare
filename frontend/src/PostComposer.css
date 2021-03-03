@@ -1,0 +1,35 @@
+form {
+  width: 50%;
+  margin: 2%;
+  text-align: left;
+}
+
+.btn {
+  background-color: white;
+  color: #3CA9FC;
+  border-color: #3CA9FC;
+}
+
+.dropdown-item:hover {
+  background-color: #EBF6FF;
+}
+
+.badge-secondary {
+  background-color: gold;
+  margin-left: 1%;
+  font-size: medium;
+}
+
+.categoryButtons {
+  display: flex;
+}
+
+.addCategoryForm {
+  display: flex;
+}
+
+.addCategoryButton {
+  margin-left: 1%;
+}
+
+
