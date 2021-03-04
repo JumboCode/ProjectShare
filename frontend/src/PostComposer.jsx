@@ -14,11 +14,14 @@ class PostComposer extends React.Component {
     this.state = {
       title: '',
       content: '',
-      categoryName: '',
-      categoryId: '',
+      category: '',
+      selectedTags: [],
       categories: [],
+      tags: [],
       addCategoryClicked: false,
-      newCategoryName: ''
+      newCategoryName: '',
+      addTagClicked: false,
+      newTagName: '',
     };
 
     this.handleInputChange = this.handleInputChange.bind(this);
@@ -26,11 +29,15 @@ class PostComposer extends React.Component {
     this.handleAddCategory = this.handleAddCategory.bind(this);
     this.getCategoriesList = this.getCategoriesList.bind(this);
     this.handleSelectCategory = this.handleSelectCategory.bind(this);
+    this.getTagsList = this.getTagsList.bind(this);
+    this.handleAddTag = this.handleAddTag.bind(this);
+    this.handleSelectTags = this.handleSelectTags.bind(this);
   }
 
   // When component is created, fetch current list of categories 
   componentDidMount() {
     this.getCategoriesList();
+    this.getTagsList();
   } 
 
   // Get list of categories to populate dropdown selector
@@ -44,10 +51,22 @@ class PostComposer extends React.Component {
           });
         });
   }
+
+  // Get list of tags to populate dropdown selector
+  getTagsList() {
+    fetch('http://localhost:8000/api/tags')
+      .then(res => res.json())
+      .then(
+        (result) => {
+          this.setState({
+            tags: result
+          });
+        });
+  }
   
   // Schema model for posting to server when form is submitted
   postModel() {
-    const {title, content, categoryName, categoryId} = this.state;
+    const {title, content, category, selectedTags} = this.state;
 
     return ({
       "title": title,
@@ -59,16 +78,8 @@ class PostComposer extends React.Component {
           "id": 1
         }
       ],
-      "tags": [
-        {
-          "name": "tag",
-          "id": 1
-        }
-      ],
-      "category": {
-        "name": categoryName,
-        "id": categoryId 
-      },
+      "tags": selectedTags,
+      "category": category,
       "date": "2021-01-06T02:50:24.052412Z",
       "locations": [
         {
@@ -100,31 +111,39 @@ class PostComposer extends React.Component {
       method: 'POST',
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(post)
-    });
-
+    }).then(() => alert("New post created"));
+  
     event.preventDefault();
   }
 
   // When a category is selected from dropdown, save to state 
   handleSelectCategory(event) {      
-    const category = JSON.parse(event);
+    const selectedCategory = JSON.parse(event);
   
     this.setState({
-      categoryName: category.name, 
-      categoryId: category.id
+      category: selectedCategory
     })
+  }
+
+  // When a tag is selected from dropdown, save to selected tags array  
+  handleSelectTags(event) {
+    const { selectedTags } = this.state;
+    const selectedTag = JSON.parse(event);
+
+    if (!selectedTags.some(tag => tag.id === selectedTag.id)) {
+      selectedTags.push(selectedTag);
+    };
   }
 
   // When user add a new category, send POST request to add to database
   handleAddCategory() {
     const { newCategoryName } = this.state;
-    const category = newCategoryName;
 
     fetch('http://localhost:8000/api/categories/add', {
       method: 'POST',
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(
-        { name: category }
+        { name: newCategoryName }
       )
     })
       // Set create category input field to empty
@@ -133,13 +152,34 @@ class PostComposer extends React.Component {
       .then(() => {this.getCategoriesList()}); 
   }
 
+  // When user add a new tag, send POST request to add to database
+  handleAddTag() {
+    const { newTagName } = this.state;
+
+    fetch('http://localhost:8000/api/tags/add', {
+      method: 'POST',
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(
+        { name: newTagName }
+      )
+    })
+      // Set create category input field to empty
+      .then(() => {this.setState({newTagName:''})})
+      // Fetch categories list again with newly added category
+      .then(() => {this.getTagsList()}); 
+  }
+
   render() {
-    const { title, content, categories, categoryName, 
-      addCategoryClicked, newCategoryName } = this.state;
+
+    const { title, content, categories, category, addCategoryClicked, 
+      newCategoryName, tags, addTagClicked, 
+      newTagName, selectedTags } = this.state;
 
     return (
       <div>
         <Form onSubmit={this.handleSubmit}>
+          {/* Categories Form */}
+          {/* Title input */}
           <Form.Group>
             <Form.Label>Post title</Form.Label>
             <Form.Control 
@@ -150,7 +190,7 @@ class PostComposer extends React.Component {
               onChange={this.handleInputChange} 
             />
           </Form.Group>
-
+          {/* Content input */}
           <Form.Group>
             <Form.Label>Post Content</Form.Label>
             <Form.Control 
@@ -161,39 +201,43 @@ class PostComposer extends React.Component {
               onChange={this.handleInputChange} 
             />
           </Form.Group>
-
+          {/* Category Choose or Add buttons */}
           <Form.Group>
             <Form.Label>Category</Form.Label>
-            <Badge variant="secondary">{categoryName}</Badge>
-            <div className="categoryButtons">
+            <Badge 
+              variant="secondary" className="categoryBadge"
+            >
+              {category.name}
+            </Badge>
+            <div className="groupButtons">
               <DropdownButton
                 title="Choose a Category"
                 name="categoryName"
                 onClick={this.getCategoriesList}
                 onSelect={this.handleSelectCategory}
               >
-                {categories.map(category => 
+                {categories.map(categoryItem => 
                   (                  
                     <Dropdown.Item 
-                      eventKey={JSON.stringify(category)} 
-                      key={category.id} 
+                      eventKey={JSON.stringify(categoryItem)} 
+                      key={categoryItem.id} 
                     >
-                      {category.name}
+                      {categoryItem.name}
                     </Dropdown.Item>
                   ))}
               </DropdownButton>
 
               <Button
-                className="addCategoryButton"
+                className="addButton"
                 onClick={() => this.setState({addCategoryClicked:true})}
               >
                 Add a New Category
               </Button>
             </div>
           </Form.Group>
-
+          {/* Render input box for new Category if Add button clicked */}
           {addCategoryClicked && (
-            <Form.Group className="addCategoryForm">
+            <Form.Group className="addForm">
               <Form.Control 
                 type="text"
                 name="newCategoryName"
@@ -205,6 +249,59 @@ class PostComposer extends React.Component {
             </Form.Group>
           )}
 
+          {/* Tags Form */}
+          <Form.Group>
+            <Form.Label>Tags</Form.Label>
+            {selectedTags.map(tag => 
+              (                  
+                <Badge 
+                  variant="secondary" className="tagBadge"
+                  key={tag.id}
+                >
+                  {tag.name}
+                </Badge>
+              ))}
+            <div className="groupButtons">
+              <DropdownButton
+                title="Choose a Tag"
+                name="categoryName"
+                onClick={this.getTagsList}
+                onSelect={this.handleSelectTags}
+              >
+                {tags.map(tag => 
+                  (                  
+                    <Dropdown.Item 
+                      eventKey={JSON.stringify(tag)} 
+                      key={tag.id} 
+                    >
+                      {tag.name}
+                    </Dropdown.Item>
+                  ))}
+              </DropdownButton>
+
+              <Button
+                className="addButton"
+                onClick={() => this.setState({addTagClicked:true})}
+              >
+                Add a New Tag
+              </Button>
+            </div>
+          </Form.Group>
+          {/* Render input box for new Tag if Add button clicked */}
+          {addTagClicked && (
+            <Form.Group className="addForm">
+              <Form.Control 
+                type="text"
+                name="newTagName"
+                placeholder="Enter tag name"
+                value={newTagName}
+                onChange={this.handleInputChange} 
+              />
+              <Button onClick={this.handleAddTag}> + </Button>
+            </Form.Group>
+          )}
+
+          {/* Submit button */}
           <Button 
             className="submitButton" 
             variant="primary" 

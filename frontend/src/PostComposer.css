@@ -14,22 +14,32 @@ form {
   background-color: #EBF6FF;
 }
 
-.badge-secondary {
+.badge-secondary.categoryBadge {
   background-color: gold;
   margin-left: 1%;
   font-size: medium;
 }
 
-.categoryButtons {
+.badge-secondary.tagBadge {
+  background-color: gold;
+  margin-left: 1%;
+  font-size: small;
+}
+
+.groupButtons {
   display: flex;
 }
 
-.addCategoryForm {
+.addForm {
   display: flex;
 }
 
-.addCategoryButton {
+.addButton {
   margin-left: 1%;
 }
 
-
+.submitButton {
+  background-color: #3CA9FC;
+  color: white;
+  border-color: #3CA9FC;
+}
