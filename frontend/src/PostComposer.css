@@ -24,6 +24,12 @@ form {
   background-color: gold;
   margin-left: 1%;
   font-size: small;
+  cursor: pointer;
+}
+
+.badge-secondary.tagBadge:hover {
+  background-color: #E0A700;
+  opacity: 0.8; 
 }
 
 .groupButtons {

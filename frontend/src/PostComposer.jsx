@@ -14,7 +14,10 @@ class PostComposer extends React.Component {
     this.state = {
       title: '',
       content: '',
-      category: '',
+      category: {
+        id: '',
+        name: ''
+      },
       selectedTags: [],
       categories: [],
       tags: [],
@@ -32,6 +35,7 @@ class PostComposer extends React.Component {
     this.getTagsList = this.getTagsList.bind(this);
     this.handleAddTag = this.handleAddTag.bind(this);
     this.handleSelectTags = this.handleSelectTags.bind(this);
+    this.handleRemoveTag = this.handleRemoveTag.bind(this);
   }
 
   // When component is created, fetch current list of categories 
@@ -72,23 +76,11 @@ class PostComposer extends React.Component {
       "title": title,
       "content": content,
       "language": "EN",
-      "images": [
-        {
-          "img_name": "img",
-          "id": 1
-        }
-      ],
+      "images": [],
       "tags": selectedTags,
       "category": category,
       "date": "2021-01-06T02:50:24.052412Z",
-      "locations": [
-        {
-          "latitude": 10,
-          "longitude": 20,
-          "name": "NYC",
-          "id": 1
-        }
-      ]
+      "locations": []
     });
   }
 
@@ -105,24 +97,20 @@ class PostComposer extends React.Component {
 
   // When form is submitted, create a new post and send to server
   handleSubmit(event) {
-    const post = this.postModel();    
+    event.preventDefault();
+    const post = this.postModel();   
 
     fetch('http://localhost:8000/api/posts/add', {
       method: 'POST',
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(post)
-    }).then(() => alert("New post created"));
-  
-    event.preventDefault();
+    }).then(() => alert("New post created!"));
   }
 
   // When a category is selected from dropdown, save to state 
   handleSelectCategory(event) {      
     const selectedCategory = JSON.parse(event);
-  
-    this.setState({
-      category: selectedCategory
-    })
+    this.setState({ category: selectedCategory })
   }
 
   // When a tag is selected from dropdown, save to selected tags array  
@@ -137,7 +125,7 @@ class PostComposer extends React.Component {
 
   // When user add a new category, send POST request to add to database
   handleAddCategory() {
-    const { newCategoryName } = this.state;
+    const { newCategoryName, category } = this.state;
 
     fetch('http://localhost:8000/api/categories/add', {
       method: 'POST',
@@ -146,15 +134,16 @@ class PostComposer extends React.Component {
         { name: newCategoryName }
       )
     })
+      // Get added category and apply to current post
+      .then(response => response.json())
+      .then(data => this.setState(Object.assign(category, data)))
       // Set create category input field to empty
-      .then(() => {this.setState({newCategoryName:''})})
-      // Fetch categories list again with newly added category
-      .then(() => {this.getCategoriesList()}); 
+      .then(() => this.setState({ newCategoryName: '' }));
   }
 
   // When user add a new tag, send POST request to add to database
   handleAddTag() {
-    const { newTagName } = this.state;
+    const { newTagName, selectedTags } = this.state;
 
     fetch('http://localhost:8000/api/tags/add', {
       method: 'POST',
@@ -163,10 +152,20 @@ class PostComposer extends React.Component {
         { name: newTagName }
       )
     })
+      // Get added tag and apply to current post
+      .then(response => response.json())
+      .then(data => selectedTags.push(data))
       // Set create category input field to empty
-      .then(() => {this.setState({newTagName:''})})
-      // Fetch categories list again with newly added category
-      .then(() => {this.getTagsList()}); 
+      .then(() => this.setState({ newTagName:'' }));
+  }
+
+  // When a tag is clicked, remove that tag from selected list
+  handleRemoveTag(event) {
+    const { selectedTags } = this.state;
+    const tagId = parseInt(event.target.getAttribute("value"), 10);    
+    const tags = selectedTags.filter(tag => tag.id !== tagId);
+    
+    this.setState({ selectedTags : tags });
   }
 
   render() {
@@ -253,10 +252,12 @@ class PostComposer extends React.Component {
           <Form.Group>
             <Form.Label>Tags</Form.Label>
             {selectedTags.map(tag => 
-              (                  
+              ( 
                 <Badge 
-                  variant="secondary" className="tagBadge"
+                  onClick={this.handleRemoveTag}
                   key={tag.id}
+                  variant="secondary" className="tagBadge"
+                  value={tag.id}
                 >
                   {tag.name}
                 </Badge>
