@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
+import ContactForm from './ContactForm'
 import './AboutPage.css';
-import Button from 'react-bootstrap/Button';
+
 
 class AboutPage extends Component {
   constructor(props) {
@@ -43,6 +44,7 @@ class AboutPage extends Component {
             </div>
           </div>
         </div>
+        <ContactForm />
       </div>
     );
   }
