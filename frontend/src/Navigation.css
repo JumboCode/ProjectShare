@@ -1,5 +1,6 @@
 .NavBar {
     width: 100%;
+    height: 158px;
     box-shadow: 0 4px 5px 1px 
         rgba(0, 0, 0, 0.05);
     background-color: #ffffff;
@@ -10,16 +11,28 @@
     position: relative;
 }
 
-.Logo {
-    vertical-align: middle;
-    width: 40px;
-    height: 40px;
-    margin: 6px 60px 6px 0;
+.topRow {
+    display: flex;
+    justify-content: center;
 }
 
-.navbarLink, .Home, .Topics, .FindResource {
-    display: inline-block;
+.Logo {
+    position:relative;
+    top: 29px;
+    width: 40px;
+    height: 40px;
+    margin: 6px 15px 6px 30px;
+}
+
+.navbarLink {
+    display: flex;
+    justify-content: center;
+}
+ 
+.Home, .Topics, .tuftsResources, .communityResources, .sharewood, .newsletterArchives, .howCanHelp {
     border: none;
+    font-size: 16px;
+    text-decoration:none;
     background-color: transparent;
     width: max-content;
     line-height: normal;
@@ -29,13 +42,43 @@
     margin: 14px 30px;
 }
 
+.active {
+    color:#094067;
+    display: inline-block;
+    border: none;
+    background-color: transparent;
+    width: max-content;
+    line-height: normal;
+    letter-spacing: normal;
+    text-align: left;
+    margin: 14px 30px;
+    text-decoration:none;
+    border-bottom:1px solid #094067;
+    padding-bottom:22px;
+}
+
+.FindResource {
+    display: inline-block;
+    color:#3da9fc;
+    border: solid 1px;
+    background-color: transparent;
+    width: max-content;
+    line-height: normal;
+    letter-spacing: normal;
+    text-align: left;
+    margin: 30px 30px;
+    padding: 10px 15px 10px 15px;
+}
+
 .Home:hover, .Topics:hover, .FindResource:hover {
     cursor: pointer;
 }
 
 .SearchBar {
-    width: 20vw;
-    height: 80%;
+    width: 35vw;
+    height: 30%;
+    position: relative;
+    top: 25px;
     padding: 15px;
     padding-left: 35px;
     border-radius: 3px;
@@ -46,17 +89,19 @@
 }
 
 .Search {
-    position: relative;
+    /* position: relative; */
     display: inline-block;
 }
 
 .Search img {
+    position: relative;
+    z-index:1;
     width: 20px;
     height: 20px;
-    left: 30px;
+    left:30px;
+    top:30px;
     border-radius: 3px;
-    vertical-align: middle;
-    position: relative;
+    /* vertical-align: middle; */
 }
 
 input::placeholder {

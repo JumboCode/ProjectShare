@@ -1,6 +1,6 @@
 import React from 'react';
 import './Navigation.css';
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import logo from './static/projectSHARELogo.jpeg';
 import searchIcon from './static/searchIcon.png';
 
@@ -31,28 +31,27 @@ class Navigation extends React.Component {
     return (
       <div className="NavBar">
         <form onSubmit={this.handleSubmit}>
+          <div className="topRow">
+            <img 
+              className="Logo"
+              src={logo} 
+              alt="Project SHARE Logo" 
+            />
 
-          <img 
-            className="Logo"
-            src={logo} 
-            alt="Project SHARE Logo" 
-          />
-          
-          <div className="navbarLink">
-            <Link to="/home">
-              <button 
-                className="Home" 
-                type="button"
-              >
-                Home
-              </button>
-            </Link>
-            <button 
-              className="Topics" 
-              type="button"
-            >
-              Topics
-            </button>
+            <div className="Search">
+              <img 
+                className="SearchIcon" 
+                src={searchIcon}
+                alt="Icon for Search Bar"
+              />
+              <input 
+                className="SearchBar"
+                placeholder="Search for a resource" 
+                type="text" 
+                searchinput={input} 
+                onChange={this.handleChange} 
+              />
+            </div>
 
             <button 
               className="FindResource"
@@ -61,20 +60,22 @@ class Navigation extends React.Component {
               Help Me Find a Resource
             </button>
           </div>
-
-          <div className="Search">
-            <img 
-              className="SearchIcon" 
-              src={searchIcon}
-              alt="Icon for Search Bar"
-            />
-            <input 
-              className="SearchBar"
-              placeholder="Search for a resource" 
-              type="text" 
-              searchInput={input} 
-              onChange={this.handleChange} 
-            />
+          <div className="navbarLink">
+            <NavLink className="tuftsResources" activeClassName="active" to="/tuftsResources">
+              Tufts Resources
+            </NavLink>
+            <NavLink className="communityResources" activeClassName="active" to="/communityResources">
+              Community Resources 
+            </NavLink>
+            <NavLink className="sharewood" activeClassName="active" to="/sharewoodProject">
+              The Sharewood Project
+            </NavLink>
+            <NavLink className="newsletterArchives" activeClassName="active" to="/newsletterArchives">
+              Newsletter Archives
+            </NavLink>
+            <NavLink className="howCanHelp" activeClassName="active" to="/howYouCanHelp">
+              How You Can Help
+            </NavLink>
           </div>
         </form>
       </div>
