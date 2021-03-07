@@ -14,8 +14,7 @@ class PostComposer extends React.Component {
     this.state = {
       title: '',
       content: '',
-      category: {
-        id: '',
+      category: { 
         name: ''
       },
       selectedTags: [],
@@ -109,62 +108,50 @@ class PostComposer extends React.Component {
 
   // When a category is selected from dropdown, save to state 
   handleSelectCategory(event) {      
-    const selectedCategory = JSON.parse(event);
+    const selectedCategory = { name: event };  
     this.setState({ category: selectedCategory })
   }
 
   // When a tag is selected from dropdown, save to selected tags array  
   handleSelectTags(event) {
     const { selectedTags } = this.state;
-    const selectedTag = JSON.parse(event);
+    const selectedTag = { name: event };    
 
-    if (!selectedTags.some(tag => tag.id === selectedTag.id)) {
+    // Add a tag to selected tags iff it hasn't been added
+    if (!selectedTags.some(tag => tag.name === selectedTag.name)) {
       selectedTags.push(selectedTag);
     };
   }
 
-  // When user add a new category, send POST request to add to database
+  // When user add a new category, apply category to post
   handleAddCategory() {
-    const { newCategoryName, category } = this.state;
+    const { newCategoryName } = this.state;
 
-    fetch('http://localhost:8000/api/categories/add', {
-      method: 'POST',
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(
-        { name: newCategoryName }
-      )
-    })
-      // Get added category and apply to current post
-      .then(response => response.json())
-      .then(data => this.setState(Object.assign(category, data)))
-      // Set create category input field to empty
-      .then(() => this.setState({ newCategoryName: '' }));
+    // Get added category and apply to current post
+    const data = { name: newCategoryName };
+    this.setState({ category: data });
+    // Set create category input field to empty
+    this.setState({ newCategoryName: '' });
   }
 
-  // When user add a new tag, send POST request to add to database
+  // When user add a new tag, apply tag to post
   handleAddTag() {
     const { newTagName, selectedTags } = this.state;
+    const data = { name: newTagName };
 
-    fetch('http://localhost:8000/api/tags/add', {
-      method: 'POST',
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(
-        { name: newTagName }
-      )
-    })
-      // Get added tag and apply to current post
-      .then(response => response.json())
-      .then(data => selectedTags.push(data))
-      // Set create category input field to empty
-      .then(() => this.setState({ newTagName:'' }));
+    // Get added tag and apply to current post
+    selectedTags.push(data);
+    // Set create category input field to empty
+    this.setState({ newTagName: '' });
   }
 
   // When a tag is clicked, remove that tag from selected list
   handleRemoveTag(event) {
     const { selectedTags } = this.state;
-    const tagId = parseInt(event.target.getAttribute("value"), 10);    
-    const tags = selectedTags.filter(tag => tag.id !== tagId);
-    
+    const tagName = event.target.getAttribute("value"); 
+
+    // Filter and create a new list without the tag clicked   
+    const tags = selectedTags.filter(tag => tag.name !== tagName);
     this.setState({ selectedTags : tags });
   }
 
@@ -218,8 +205,8 @@ class PostComposer extends React.Component {
                 {categories.map(categoryItem => 
                   (                  
                     <Dropdown.Item 
-                      eventKey={JSON.stringify(categoryItem)} 
-                      key={categoryItem.id} 
+                      eventKey={categoryItem.name} 
+                      key={categoryItem.name} 
                     >
                       {categoryItem.name}
                     </Dropdown.Item>
@@ -255,9 +242,9 @@ class PostComposer extends React.Component {
               ( 
                 <Badge 
                   onClick={this.handleRemoveTag}
-                  key={tag.id}
+                  key={tag.name}
                   variant="secondary" className="tagBadge"
-                  value={tag.id}
+                  value={tag.name}
                 >
                   {tag.name}
                 </Badge>
@@ -272,8 +259,8 @@ class PostComposer extends React.Component {
                 {tags.map(tag => 
                   (                  
                     <Dropdown.Item 
-                      eventKey={JSON.stringify(tag)} 
-                      key={tag.id} 
+                      eventKey={tag.name} 
+                      key={tag.name} 
                     >
                       {tag.name}
                     </Dropdown.Item>

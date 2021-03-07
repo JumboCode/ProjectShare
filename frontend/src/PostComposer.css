@@ -15,13 +15,13 @@ form {
 }
 
 .badge-secondary.categoryBadge {
-  background-color: gold;
+  background-color: #FFC008;
   margin-left: 1%;
   font-size: medium;
 }
 
 .badge-secondary.tagBadge {
-  background-color: gold;
+  background-color: #FFC008;
   margin-left: 1%;
   font-size: small;
   cursor: pointer;
