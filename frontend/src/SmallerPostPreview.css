@@ -25,9 +25,10 @@
   height: 22px;
   bottom: 117px;
   left: 150px;
-  font-family: NotoSans;
+  font-family: 'NotoSans';
   font-size: 16px;
   font-weight: 500;
+  color: #556474;
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
@@ -39,18 +40,42 @@
   position: relative;
   width: 353px;
   height: 50px;
-  bottom: 125px;
+  font-size: 18px;
+  bottom: 135px;
   left: 150px;
+  color: #094067;
+  font-family: 'NotoSans';
   text-align: left;
+  font-weight: bold;
   background-color: #ffffff;
 }
 
 .Tags {
   position: relative;
-  width: 470px;
-  height: 5px;
+  width: max-content;
+  height: 3px;
   bottom: 160px;
   left: 150px;
+  align-items: center;
+  gap: 10px;
+  white-space: nowrap;
   text-align: left;
-  background-color: #ffffff;
+}
+
+
+.tagElemPost {
+    width: 24;
+    height: 19px;
+    font-family: 'Noto Sans';
+    font-size: 14px;
+    font-weight: 100;
+    text-align: left;
+    margin: 0 10px 0 0;
+    padding: 5px 5px 5px 5px;
+    border-radius: 3px;
+    border: solid 1px;
+    border-color: #3da9fc;
+    color: #3da9fc;
+    background-color: #ebf6ff;
+    text-decoration: none;
 }
