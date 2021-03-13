@@ -1,7 +1,7 @@
 
-
-.sortBy {
+.sideBar{
     align-content: left;
+    font-family: "Noto Sans", sans-serif;
 }
 .mostRecent {
     width: 144px;
@@ -18,13 +18,11 @@
     background-color: #ffffff;
     color: #3da9fc;
     text-align: left;
-    font-family: "Noto Sans", sans-serif;
 }
 .sortByHeader {
   width: 100px;
   height: 25px;
   margin: 21px 285px 10px 220px;
-  font-family: "Noto Sans", sans-serif;
   font-size: 18px;
   font-weight: bold;
   color: #094067;  
@@ -35,7 +33,6 @@
   width: 57px;
   height: 25px;
   margin: 43px 291px 10px 238px;
-  font-family: "Noto Sans", sans-serif;
   font-size: 18px;
   font-weight: bold;
   color: #094067;  
@@ -45,7 +42,6 @@
     height: 22px;
     flex-grow: 0;
     margin: 0px 291px 150px 199px;
-    font-family: "Noto Sans", sans-serif;
     font-size: 16px;
     font-weight: 500;
     text-align: left;
@@ -55,13 +51,11 @@
     padding-bottom: 73px;
     line-height: 32px;
 }
-
 .helpHeader {
     height: 31px;
     width: 200px;
     flex-grow: 0;
     margin: 43px 56px 13px 238px;
-    font-family: "Noto Sans", sans-serif;
     font-size: 24px;
     font-weight: bold;
     line-height: 1.3;
@@ -75,7 +69,6 @@
     height: 52px;
     flex-grow: 0;
     margin: 0px 13px 13px 238px;
-    font-family: "NotoSerif", sans-serif;
     font-size: 15px;
     line-height: 1.75;
     letter-spacing: normal;
@@ -93,13 +86,9 @@
     vertical-align: middle;
     align-items: center;
     gap: 10px;
-    margin: 20px 720px 15px 238px;
+    margin: 20px 1300px 15px 238px;
     padding: 20px;
     border-radius: 3px;
-    background-color: #3da9fc;  
-    color: white;  
-    border-color:white;
-    font-family: "Noto Sans", sans-serif;
     font-size: 16px;
     font-weight: 500;
 }
