@@ -37,13 +37,13 @@
     width: max-content;
     line-height: normal;
     letter-spacing: normal;
-    color: #555555;
+    color: var(--paragraph-color);
     text-align: left;
     margin: 14px 30px;
 }
 
 .active {
-    color:#094067;
+    color:var(--header-color);
     display: inline-block;
     border: none;
     background-color: transparent;
@@ -53,13 +53,13 @@
     text-align: left;
     margin: 14px 30px;
     text-decoration:none;
-    border-bottom:1px solid #094067;
+    border-bottom:1px solid var(--header-color);
     padding-bottom:22px;
 }
 
 .FindResource {
     display: inline-block;
-    color:#3da9fc;
+    color: var(--primary-color);
     border: solid 1px;
     background-color: transparent;
     width: max-content;
@@ -82,9 +82,9 @@
     padding: 15px;
     padding-left: 35px;
     border-radius: 3px;
-    background-color: #ececec;
+    background-color: var(--shade-color);
     border: none;
-    color: #555555;
+    color: var(--paragraph-color);
     vertical-align: middle;
 }
 
@@ -111,5 +111,5 @@ input::placeholder {
     line-height: normal;
     letter-spacing: normal;
     text-align: left;
-    color: #555555;
+    color:var(--paragraph-color);
 }
