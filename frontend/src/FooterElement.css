@@ -2,7 +2,7 @@
     position: relative;
     width: 100%;
     height: 261px;
-    background-color: #292929;
+    background-color: var(--header-color);
     left: 0px;
     z-index:1;
   }
@@ -32,7 +32,8 @@
     top: 75px;
   }
 
-  .About {
+  .About, About:visited {
+    text-decoration: none;
     height: 22px;
     font-family: 'Noto Sans', sans-serif;
     font-size: 16px;
@@ -40,7 +41,7 @@
     text-align: left;
     color: #FFFFFF;
     position: absolute;
-    left: 300px;
+    left: 340px;
     top: 137px;
   }
 
