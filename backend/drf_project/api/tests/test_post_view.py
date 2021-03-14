@@ -150,3 +150,16 @@ class PostViewTestCase(TestCase):
         new_post_count = models.Post.objects.count()
         self.assertEqual(res.status_code, status.HTTP_204_NO_CONTENT)
         self.assertEqual(new_post_count, old_post_count)
+
+    def test_filtering_posts_by_tag_cat_and_keyword(self):
+        category_1 = models.Category.objects.create(name='cat_1' + str(time()))
+        tag_1 = models.Tag.objects.create(name='tag_1' + str(time()))
+        self.test_post_1 = models.Post.objects.create(
+            title='Test Post',
+            date='2021-01-06T02:50:24.052412Z',
+            content='<p>Fish sticks are a delicious food.</p>',
+            category=category_1)
+        self.test_post_1.tags.set([tag_1])
+        res = self.client.get(reverse('view posts'))
+        # must make assertions and actually filter the posts
+        # also must add post id filter to the test

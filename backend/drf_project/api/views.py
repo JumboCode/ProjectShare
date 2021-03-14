@@ -33,11 +33,13 @@ class PostViewSet(viewsets.ModelViewSet):
     def get_queryset(self):
         """
         Optionally restricts the returned posts by filtering
-        against a `category_id` or `tag_id` query parameter
-        in the URL, or by using the `keyword` query parameter
-        to return posts that contain that keyword in the title,
-        the category, any of its tags, or the body text.
+        against a `post_id`, `category_id` or `tag_id` query
+        parameter in the URL, or by using the `keyword` query
+        parameter to return posts that contain that keyword
+        in the title, the category, any of its tags, or the
+        body text.
         """
+        # TODO: add post_id filtering
         queryset = models.Post.objects.all()
         tag_id = self.request.query_params.get('tag_id', None)
         category_id = self.request.query_params.get('category_id', None)
