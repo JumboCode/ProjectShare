@@ -16,6 +16,7 @@ django-rest-auth = {extras = ["with_social"], version = "*"}
 pillow = "*"
 django-allauth = "*"
 psycopg2 = "*"
+sendgrid = "*"
 
 [requires]
 python_version = "3.8"

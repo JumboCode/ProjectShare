@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from "react-router-dom";
 import './FooterElement.css';
 
 class FooterElement extends Component {
@@ -17,10 +18,10 @@ class FooterElement extends Component {
           Spreading Health Access, Resources, and Education
         </ul>
         <ul className="About">
-          About
+          <Link to="/about"> About </Link>
         </ul>
         <ul className="Contact-Us">
-          Contact Us
+          Contact Us 
         </ul>
       </div>
 

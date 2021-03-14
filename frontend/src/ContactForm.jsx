@@ -1,6 +1,5 @@
 import React from 'react';
 import './ContactForm.css';
-import 'bootstrap/dist/css/bootstrap.min.css';
 
 class ContractForm extends React.Component {
   constructor(props) {
@@ -26,7 +25,6 @@ class ContractForm extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    console.log(this.state);
     fetch('/api/contact', {
       method: "POST",
       body: JSON.stringify(this.state),
@@ -52,32 +50,27 @@ class ContractForm extends React.Component {
   render() {
 
     return (
-      <div className="Contact-form-container">
-        <div>
-          <h2 className="Send-us-a-message">Send us a message!</h2>
-        </div>
-        <form onSubmit={this.handleSubmit}>
-          <div className="form-group">
-            <input 
-              name="email"
-              type="email" 
-              className="form-control" 
-              id="exampleInputEmail1" 
-              placeholder="Email Address" 
-              onChange={this.onChange}
-            />
-          </div>
-          <div className="form-group">
-            <textarea 
-              name="message"
-              className="form-control" 
-              id="exampleInputEmail1" 
-              placeholder="Message" 
-              rows="5"
-              onChange={this.onChange}
-            />
-          </div>
-          <button type="submit" className="btn btn-primary mb-2">Submit</button>
+      <div className="contact-form-container">
+        <h2 className="title-text">Send us a message!</h2>
+        <body className="additional-text">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+        </body>
+        <form className="contact-form" onSubmit={this.handleSubmit}>
+          <input 
+            name="email"
+            type="email" 
+            className="email-field" 
+            placeholder="Email Address"
+            onChange={this.onChange}
+          />
+          <textarea 
+            name="message" 
+            className="message-field"
+            placeholder="Message" 
+            rows="7" 
+            onChange={this.onChange}
+          />
+          <button className="submit-button" type="submit">Submit</button>
         </form>
       </div>
     );

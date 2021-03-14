@@ -4,7 +4,9 @@ from rest_framework import viewsets, permissions, views
 from rest_framework.decorators import api_view
 from . import serializers
 from . import models
-from django.core.mail import send_mail, BadHeaderError
+from sendgrid import SendGridAPIClient
+from sendgrid.helpers.mail import Mail
+from django.core.mail import BadHeaderError
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 import json
@@ -51,16 +53,19 @@ class LocationViewSet(viewsets.ModelViewSet):
 def contact(request):
     if request.method == 'POST':
         data = json.loads(request.body.decode("utf-8"))
-        subject = "Project Share Website Inquiry"
         body = {
             'email': data['email'],
             'message': data['message'],
         }
-        message = "\n".join(body.values())
+        message = Mail(
+            from_email=os.environ['CONTACT_EMAIL'],
+            to_emails=os.environ['CONTACT_EMAIL'],
+            subject='Project Share Website Inquiry',
+            html_content="\n".join(body.values()))
 
         try:
-            send_mail(subject, message, os.environ['CONTACT_EMAIL'],
-                      [os.environ['CONTACT_EMAIL']])
+            sg = SendGridAPIClient(os.environ.get('SENDGRID_API_KEY'))
+            sg.send(message)
         except BadHeaderError:
             return JsonResponse({'status': 'fail',
                                  'message': 'Invalid header found.'})
