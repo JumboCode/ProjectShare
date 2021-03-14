@@ -1,6 +1,6 @@
 import React from 'react';
 import './HomePage.css';
-import Button from 'react-bootstrap/Button';
+// import Button from 'react-bootstrap/Button';
 import DropdownButton from 'react-bootstrap/DropdownButton';
 import Dropdown from 'react-bootstrap/esm/Dropdown';
 import DropdownItem from 'react-bootstrap/esm/DropdownItem';
@@ -38,7 +38,7 @@ function Home(){
         <div className="needHelp">  
           <h3 className="helpHeader"> Need Help? </h3>
           <p className="helpParagraph"> Use our resource finder to find the information you are looking for. </p>
-          <Button variant="primary" className="helpButton"> Resource Finder </Button>
+          <button type="button" className="helpButton"> Resource Finder </button>
         </div>
       </div>
       <div className="featured">  </div> 
