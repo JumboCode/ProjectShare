@@ -378,6 +378,27 @@ paths:
                 id:
                   type: integer
         description: ''
+      parameters:
+        - schema:
+            type: integer
+          in: query
+          name: post_id
+          description: 'returns a single post that matches this ID, if any'
+        - schema:
+            type: integer
+          in: query
+          name: tag_id
+          description: returns posts that have a tag with this ID
+        - schema:
+            type: integer
+          in: query
+          name: category_id
+          description: returns posts that have the category with this ID
+        - schema:
+            type: string
+          in: query
+          name: keyword
+          description: 'returns posts that contain this keyword in the title, category, any of its tags, or the body text (case-insensitive)'
   '/tags/{tag_id}/update':
     parameters:
       - schema:

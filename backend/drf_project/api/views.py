@@ -39,11 +39,13 @@ class PostViewSet(viewsets.ModelViewSet):
         in the title, the category, any of its tags, or the
         body text.
         """
-        # TODO: add post_id filtering
         queryset = models.Post.objects.all()
+        post_id = self.request.query_params.get('post_id', None)
         tag_id = self.request.query_params.get('tag_id', None)
         category_id = self.request.query_params.get('category_id', None)
         keyword = self.request.query_params.get('keyword', None)
+        if post_id is not None:
+            queryset = queryset.filter(id=post_id)
         if tag_id is not None:
             queryset = queryset.filter(tags__id=tag_id)
         if category_id is not None:

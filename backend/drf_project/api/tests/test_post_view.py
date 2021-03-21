@@ -9,6 +9,8 @@ from django.urls import reverse
 from .. import models
 from django.conf import settings
 from django.core.files.uploadedfile import SimpleUploadedFile
+from django.utils.http import urlencode
+import json
 import os
 from time import time
 
@@ -160,6 +162,10 @@ class PostViewTestCase(TestCase):
             content='<p>Fish sticks are a delicious food.</p>',
             category=category_1)
         self.test_post_1.tags.set([tag_1])
-        res = self.client.get(reverse('view posts'))
-        # must make assertions and actually filter the posts
-        # also must add post id filter to the test
+        url = reverse('view posts')
+        query_kwargs = {'post_id': self.test_post_1.id, 'tag_id': tag_1.id,
+            'category_id': category_1.id, 'keyword': 'Fish'}
+        res = self.client.get(f'{url}?{urlencode(query_kwargs)}')
+        self.assertEqual(res.status_code, status.HTTP_200_OK)
+        self.assertEqual(res.json()[0]['id'], self.test_post_1.id)
+        self.assertEqual(len(res.json()), 1)
