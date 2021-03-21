@@ -3,6 +3,7 @@ import './Navigation.css';
 import { NavLink } from "react-router-dom";
 import logo from './static/projectSHARELogo.jpeg';
 import searchIcon from './static/searchIcon.png';
+import SearchBar from './SearchBar';
 
 
 class Navigation extends React.Component {
@@ -31,6 +32,7 @@ class Navigation extends React.Component {
     return (
       <div className="NavBar">
         <form onSubmit={this.handleSubmit}>
+
           <div className="topRow">
             <img 
               className="Logo"
@@ -51,6 +53,7 @@ class Navigation extends React.Component {
                 searchinput={input} 
                 onChange={this.handleChange} 
               />
+  
             </div>
 
             <button 
@@ -84,3 +87,5 @@ class Navigation extends React.Component {
 }
 
 export default Navigation;
+
+// can't just stretch out the input text field 
