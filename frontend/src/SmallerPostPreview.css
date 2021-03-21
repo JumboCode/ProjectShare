@@ -11,7 +11,7 @@
 
 .PhotoPlaceHolder {
     position: relative;
-    left: 15px;
+    left: 400px;
     top: 0px;
     width: 120px;
     height: 120px;
@@ -23,9 +23,9 @@
   position: relative;
   width: 200px;
   height: 22px;
-  bottom: 117px;
-  left: 150px;
-  font-family: 'NotoSans';
+  bottom: 135px;
+  left: 20px;
+  font-family: 'Noto Sans', sans-serif;
   font-size: 16px;
   font-weight: 500;
   color: #556474;
@@ -41,10 +41,10 @@
   width: 353px;
   height: 50px;
   font-size: 18px;
-  bottom: 135px;
-  left: 150px;
+  bottom: 155px;
+  left: 20px;
   color: #094067;
-  font-family: 'NotoSans';
+  font-family: 'Noto Sans', sans-serif;
   text-align: left;
   font-weight: bold;
   background-color: #ffffff;
@@ -54,8 +54,8 @@
   position: relative;
   width: max-content;
   height: 3px;
-  bottom: 160px;
-  left: 150px;
+  bottom: 165px;
+  left: 20px;
   align-items: center;
   gap: 10px;
   white-space: nowrap;
@@ -66,7 +66,7 @@
 .tagElemPost {
     width: 24;
     height: 19px;
-    font-family: 'Noto Sans';
+    font-family: 'Noto Sans', sans-serif;
     font-size: 14px;
     font-weight: 100;
     text-align: left;
@@ -76,6 +76,23 @@
     border: solid 1px;
     border-color: #3da9fc;
     color: #3da9fc;
-    background-color: #ebf6ff;
     text-decoration: none;
+}
+
+.SmallPostContent {
+  position: relative;
+  width: 390px;
+  height: 1px;
+  left: 20px;
+  bottom: 197px;
+  font-size: 15px;
+  font-family: 'Noto Serif';
+  font-size: 16px;
+  font-weight: 500;
+  color: #556474;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  text-align: left;
 }
