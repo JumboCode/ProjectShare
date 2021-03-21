@@ -1,10 +1,8 @@
 import React from 'react';
 import './PostPreview.css';
-//import Data from "./Post.jsx";
 
 
 function PostPreview({ Data }) {
-    console.log()
     return (
     <div className="PostPreview">
         <p>
@@ -20,12 +18,15 @@ function PostPreview({ Data }) {
         </div>
         <div className="PostContent">
             {
-                Data.content.substr(0, 142)
+                `${Data.content.substr(0, 113)}...`
             }
         </div>
-        <h5 className="Tags">
-            { Data.tags }
-        </h5>
+        <div text="..."> </div>
+        <p className="Tags">
+          {Data.tags.map(tag => (
+            <a href="/" className="tagElemPost" key={tag}>{tag}</a>
+          ))}
+        </p>
     </div>
     )
 }
