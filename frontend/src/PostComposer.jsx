@@ -4,6 +4,7 @@ import Button from 'react-bootstrap/Button';
 import DropdownButton from 'react-bootstrap/DropdownButton';
 import Dropdown from 'react-bootstrap/Dropdown';
 import Badge from 'react-bootstrap/Badge';
+import Col from 'react-bootstrap/Col';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './PostComposer.css';
 
@@ -18,12 +19,19 @@ class PostComposer extends React.Component {
         name: ''
       },
       selectedTags: [],
+      locations: [],
+      images: [],
       categories: [],
       tags: [],
       addCategoryClicked: false,
       newCategoryName: '',
       addTagClicked: false,
       newTagName: '',
+      newLongitude: '',
+      newLatitude: '',
+      newLocationName: '',
+      addLocationClicked: false,
+      selectedFile: ''
     };
 
     this.handleInputChange = this.handleInputChange.bind(this);
@@ -35,6 +43,8 @@ class PostComposer extends React.Component {
     this.handleAddTag = this.handleAddTag.bind(this);
     this.handleSelectTags = this.handleSelectTags.bind(this);
     this.handleRemoveTag = this.handleRemoveTag.bind(this);
+    this.handleAddLocation = this.handleAddLocation.bind(this);
+    this.handleUploadImage = this.handleUploadImage.bind(this);
   }
 
   // When component is created, fetch current list of categories 
@@ -69,17 +79,17 @@ class PostComposer extends React.Component {
   
   // Schema model for posting to server when form is submitted
   postModel() {
-    const {title, content, category, selectedTags} = this.state;
+    const {title, content, category, selectedTags, locations, images} = this.state;
 
     return ({
       "title": title,
       "content": content,
       "language": "EN",
-      "images": [],
+      "images": images,
       "tags": selectedTags,
       "category": category,
-      "date": "2021-01-06T02:50:24.052412Z",
-      "locations": []
+      "date": new Date().toISOString(),
+      "locations": locations
     });
   }
 
@@ -131,7 +141,7 @@ class PostComposer extends React.Component {
     const data = { name: newCategoryName };
     this.setState({ category: data });
     // Set create category input field to empty
-    this.setState({ newCategoryName: '' });
+    this.setState({ newCategoryName: '', addCategoryClicked: false });
   }
 
   // When user add a new tag, apply tag to post
@@ -140,9 +150,12 @@ class PostComposer extends React.Component {
     const data = { name: newTagName };
 
     // Get added tag and apply to current post
-    selectedTags.push(data);
+    if (!selectedTags.some(tag => tag.name === newTagName)) {
+      selectedTags.push(data);
+    };
+
     // Set create category input field to empty
-    this.setState({ newTagName: '' });
+    this.setState({ newTagName: '', addTagClicked: false });
   }
 
   // When a tag is clicked, remove that tag from selected list
@@ -155,11 +168,51 @@ class PostComposer extends React.Component {
     this.setState({ selectedTags : tags });
   }
 
+  // When location's info is filled out, add to locations array 
+  handleAddLocation() {
+    const { newLatitude, newLongitude, newLocationName, locations } = this.state;
+    const data = {
+      latitude: newLatitude,
+      longitude: newLongitude,
+      name: newLocationName
+    }
+
+    // If same exact location has been added before, do not add again
+    if (!locations.some(l => 
+      (l.latitude === newLatitude) && (l.longitude === newLongitude))) {
+      locations.push(data);
+    };
+  
+    this.setState({ newLatitude: '', newLongitude: '', newLocationName: '', 
+      addLocationClicked: false });
+  }
+
+  // Get information of chosen file and upload to server
+  handleUploadImage() {
+    const { selectedFile, images } = this.state;
+    
+    const formdata = new FormData();
+    formdata.append("img_file", selectedFile);
+    formdata.append("img_name", selectedFile.name);
+    
+    const requestOptions = {
+      method: 'POST',
+      body: formdata
+    };
+
+    // POST request to upload image and append to list of post's images 
+    fetch("http://localhost:8000/api/images/add", requestOptions)
+      .then(response => response.json())
+      .then(data => { images.push({ img_name: data.img_name, id: data.id })})
+      .then(() => this.setState({ selectedFile: '' }));
+  }
+
   render() {
 
     const { title, content, categories, category, addCategoryClicked, 
       newCategoryName, tags, addTagClicked, 
-      newTagName, selectedTags } = this.state;
+      newTagName, selectedTags, locations, addLocationClicked, newLatitude, 
+      newLongitude, newLocationName, images } = this.state;
 
     return (
       <div>
@@ -289,12 +342,104 @@ class PostComposer extends React.Component {
             </Form.Group>
           )}
 
+          {/* Add Location */}
+          <Form.Group>
+            <Form.Label>Locations</Form.Label>
+            {locations.map((location, index) => 
+              ( 
+                <Badge 
+                  // eslint-disable-next-line react/no-array-index-key
+                  key={index}
+                  variant="secondary" className="tagBadge"
+                >
+                  { `(${location.name}, ${location.latitude}, ${location.longitude})` }
+                </Badge>
+              ))}
+            <br />
+            <Button
+              onClick={() => this.setState({ addLocationClicked:true })}
+            >
+              Add Map Locations
+            </Button>
+            {addLocationClicked && (
+              <Form.Group className="addLocationsForm">
+                <Form.Row>
+                  <Form.Group as={Col}>
+                    <Form.Label>Latitude</Form.Label>
+                    <Form.Control 
+                      type="text" 
+                      placeholder="10.000"
+                      name="newLatitude"
+                      value={newLatitude} 
+                      onChange={this.handleInputChange} 
+                    />
+                  </Form.Group>
+
+                  <Form.Group as={Col}>
+                    <Form.Label>Longitude</Form.Label>
+                    <Form.Control 
+                      type="text" 
+                      placeholder="20.000" 
+                      name="newLongitude"
+                      value={newLongitude} 
+                      onChange={this.handleInputChange} 
+                    />
+                  </Form.Group>
+                </Form.Row>
+
+                <Form.Group>
+                  <Form.Label>Description/Name</Form.Label>
+                  <Form.Control 
+                    type="text"  
+                    placeholder="1234 Main St"
+                    name="newLocationName"
+                    value={newLocationName}
+                    onChange={this.handleInputChange} 
+                  />
+                </Form.Group>
+                <Button 
+                  variant="primary" 
+                  size="sm"
+                  onClick={this.handleAddLocation}
+                >
+                  Add
+                </Button>
+              </Form.Group>
+            )}
+          </Form.Group>
+
+          {/* Add Image */}
+          <Form.Group>
+            <Form.Label> Images </Form.Label>
+            {images.map(image => 
+              ( 
+                <Badge 
+                  key={image.id}
+                  variant="secondary" className="stickyBadge"
+                >
+                  {image.img_name}
+                </Badge>
+              ))}
+            <Form.Group className="addForm">
+              <Form.File 
+                className="chooseFileButton"
+                onChange={(e) => this.setState({selectedFile: e.target.files[0]})} 
+              />
+              <Button 
+                variant="primary" 
+                size="sm"
+                onClick={this.handleUploadImage}
+              >
+                Upload
+              </Button>
+            </Form.Group>
+            <Form.Text className="text-muted">
+              (You need to upload image before submitting post)
+            </Form.Text>
+          </Form.Group>
+          
           {/* Submit button */}
-          <Button 
-            className="submitButton" 
-            variant="primary" 
-            type="submit"
-          >
+          <Button className="submitButton" variant="primary" type="submit">  
             Submit
           </Button>
 
