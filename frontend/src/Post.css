@@ -90,6 +90,8 @@
   }
 
 .map {
+    position:relative;
     width: 640px;
     height: 480px;
+    left: -189px;
   }

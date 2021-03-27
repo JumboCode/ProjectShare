@@ -136,3 +136,17 @@ class PostViewTestCase(TestCase):
         new_loc_count = models.Location.objects.count()
         self.assertEqual(res.status_code, status.HTTP_201_CREATED)
         self.assertEqual(new_loc_count, old_loc_count)
+
+    def test_delete_single_post(self):
+        old_post_count = models.Post.objects.count()
+        category_1 = models.Category.objects.create(name='cat_1' + str(time()))
+        self.test_post_1 = models.Post.objects.create(
+            title='Test Post',
+            date='2021-01-06T02:50:24.052412Z',
+            content='<p>Test Content</p>',
+            category=category_1)
+        res = self.client.delete(reverse(
+            'delete post', kwargs={'post_id': self.test_post_1.id}))
+        new_post_count = models.Post.objects.count()
+        self.assertEqual(res.status_code, status.HTTP_204_NO_CONTENT)
+        self.assertEqual(new_post_count, old_post_count)

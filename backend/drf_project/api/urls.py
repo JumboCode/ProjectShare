@@ -45,4 +45,6 @@ image_urls = [
     ),
 ]
 
+
+
 urlpatterns = tag_urls + category_urls + image_urls + post_urls + location_urls
