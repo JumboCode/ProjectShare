@@ -67,9 +67,9 @@ class ContractForm extends React.Component {
           message={status ? 'Your message was sent!' : 'Error in sending message. Please try again.'}
         />
         <h2 className="title-text">Send us a message!</h2>
-        <body className="additional-text">
+        <p className="additional-text">
           Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-        </body>
+        </p>
         <form className="contact-form">
           <input 
             name="email"

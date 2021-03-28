@@ -18,7 +18,7 @@ h2 {
   color: var(--header-color);
 }
 
-body {
+p {
   font-family: 'NotoSerif';
   margin: 30px 0 0;
   font-size: 15px;
