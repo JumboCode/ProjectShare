@@ -17,9 +17,7 @@ class FooterElement extends Component {
         <ul className="footer-credits-subtitle">
           Spreading Health Access, Resources, and Education
         </ul>
-        <ul className="About">
-          <Link to="/about"> About </Link>
-        </ul>
+        <Link className="About" to="/about"> About </Link>
         <ul className="Contact-Us">
           Contact Us 
         </ul>
