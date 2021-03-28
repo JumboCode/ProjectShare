@@ -37,24 +37,26 @@ class Dashboard extends React.Component {
             </tr>
           </thead>
           <tbody>
-            {fetchData.map((post,index) =>
+            {fetchData.map((post,index) => (
               <tr key={index}>
                 <td>{post.title}</td>
                 <td>{post.date}</td>
-                <td>{post.tags.map((tags, i) => 
-                  <p key={i}>{tags.name}</p> )}
+                <td>
+                  {post.tags.map((tags, i) => 
+                    <p key={i}>{tags.name}</p> )}
                 </td>
                 <td>{post.category.name}</td>
-              </tr> 
+              </tr>
+            ) 
             )}
           </tbody>
         </Table>
       );
-    } else {
-      return (
-        <h3>Loading...</h3>
-      );
-    }
+    } 
+    return (
+      <h3>Loading...</h3>
+    );
+    
   }
 }
 
