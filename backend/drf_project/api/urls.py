@@ -45,6 +45,15 @@ image_urls = [
     ),
 ]
 
+#{'httprequest'; 'function_name'}
+related_tags_irl = [
+    path(
+        '/tags/related', 
+        views.get_related_tags(request)
+        name='related tags'
+    ),
+]
+
 
 
 urlpatterns = tag_urls + category_urls + image_urls + post_urls + location_urls

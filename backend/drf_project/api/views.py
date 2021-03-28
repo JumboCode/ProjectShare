@@ -38,3 +38,13 @@ class LocationViewSet(viewsets.ModelViewSet):
     queryset = models.Location.objects.all()
     serializer_class = serializers.LocationSerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+
+
+
+#doesnt have to be
+def get_related_tags(self):
+    tags = self.request.query_params.get('tags', None) 
+    Post.objects.filter(post__tags__contains=tags)
+    
+
+
