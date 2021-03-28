@@ -23,7 +23,7 @@ function AppRouter() {
           <Route exact path="/" component={IndexPage} />
           <Route path="/about" component={AboutPage} />
           <Route path="/home" component={HomePage} />
-          <Route component={Post} />
+          <Route path="/post/:postId" component={Post} />
           <Route component={NotFound} />
         </Switch>
         <FooterElement /> 
