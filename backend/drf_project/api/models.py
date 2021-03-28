@@ -25,6 +25,10 @@ class Image(models.Model):
         unique=True)
 
 
+class Pdf(models.Model):
+    pdf_file = models.FileField()
+
+
 class Post(models.Model):
     LANG_CHOICES = [
             ('EN', 'English'),
