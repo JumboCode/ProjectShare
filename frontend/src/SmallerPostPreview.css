@@ -1,81 +1,104 @@
+:root {
+     --header: #094067;
+     --primary: #3da9fc;
+     --paragraph: #556474;
+     --shade:  #e9e9e9
+ }
+
+
 .SmallerPostPreview {
-  width: 536px;
-  height: 154px;
-  top:  796px;
-  left: 585px;
-  position: relative;
-  border-radius: 3px;
-  border: solid 1px #e9e9e9;
-  background-color: #ffffff;
-}
+   width: 536px;
+   height: 154px;
+   top:  796px;
+   left: 585px;
+   position: relative;
+   border-radius: 3px;
+   border: solid 1px var(--shade);
+ }
 
-.PhotoPlaceHolder {
+ .PhotoPlaceHolder {
+     position: relative;
+     left: 400px;
+     top: 0px;
+     width: 120px;
+     height: 120px;
+     background-color: pink;
+     text-align: center;
+ }
+
+ .DatePosted {
+   position: relative;
+   width: 200px;
+   height: 22px;
+   bottom: 135px;
+   left: 20px;
+   font-family: 'Noto Sans', sans-serif;
+   font-size: 16px;
+   font-weight: 500;
+   color: var(--paragraph);
+   font-stretch: normal;
+   font-style: normal;
+   line-height: normal;
+   letter-spacing: normal;
+   text-align: left;
+ }
+
+ .Title {
+   position: relative;
+   width: 353px;
+   height: 50px;
+   font-size: 18px;
+   bottom: 155px;
+   left: 20px;
+   color: var(--header);
+   font-family: 'Noto Sans', sans-serif;
+   text-align: left;
+   font-weight: bold;
+ }
+
+ .Tags {
+   position: relative;
+   width: max-content;
+   height: 3px;
+   bottom: 160px;
+   left: 20px;
+   align-items: center;
+   gap: 10px;
+   white-space: nowrap;
+   text-align: left;
+ }
+
+
+ .tagElemPost {
+     width: 24;
+     height: 19px;
+     font-family: 'Noto Sans', sans-serif;
+     font-size: 14px;
+     font-weight: 100;
+     text-align: left;
+     margin: 0 10px 0 0;
+     padding: 5px 5px 5px 5px;
+     border-radius: 3px;
+     border: solid 1px;
+     border-color: var(--primary);
+     color: var(--primary);
+     text-decoration: none;
+ }
+
+ .SmallPostContent {
     position: relative;
-    left: 15px;
-    top: 0px;
-    width: 120px;
-    height: 120px;
-    background-color: pink;
-    text-align: center;
-}
-
-.DatePosted {
-  position: relative;
-  width: 200px;
-  height: 22px;
-  bottom: 117px;
-  left: 150px;
-  font-family: 'Noto Sans', sans-serif;
-  font-size: 16px;
-  font-weight: 500;
-  color: #556474;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: normal;
-  letter-spacing: normal;
-  text-align: left;
-}
-
-.Title {
-  position: relative;
-  width: 353px;
-  height: 50px;
-  font-size: 18px;
-  bottom: 135px;
-  left: 150px;
-  color: #094067;
-  font-family: 'Noto Sans', sans-serif;
-  text-align: left;
-  font-weight: bold;
-  background-color: #ffffff;
-}
-
-.Tags {
-  position: relative;
-  width: max-content;
-  height: 3px;
-  bottom: 160px;
-  left: 150px;
-  align-items: center;
-  gap: 10px;
-  white-space: nowrap;
-  text-align: left;
-}
-
-
-.tagElemPost {
-    width: 24;
-    height: 19px;
-    font-family: 'Noto Sans', sans-serif;
-    font-size: 14px;
-    font-weight: 100;
+    width: 390px;
+    height: 1px;
+    left: 20px;
+    bottom: 195px;
+    font-size: 15px;
+    font-family: 'Noto Serif';
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--paragraph);
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
     text-align: left;
-    margin: 0 10px 0 0;
-    padding: 5px 5px 5px 5px;
-    border-radius: 3px;
-    border: solid 1px;
-    border-color: #3da9fc;
-    color: #3da9fc;
-    background-color: #ebf6ff;
-    text-decoration: none;
-}
+  }
