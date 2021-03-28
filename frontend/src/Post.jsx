@@ -1,7 +1,6 @@
 import React from "react";
 import Map from "./MapboxMap";
 import "./Post.css";
-import PostPreview from "./PostPreview";
 
 const templateData = [{
   "tags": ["Access", "Clinics", "Women's Health", "Child Health"],
@@ -23,7 +22,6 @@ class Post extends React.Component {
     const post = templateData[0]
     return (
       <div className="post">
-            <PostPreview Data={templateData[0]} />
         <p className="tags">
           {post.tags.map(tag => (
             <a href="/" className="tagElem" key={tag}>{tag}</a>

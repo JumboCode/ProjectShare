@@ -9,7 +9,7 @@ const places = [
   { id: 1, pos: {lat: 37.772, lng: -122.214} },
   { id: 2, pos: {lat: 29.772, lng: -102.214} },
   { id: 3, pos: {lat: 42.418560, lng: -71.106453} },
-  { id: 4, pos: {lat: 51.507351, lng: -0.127758} } 
+  { id: 4, pos: {lat: 51.507351, lng: -0.127758} }
 ]
 
 class Map extends Component {
@@ -28,26 +28,26 @@ class Map extends Component {
     };
   }
 
-  componentDidMount() { 
+  componentDidMount() {
     /* Calculate pairs of min lnglat and max lnglat */
     const lat = places.map(location => Number(location.pos.lat));
     const lng = places.map(location => Number(location.pos.lng));
-    
+
     const minCoords = [Math.min.apply(null, lng), Math.min.apply(null, lat)];
     const maxCoords = [Math.max.apply(null, lng), Math.max.apply(null, lat)];
-    const bounds = [minCoords, maxCoords];  
+    const bounds = [minCoords, maxCoords];
 
     /* Create new viewport with new bounds from calculations */
     const { viewport } = this.state;
-    
-    const vp = new WebMercatorViewport(viewport); 
-    const {longitude, latitude, zoom} = vp.fitBounds(bounds, {padding: 10});    
 
-    this.setState({ 
+    const vp = new WebMercatorViewport(viewport);
+    const {longitude, latitude, zoom} = vp.fitBounds(bounds, {padding: 10});
+
+    this.setState({
       viewport: {
         width: "100%",
         height: "100%",
-      }, 
+      },
       viewState: {
         latitude,
         longitude,
@@ -58,19 +58,19 @@ class Map extends Component {
 
   render() {
     const { viewport, viewState } = this.state;
-    
+
     return (
       <MapGL
         width={viewport.width}
         height={viewport.height}
         viewState={viewState}
-        mapStyle="mapbox://styles/mapbox/streets-v11"
+        mapStyle="mapbox://styles/mapbox/light-v10"
         onViewportChange={vs => this.setState({viewState: vs})}
         mapboxApiAccessToken={MAPBOX_TOKEN}
       >
         {
           places.map(
-            city => 
+            city =>
               (
                 <Marker
                   key={city.id}
@@ -89,4 +89,4 @@ class Map extends Component {
   }
 }
 
-export default Map; 
+export default Map;
