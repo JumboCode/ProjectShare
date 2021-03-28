@@ -1,0 +1,51 @@
+form {
+  width: 50%;
+  margin: 2%;
+  text-align: left;
+}
+
+.btn {
+  background-color: white;
+  color: #3CA9FC;
+  border-color: #3CA9FC;
+}
+
+.dropdown-item:hover {
+  background-color: #EBF6FF;
+}
+
+.badge-secondary.categoryBadge {
+  background-color: #FFC008;
+  margin-left: 1%;
+  font-size: medium;
+}
+
+.badge-secondary.tagBadge {
+  background-color: #FFC008;
+  margin-left: 1%;
+  font-size: small;
+  cursor: pointer;
+}
+
+.badge-secondary.tagBadge:hover {
+  background-color: #E0A700;
+  opacity: 0.8; 
+}
+
+.groupButtons {
+  display: flex;
+}
+
+.addForm {
+  display: flex;
+}
+
+.addButton {
+  margin-left: 1%;
+}
+
+.submitButton {
+  background-color: #3CA9FC;
+  color: white;
+  border-color: #3CA9FC;
+}

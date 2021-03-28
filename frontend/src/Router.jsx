@@ -4,11 +4,14 @@ import {
   Switch,
   Route
 } from "react-router-dom";
+
 import NotFound from "./NotFound";
 import AboutPage from './AboutPage';
 import Navigation from './Navigation';
 import IndexPage from './indexPage';
 import FooterElement from './FooterElement';
+import HomePage from './HomePage';
+import Post from './Post';
  
 function AppRouter() {
  
@@ -19,6 +22,8 @@ function AppRouter() {
         <Switch>
           <Route exact path="/" component={IndexPage} />
           <Route path="/about" component={AboutPage} />
+          <Route path="/home" component={HomePage} />
+          <Route component={Post} />
           <Route component={NotFound} />
         </Switch>
         <FooterElement /> 
