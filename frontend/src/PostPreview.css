@@ -1,3 +1,9 @@
+:root {
+    --header: #094067;
+    --primary: #3da9fc;
+    --paragraph: #556474;
+    --shade:  #e9e9e9
+}
 .PostPreview {
   width: 536px;
   height: 437px;
@@ -5,8 +11,7 @@
   left: 585px;
   top: 268px;
   border-radius: 3px;
-  border: solid 1px #e9e9e9;
-  background-color: #ffffff;
+  border: solid 2px var(--shade);
 }
 
 .PhotoPlaceHolder {
@@ -28,7 +33,7 @@
   font-family: 'Noto Sans', sans-serif;
   font-size: 16px;
   font-weight: 500;
-  color: #556474;
+  color: var(--paragraph);
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
@@ -44,11 +49,10 @@
   top: 0px;
   text-align: left;
   font-size: 18px;
-  color: #094067;
+  color: var(--header);
   font-family: 'Noto Sans', sans-serif;
   text-align: left;
   font-weight: bold;
-  background-color: #ffffff;
 }
 
 .Tags {
@@ -58,7 +62,6 @@
   left: 25px;
   top: 65px;
   text-align: left;
-  background-color: #ffffff;
 }
 
 .tagElemPost {
@@ -72,8 +75,8 @@
     padding: 5px 5px 5px 5px;
     border-radius: 3px;
     border: solid 1px;
-    border-color: #3da9fc;
-    color: #3da9fc;
+    border-color: var(--primary);
+    color: var(--primary);
     text-decoration: none;
 }
 
@@ -87,7 +90,7 @@
   font-family: 'Noto Serif';
   font-size: 16px;
   font-weight: 500;
-  color: #556474;
+  color: var(--header);
   font-stretch: normal;
   font-style: normal;
   line-height: normal;

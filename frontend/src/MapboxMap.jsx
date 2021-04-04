@@ -33,26 +33,26 @@ class Map extends Component {
     };
   }
 
-  componentDidMount() { 
+  componentDidMount() {
     /* Calculate pairs of min lnglat and max lnglat */
     const lat = places.map(location => Number(location.pos.lat));
     const lng = places.map(location => Number(location.pos.lng));
-    
+
     const minCoords = [Math.min.apply(null, lng), Math.min.apply(null, lat)];
     const maxCoords = [Math.max.apply(null, lng), Math.max.apply(null, lat)];
-    const bounds = [minCoords, maxCoords];  
+    const bounds = [minCoords, maxCoords];
 
     /* Create new viewport with new bounds from calculations */
     const { viewport } = this.state;
-    
-    const vp = new WebMercatorViewport(viewport); 
-    const {longitude, latitude, zoom} = vp.fitBounds(bounds, {padding: 10});    
 
-    this.setState({ 
+    const vp = new WebMercatorViewport(viewport);
+    const {longitude, latitude, zoom} = vp.fitBounds(bounds, {padding: 10});
+
+    this.setState({
       viewport: {
         width: "100%",
         height: "100%",
-      }, 
+      },
       viewState: {
         latitude,
         longitude,
@@ -79,7 +79,7 @@ class Map extends Component {
 
   render() {
     const { viewport, viewState } = this.state;
-    
+
     return (
       <div className="mapComponent">
         
@@ -102,7 +102,7 @@ class Map extends Component {
           width={viewport.width}
           height={viewport.height}
           viewState={viewState}
-          mapStyle="mapbox://styles/mapbox/streets-v11"
+          mapStyle="mapbox://styles/mapbox/light-v10"
           onViewportChange={vs => this.setState({viewState: vs})}
           mapboxApiAccessToken={MAPBOX_TOKEN}
         >
@@ -128,4 +128,4 @@ class Map extends Component {
   }
 }
 
-export default Map; 
+export default Map;
