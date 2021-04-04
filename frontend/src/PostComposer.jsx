@@ -34,6 +34,7 @@ class PostComposer extends React.Component {
       selectedFile: ''
     };
 
+    this.fileInput = React.createRef();
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleAddCategory = this.handleAddCategory.bind(this);
@@ -193,7 +194,6 @@ class PostComposer extends React.Component {
     
     const formdata = new FormData();
     formdata.append("img_file", selectedFile);
-    formdata.append("img_name", selectedFile.name);
     
     const requestOptions = {
       method: 'POST',
@@ -203,7 +203,9 @@ class PostComposer extends React.Component {
     // POST request to upload image and append to list of post's images 
     fetch("http://localhost:8000/api/images/add", requestOptions)
       .then(response => response.json())
-      .then(data => { images.push({ img_name: data.img_name, id: data.id })})
+      .then(data => { images.push({ id: data.id })})
+      // reset input Image file
+      .then(() => { this.fileInput.current.value = '' })
       .then(() => this.setState({ selectedFile: '' }));
   }
 
@@ -417,17 +419,17 @@ class PostComposer extends React.Component {
                   key={image.id}
                   variant="secondary" className="stickyBadge"
                 >
-                  {image.img_name}
+                  {`IMG ${image.id}`}
                 </Badge>
               ))}
             <Form.Group className="addForm">
               <Form.File 
                 className="chooseFileButton"
+                ref={this.fileInput}
                 onChange={(e) => this.setState({selectedFile: e.target.files[0]})} 
               />
               <Button 
                 variant="primary" 
-                size="sm"
                 onClick={this.handleUploadImage}
               >
                 Upload

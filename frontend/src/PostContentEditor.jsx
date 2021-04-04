@@ -6,7 +6,7 @@ import React from "react";
 import { Editor } from "react-draft-wysiwyg";
 import { EditorState, convertToRaw } from 'draft-js';
 import draftToMarkdown from 'draftjs-to-markdown';
-import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
+import "../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 
 class MyEditor extends React.Component {
   static uploadImage(img) {
