@@ -1,0 +1,66 @@
+.mapComponent {
+      position: absolute;
+      width:100%;
+      height: 100%;
+      /* to get rid of */
+      top: -450px;
+}
+
+.mapLocationListContainer {
+  position: relative;
+  /* width: 0%;
+  height: 0%; */
+  width: 400px;
+  height:450px;
+  left: 670px; 
+  top:450px;
+  overflow-y: scroll;
+}
+
+.mapLocationRectangles {
+  width: 349px;
+  height: 70px;
+  margin: 0px 210px 20px 30px;
+  border-radius: 3px;
+  border: 2px solid#efefef;
+}
+
+.mapAddressName {
+  font-family: 'Noto Sans';
+  font-size: 16px;
+  font-weight: 600; 
+  color: #094067;
+  margin: 10px 0px 0 44px;
+  line-height: normal;
+  text-align: left;
+}
+
+.mapAddress {
+  font-family: 'Noto Serif';
+  font-size: 15px;
+  text-align: left;
+  color: #094067;
+  margin: 0px 0 12px 44px;
+}
+
+.mapBulletPoints {
+  position: relative;
+  height: 6.5px;
+  width: 6.5px;
+  left: 16px;
+  top: -45px;
+  border-radius: 50%;
+  border: 2px solid#094067;
+}
+
+.locationButtons {
+  position: relative;
+  width: 349px;
+  height: 70px;
+  top: -100px;
+  opacity:0;
+}
+
+.locationButtons:hover {
+  cursor:pointer;
+}
