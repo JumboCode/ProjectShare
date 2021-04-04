@@ -24,14 +24,18 @@ class MyEditor extends React.Component {
 
   constructor(props) {
     super(props);
+    const { setTextFormatted } = this.props;
     this.state = { editorState: EditorState.createEmpty() };
-    this.onChange = editorState => this.setState({ editorState });
+    this.onChange = editorState => {
+      this.setState({ editorState });
+      setTextFormatted(this.getMarkdown());
+    }
   }
 
   getMarkdown() {
     const { editorState } = this.state;
     const rawContentState = convertToRaw(editorState.getCurrentContent());
-    const markup = draftToMarkdown(rawContentState);
+    const markup = draftToMarkdown(rawContentState);    
     return markup;
   }
 

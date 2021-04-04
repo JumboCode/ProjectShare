@@ -5,19 +5,22 @@ import DropdownButton from 'react-bootstrap/DropdownButton';
 import Dropdown from 'react-bootstrap/Dropdown';
 import Badge from 'react-bootstrap/Badge';
 import Col from 'react-bootstrap/Col';
+import PostContentEditor from './PostContentEditor';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './PostComposer.css';
 
-/* Component for admins to create a new post, then save and POST to database */
+/* 
+ * Component for admins to create a new post, then save and POST to database 
+ * Post has Title, content, category, tags, locations, and images
+ * User may also edit post content
+ */
 class PostComposer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       title: '',
       content: '',
-      category: { 
-        name: ''
-      },
+      category: '',
       selectedTags: [],
       locations: [],
       images: [],
@@ -37,6 +40,8 @@ class PostComposer extends React.Component {
     this.fileInput = React.createRef();
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleSetTitle = this.handleSetTitle.bind(this);
+    this.handleSetContent = this.handleSetContent.bind(this);
     this.handleAddCategory = this.handleAddCategory.bind(this);
     this.getCategoriesList = this.getCategoriesList.bind(this);
     this.handleSelectCategory = this.handleSelectCategory.bind(this);
@@ -108,8 +113,8 @@ class PostComposer extends React.Component {
   // When form is submitted, create a new post and send to server
   handleSubmit(event) {
     event.preventDefault();
-    const post = this.postModel();   
-
+    const post = this.postModel();       
+    
     fetch('http://localhost:8000/api/posts/add', {
       method: 'POST',
       headers: { "Content-Type": "application/json" },
@@ -122,6 +127,14 @@ class PostComposer extends React.Component {
     const selectedCategory = { name: event };  
     this.setState({ category: selectedCategory })
   }
+
+  handleSetTitle(titleFormatted) {
+    this.setState({ title: titleFormatted });
+  } 
+
+  handleSetContent(contentFormatted) {
+    this.setState({ content: contentFormatted });
+  } 
 
   // When a tag is selected from dropdown, save to selected tags array  
   handleSelectTags(event) {
@@ -209,9 +222,10 @@ class PostComposer extends React.Component {
       .then(() => this.setState({ selectedFile: '' }));
   }
 
+
   render() {
 
-    const { title, content, categories, category, addCategoryClicked, 
+    const { categories, category, addCategoryClicked, 
       newCategoryName, tags, addTagClicked, 
       newTagName, selectedTags, locations, addLocationClicked, newLatitude, 
       newLongitude, newLocationName, images } = this.state;
@@ -223,23 +237,15 @@ class PostComposer extends React.Component {
           {/* Title input */}
           <Form.Group>
             <Form.Label>Post title</Form.Label>
-            <Form.Control 
-              type="text" 
-              placeholder="Enter title" 
-              name="title"
-              value={title} 
-              onChange={this.handleInputChange} 
+            <PostContentEditor
+              setTextFormatted={this.handleSetTitle}
             />
           </Form.Group>
           {/* Content input */}
           <Form.Group>
             <Form.Label>Post Content</Form.Label>
-            <Form.Control 
-              type="text"
-              name="content"
-              placeholder="Enter content"
-              value={content}
-              onChange={this.handleInputChange} 
+            <PostContentEditor
+              setTextFormatted={this.handleSetContent}
             />
           </Form.Group>
           {/* Category Choose or Add buttons */}
