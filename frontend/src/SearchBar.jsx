@@ -7,15 +7,24 @@ class SearchBar extends React.Component{
     super(props);
     this.state = {
       searchInput: '',
+      { tags: []},
     };
+
     this.handleChange = this.handleChange.bind(this);
   }
 
+  componentDidMount(){
+    fetch("http://localhost:8000/api/tags")
+      .then(res => res.json())
+      .then(res => this.setState({tags: res})
+  }
+
   handleChange(event){
-    this.setState({searchInput: event.target.value});
+    this.setState({searchInput: this.search.value});
     // eslint-disable-next-line no-console
     console.log(event.target.value);
   }
+
 
   render(){
     const { input } = this.state;
@@ -40,3 +49,6 @@ export default SearchBar;
 
 // PURPOSE: rendered based on firing on event. based on user. 
 // TODO: change size and make it fit inside the box
+
+
+// https://dev.to/sage911/how-to-write-a-search-component-with-suggestions-in-react-d20

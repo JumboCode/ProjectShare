@@ -21,7 +21,7 @@
     top: 29px;
     width: 40px;
     height: 40px;
-    margin: 6px 15px 6px 30px;
+    margin: 3px 15px 6px 30px;
 }
 
 .navbarLink {
@@ -75,22 +75,31 @@
 }
 
 .SearchBar {
-    width: 35vw;
+    width: 80%;
     height: 30%;
     position: relative;
-    top: 25px;
-    padding: 15px;
-    padding-left: 35px;
     border-radius: 3px;
-    background-color: var(--shade-color);
+    background-color:  #ffffff;
     border: none;
     color: var(--paragraph-color);
     vertical-align: middle;
+    display: inline-block;
+
+    background-color: #efefef;
+
 }
 
-.Search {
-    /* position: relative; */
-    display: inline-block;
+.SearchBox {
+
+    width: 35vw;
+    height: 30%;
+    position: relative;
+    margin-top: 30px;
+    background-color: #efefef;
+    padding: 8px 10px ;
+    border-radius: 3px;
+    gap: 10px;
+
 }
 
 .Search img {

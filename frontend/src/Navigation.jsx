@@ -1,9 +1,10 @@
 import React from 'react';
 import './Navigation.css';
+// import SearchBar from './SearchBar';
+import * as Icon from 'react-feather';
 import { NavLink } from "react-router-dom";
 import logo from './static/projectSHARELogo.jpeg';
-import searchIcon from './static/searchIcon.png';
-import SearchBar from './SearchBar';
+// import searchIcon from './static/searchIcon.png';
 
 
 class Navigation extends React.Component {
@@ -40,12 +41,8 @@ class Navigation extends React.Component {
               alt="Project SHARE Logo" 
             />
 
-            <div className="Search">
-              <img 
-                className="SearchIcon" 
-                src={searchIcon}
-                alt="Icon for Search Bar"
-              />
+            <div className="SearchBox">
+              <Icon.Search color="lightgrey" />
               <input 
                 className="SearchBar"
                 placeholder="Search for a resource" 
@@ -53,7 +50,7 @@ class Navigation extends React.Component {
                 searchinput={input} 
                 onChange={this.handleChange} 
               />
-  
+              <Icon.X color="var(--primary)" />
             </div>
 
             <button 
