@@ -40,7 +40,6 @@ class PostComposer extends React.Component {
     this.fileInput = React.createRef();
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleSetTitle = this.handleSetTitle.bind(this);
     this.handleSetContent = this.handleSetContent.bind(this);
     this.handleAddCategory = this.handleAddCategory.bind(this);
     this.getCategoriesList = this.getCategoriesList.bind(this);
@@ -127,10 +126,6 @@ class PostComposer extends React.Component {
     const selectedCategory = { name: event };  
     this.setState({ category: selectedCategory })
   }
-
-  handleSetTitle(titleFormatted) {
-    this.setState({ title: titleFormatted });
-  } 
 
   handleSetContent(contentFormatted) {
     this.setState({ content: contentFormatted });
@@ -225,7 +220,7 @@ class PostComposer extends React.Component {
 
   render() {
 
-    const { categories, category, addCategoryClicked, 
+    const { title, categories, category, addCategoryClicked, 
       newCategoryName, tags, addTagClicked, 
       newTagName, selectedTags, locations, addLocationClicked, newLatitude, 
       newLongitude, newLocationName, images } = this.state;
@@ -237,8 +232,12 @@ class PostComposer extends React.Component {
           {/* Title input */}
           <Form.Group>
             <Form.Label>Post title</Form.Label>
-            <PostContentEditor
-              setTextFormatted={this.handleSetTitle}
+            <Form.Control 
+              type="text" 
+              placeholder="Enter title" 
+              name="title"
+              value={title} 
+              onChange={this.handleInputChange} 
             />
           </Form.Group>
           {/* Content input */}
