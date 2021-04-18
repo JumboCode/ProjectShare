@@ -1,10 +1,9 @@
 import React from 'react';
 import './Navigation.css';
-// import SearchBar from './SearchBar';
 import * as Icon from 'react-feather';
 import { NavLink } from "react-router-dom";
 import logo from './static/projectSHARELogo.jpeg';
-// import searchIcon from './static/searchIcon.png';
+
 
 
 class Navigation extends React.Component {
@@ -85,4 +84,4 @@ class Navigation extends React.Component {
 
 export default Navigation;
 
-// can't just stretch out the input text field 
+

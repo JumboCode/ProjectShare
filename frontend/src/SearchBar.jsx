@@ -16,7 +16,7 @@ class SearchBar extends React.Component{
   componentDidMount(){
     fetch("http://localhost:8000/api/tags")
       .then(res => res.json())
-      .then(res => this.setState({tags: res})
+      .then(res => this.setState({tags: res}))
   }
 
   handleChange(event){
@@ -46,9 +46,5 @@ class SearchBar extends React.Component{
 }
 
 export default SearchBar;
-
-// PURPOSE: rendered based on firing on event. based on user. 
-// TODO: change size and make it fit inside the box
-
 
 // https://dev.to/sage911/how-to-write-a-search-component-with-suggestions-in-react-d20
