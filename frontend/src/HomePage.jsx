@@ -57,10 +57,9 @@ class Home extends React.Component {
             <button type="button" className="helpButton"> Resource Finder </button>
           </div>
         </div>
-        <div className="featured">  </div> 
         <div className="postFeed">
           { posts.length > 0 && (
-            <PostFeed title="Featured" posts={posts} />
+            <PostFeed title="Featured" posts={posts} featured={true}/>
           )}
         </div>
       </div>

@@ -19,6 +19,9 @@ function SmallerPostPreview({ Data }) {
       <p className="Title">
         { Data.title }
       </p>
+      <p className="PostContent">
+        { `${Data.content.substr(0, 113)}...` }
+      </p>
       <p className="Tags">
         {Data.tags.map (tag => (
           <a href="/" className="tagElemPost" key={tag.id}>{tag.name}</a>

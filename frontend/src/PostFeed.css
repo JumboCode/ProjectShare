@@ -1,5 +1,7 @@
 .postfeed {
-    position:absolute;
+    /* position:absolute; */
+    display:flex;
+    flex-direction:column;
     top:238px;
     left:585px;
     width:636px;
@@ -7,7 +9,7 @@
 }
 
 .title {
-  margin: 80px 0px 15px 134px;
+  margin: 50px 0px 0px 134px;
   font-family: 'NotoSans';
   font-size: 24px;
   font-weight: bold;
@@ -18,15 +20,24 @@
 
 .featuredPost {
     position:relative;
-    top:-238px;
+    top:-248px;
     left:-585px;
 }
 
 .smallerPosts {
     position:relative;
     margin: 20px 20px 20px 20px;
-    top:-758px;
+    top:-770px;
     left:-605px;
     border:none;
     display:block;
+}
+
+.allSmallerPosts {
+    position:relative;
+    margin: 20px 20px 0px 20px;
+    border:none;
+    display:block;
+    top:-920px;
+    left:-605px;
 }

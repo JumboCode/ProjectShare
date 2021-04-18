@@ -90,9 +90,12 @@
 }
 
 .postFeed {
+    display:flex;
+    position:relative;
+    flex-direction:column;
     width:636px;
     height:fit-content;
-    top:238px;
+    top:-700px;
     left:585px;
 }
 

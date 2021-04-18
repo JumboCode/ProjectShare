@@ -6,14 +6,12 @@ function PostPreview({ Data }) {
   return (
     <div className="PostPreview">
       <p>
-        <div className="PhotoPlaceHolderLarge">
-          { Data.images.length > 0 && (
-            <img src={Data.images[0].img_file} alt={Data.images[0].img_name} key={Data.images[0].id} className="Photo"/>
-          )}
-          { Data.images.length <= 0 && (
-            <div className="PhotoPlaceHolder" />
-          )}
-        </div>
+        { Data.images.length > 0 && (
+          <img src={Data.images[0].img_file} alt={Data.images[0].img_name} key={Data.images[0].id} className="Photo"/>
+        )}
+        { Data.images.length <= 0 && (
+          <div className="PhotoPlaceHolderLarge" />
+        )}
       </p>
       <h5 className="DatePostedLarge">
         { Data.date }

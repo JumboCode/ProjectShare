@@ -1,5 +1,5 @@
 .PostPreview {
-  width: 536px;
+  width: 636px;
   height: 437px;
   position: relative;
   left: 585px;
@@ -13,9 +13,9 @@
     position: relative;
     left: 25px;
     top: 15px;
-    width: 486px;
+    width: 586px;
     height: 224px;
-    background-color: pink;
+    background-color: var(--shade-color);
     text-align: center;
 }
 
@@ -23,18 +23,17 @@
   position: relative;
     left: 25px;
     top: 15px;
-    width: 486px;
+    width: 586px;
     height: 224px;
     text-align: center;
 }
 
 .DatePostedLarge {
   position: relative;
-  width: 400px;
+  width: 443px;
   height: 22px;
   left: 25px;
-  top: 0px;
-  margin: 0px 0px 0px 0px;
+  top: 10px;
   font-family: 'Noto Sans', sans-serif;
   font-size: 16px;
   font-weight: 500;
@@ -51,7 +50,7 @@
   width: 270px;
   height: 25px;
   left: 25px;
-  top: 0px;
+  top: 5px;
   text-align: left;
   font-size: 18px;
   color: #094067;
@@ -90,14 +89,14 @@
 .PostContentLarge {
   position: relative;
   width: 470px;
-  height: 1px;
+  height: 52px;
   left: 25px;
-  top: 30px;
+  top: 10px;
   font-size: 15px;
   font-family: 'Noto Serif';
-  font-size: 16px;
+  font-size: 15px;
   font-weight: 500;
-  color: #556474;
+  color: var(--header-color);
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
