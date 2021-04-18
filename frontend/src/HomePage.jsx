@@ -59,7 +59,7 @@ class Home extends React.Component {
         </div>
         <div className="postFeed">
           { posts.length > 0 && (
-            <PostFeed title="Featured" posts={posts} featured={true}/>
+            <PostFeed title="Featured" posts={posts} featured={true} />
           )}
         </div>
       </div>

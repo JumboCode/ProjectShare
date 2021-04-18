@@ -13,14 +13,12 @@ export const PostFeed = ({title, posts,featured}) => {
       </div>
       <div className="featuredPost">
         { featured === true &&
-          <PostPreview Data={posts[0]} />
-        }
+          <PostPreview Data={posts[0]} /> }
       </div>
       {posts.slice(1).map(post => (
         <div className="smallerPosts">
           { featured === true &&
-            <SmallerPostPreview Data={post} />
-          }
+            <SmallerPostPreview Data={post} /> }
         </div>
       ))}
       {posts.map(post => (
