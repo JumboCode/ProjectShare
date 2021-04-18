@@ -1,0 +1,32 @@
+.postfeed {
+    position:absolute;
+    top:238px;
+    left:585px;
+    width:636px;
+    height:fit-content;
+}
+
+.title {
+  margin: 80px 0px 15px 134px;
+  font-family: 'NotoSans';
+  font-size: 24px;
+  font-weight: bold;
+  text-align: left;
+  color: var(--header-color);
+  position:relative;
+}
+
+.featuredPost {
+    position:relative;
+    top:-238px;
+    left:-585px;
+}
+
+.smallerPosts {
+    position:relative;
+    margin: 20px 20px 20px 20px;
+    top:-758px;
+    left:-605px;
+    border:none;
+    display:block;
+}

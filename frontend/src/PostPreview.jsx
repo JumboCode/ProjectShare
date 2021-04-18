@@ -6,25 +6,30 @@ function PostPreview({ Data }) {
   return (
     <div className="PostPreview">
       <p>
-        <div className="PhotoPlaceHolder">
-          {/* Image */}
+        <div className="PhotoPlaceHolderLarge">
+          { Data.images.length > 0 && (
+            <img src={Data.images[0].img_file} alt={Data.images[0].img_name} key={Data.images[0].id} className="Photo"/>
+          )}
+          { Data.images.length <= 0 && (
+            <div className="PhotoPlaceHolder" />
+          )}
         </div>
       </p>
-      <h5 className="DatePosted">
+      <h5 className="DatePostedLarge">
         { Data.date }
       </h5>
-      <div className="Title">
+      <div className="TitleLarge">
         { Data.title }
       </div>
-      <div className="PostContent">
+      <div className="PostContentLarge">
         {
           `${Data.content.substr(0, 113)}...`
         }
       </div>
       <div text="..."> </div>
-      <p className="Tags">
+      <p className="TagsLarge">
         {Data.tags.map(tag => (
-          <a href="/" className="tagElemPost" key={tag}>{tag}</a>
+          <a href="/" className="tagElemPostLarge" key={tag.id}>{tag.name}</a>
         ))}
       </p>
     </div>

@@ -12,22 +12,31 @@
   left: 585px;
   position: relative;
   border-radius: 3px;
-  border: solid 2px var(--shade);
+  border: solid 1px var(--shade);
 }
 
 .PhotoPlaceHolder {
     position: relative;
     left: 15px;
-    top: 0px;
+    top: 17px;
     width: 120px;
     height: 120px;
     background-color: pink;
     text-align: center;
 }
 
+.Photo {
+    position: relative;
+    left: -190px;
+    top: 17px;
+    width: 120px;
+    height: 120px;
+    text-align: center;
+}
+
 .DatePosted {
   position: relative;
-  width: 200px;
+  width: 400px;
   height: 22px;
   bottom: 117px;
   left: 150px;

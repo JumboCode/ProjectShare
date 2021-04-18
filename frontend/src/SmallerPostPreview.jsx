@@ -6,9 +6,12 @@ function SmallerPostPreview({ Data }) {
   return (
     <div className="SmallerPostPreview">
       <p>
-        <div className="PhotoPlaceHolder">
-          {/* Image */}
-        </div>
+        { Data.images.length > 0 && (
+          <img src={Data.images[0].img_file} alt={Data.images[0].img_name} key={Data.images[0].id} className="Photo"/>
+        )}
+        { Data.images.length <= 0 && (
+          <div className="PhotoPlaceHolder" />
+        )}
       </p>
       <p className="DatePosted">
         { Data.date }
@@ -18,7 +21,7 @@ function SmallerPostPreview({ Data }) {
       </p>
       <p className="Tags">
         {Data.tags.map (tag => (
-          <a href="/" className="tagElemPost" key={tag}>{tag}</a>
+          <a href="/" className="tagElemPost" key={tag.id}>{tag.name}</a>
         ))}
       </p>
     </div>
