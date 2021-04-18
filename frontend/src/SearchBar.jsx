@@ -8,6 +8,7 @@ class SearchBar extends React.Component{
     this.state = {
       searchInput: '',
       tags: [],
+      categories: [],
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -17,17 +18,24 @@ class SearchBar extends React.Component{
     fetch("http://localhost:8000/api/tags")
       .then(res => res.json())
       .then(res => this.setState({tags: res}))
+    fetch("http://localhost:8000/api/categories")
+      .then(res => res.json())
+      .then(res => this.setState({categories: res}))
+    fetch("http://localhost:8000/api/posts?keyword={keyword_value}"
+      .then(res => res.json())
+      .then(res => this.setState({postSearchResults: res}))
   }
 
   handleChange(event){
-    this.setState({searchInput: this.search.value});
+    this.setState({searchInput: e.search.value});
     // eslint-disable-next-line no-console
     console.log(event.target.value);
   }
 
 
   render(){
-    const { input } = this.state;
+    // const { input } = this.state;
+    
     return(
       <div className="searchBar">
         <Icon.Search color="lightgrey" />

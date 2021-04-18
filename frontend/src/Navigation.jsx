@@ -11,10 +11,25 @@ class Navigation extends React.Component {
     super(props);
     this.state = {
       searchInput: '',
+      tags: [],
+      categories: [],
+      // should i add a post search result here to get rid of parsing error
     };
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  componentDidMount(){
+    fetch("http://localhost:8000/api/tags")
+      .then(res => res.json())
+      .then(res => this.setState({tags: res}))
+    fetch("http://localhost:8000/api/categories")
+      .then(res => res.json())
+      .then(res => this.setState({categories: res}))
+    fetch("http://localhost:8000/api/posts?keyword={keyword_value}")
+      .then(res => res.json())
+      .then(res => this.setState({postSearchResults: res}))
   }
 
   handleChange(event) {
@@ -28,8 +43,49 @@ class Navigation extends React.Component {
   }
 
   render() {
-    const { input } = this.state;
+    {const categories= } // and the other stuff before using 
+    inputValue !== "" && (
+      postSearchResults.map(post => (
+      // TODO this is most definitely not right 
+        <li>
+          <Link to={`/post/${post.id}/`}> 
+            {' '}
+            {post.title}
+            {' '}
+          </Link>
+        </li>
+      ))
+    )
+  //  const categoriesFiltered = categories.filter(categories => categories.includes(keyword));
+  //  const tagsFiltered= tags.filter(tags => tags.includes(keyword));
+
+  // TODO this is def not right either 
+    const {searchInput} = this.state;
+    categories.filter(categories => categories.includes(searchInput)).map(categoriesFiltered => (
+      <li>
+        {categoriesFiltered}
+      
+        const categoryid = 
+        {' '}
+        {category.id}
+        ;
+        <Link to="/category/categoryid">{category.name}</Link>
+      </li>
+    ))
+    tags.filter(tags => tags.includes(searchInput)).map(tagsFiltered => (
+      <li>
+        {tagsFiltered}
+      
+        const tags_id = 
+        {' '}
+        {tags.id}
+        ;
+        <Link to="/category/tags_id">{tags.name}</Link>
+      </li>
+    ))
     return (
+      // jsx here
+      
       <div className="NavBar">
         <form onSubmit={this.handleSubmit}>
 
@@ -50,6 +106,19 @@ class Navigation extends React.Component {
                 onChange={this.handleChange} 
               />
               <Icon.X color="var(--primary)" />
+              <div className="searchResults" />
+              {inputValue !== "" && (
+                postSearchResults.map(post => (
+      
+                  <li>
+                    <Link to={`/post/${post.id}/`}> 
+                      {' '}
+                      {post.title}
+                      {' '}
+                    </Link>
+                  </li>
+                )))}
+    
             </div>
 
             <button 
