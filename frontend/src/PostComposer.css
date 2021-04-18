@@ -32,6 +32,12 @@ form {
   opacity: 0.8; 
 }
 
+.badge-secondary.stickyBadge {
+  background-color: #FFC008;
+  margin-left: 1%;
+  font-size: small;
+}
+
 .groupButtons {
   display: flex;
 }
@@ -48,4 +54,23 @@ form {
   background-color: #3CA9FC;
   color: white;
   border-color: #3CA9FC;
+  margin-left: 50%;
+}
+
+.addLocationsForm {
+  width: 100% !important;
+  margin: 0px;
+  margin-top: 2%;
+  border: 1px solid #ced4da;
+  border-radius: 5px;
+  padding: 2%;
+}
+
+.chooseFileButton {
+  width: 100%;
+  margin: 0px;
+  border: 1px solid #ced4da;
+  border-radius: 5px;
+  padding: 1%;
+  margin-right: 1%;
 }

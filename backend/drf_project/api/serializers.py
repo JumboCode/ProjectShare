@@ -35,22 +35,15 @@ class CategorySerializer(serializers.ModelSerializer):
 
 
 class ImageSerializer(serializers.ModelSerializer):
+    id = serializers.IntegerField(required=False) 
     img_file = serializers.ImageField(required=False)
-    img_name = serializers.CharField(max_length=50, required=False)
-
+    
     class Meta:
         model = Image
-        fields = ['id', 'img_file', 'img_name']
+        fields = ['id', 'img_file']
 
     def create(self, validated_data):
-        if 'img_name' in validated_data:
-            instance = Image.objects.create(**validated_data)
-        else:
-            instance = Image.objects.create(
-                img_file=validated_data['img_file'],
-                img_name="")
-            instance.img_name = instance.img_file.name
-            instance.save()
+        instance = Image.objects.create(**validated_data)
         return instance
 
 
@@ -85,7 +78,7 @@ class PostSerializer(serializers.ModelSerializer):
         instance = Post.objects.create(**data)
 
         for image_data in validated_data['images']:
-            image, created = Image.objects.get_or_create(**image_data)
+            image = Image.objects.get(**image_data)
             instance.images.add(image)
 
         for tag_data in validated_data['tags']:

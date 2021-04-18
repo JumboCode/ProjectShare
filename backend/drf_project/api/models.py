@@ -19,10 +19,6 @@ class Category(models.Model):
 
 class Image(models.Model):
     img_file = models.ImageField()
-    img_name = models.CharField(
-        max_length=50,
-        blank=True,
-        unique=True)
 
 
 class Post(models.Model):

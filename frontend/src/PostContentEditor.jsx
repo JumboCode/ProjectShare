@@ -7,6 +7,7 @@ import { Editor } from "react-draft-wysiwyg";
 import { EditorState, convertToRaw } from 'draft-js';
 import draftToMarkdown from 'draftjs-to-markdown';
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
+import PropTypes from 'prop-types';
 
 class MyEditor extends React.Component {
   static uploadImage(img) {
@@ -24,14 +25,18 @@ class MyEditor extends React.Component {
 
   constructor(props) {
     super(props);
+    const { setTextFormatted } = this.props;
     this.state = { editorState: EditorState.createEmpty() };
-    this.onChange = editorState => this.setState({ editorState });
+    this.onChange = editorState => {
+      this.setState({ editorState });
+      setTextFormatted(this.getMarkdown());
+    }
   }
 
   getMarkdown() {
     const { editorState } = this.state;
     const rawContentState = convertToRaw(editorState.getCurrentContent());
-    const markup = draftToMarkdown(rawContentState);
+    const markup = draftToMarkdown(rawContentState);    
     return markup;
   }
 
@@ -61,5 +66,13 @@ class MyEditor extends React.Component {
     );
   }
 }
+
+MyEditor.propTypes = {
+  setTextFormatted: PropTypes.func
+};
+
+MyEditor.defaultProps = {
+  setTextFormatted: () => {}
+};
 
 export default MyEditor;
