@@ -1,9 +1,17 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
-from rest_framework import viewsets, permissions
+from rest_framework import viewsets, permissions, views
+from rest_framework.decorators import api_view
 from django.db.models import Q
 from . import serializers
 from . import models
+from sendgrid import SendGridAPIClient
+from sendgrid.helpers.mail import Mail
+from django.core.mail import BadHeaderError
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+import json
+import os
 
 
 class TagViewSet(viewsets.ModelViewSet):
@@ -67,3 +75,28 @@ class LocationViewSet(viewsets.ModelViewSet):
     queryset = models.Location.objects.all()
     serializer_class = serializers.LocationSerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+
+
+# temporarily disable csrf token
+@csrf_exempt
+def contact(request):
+    if request.method == 'POST':
+        data = json.loads(request.body.decode("utf-8"))
+        body = {
+            'email': data['email'],
+            'message': data['message'],
+        }
+        message = Mail(
+            from_email=os.environ['CONTACT_EMAIL'],
+            to_emails=os.environ['CONTACT_EMAIL'],
+            subject='Project Share Website Inquiry',
+            html_content="\n".join(body.values()))
+
+        try:
+            sg = SendGridAPIClient(os.environ.get('SENDGRID_API_KEY'))
+            sg.send(message)
+        except BadHeaderError:
+            return JsonResponse({'status': 'fail',
+                                 'message': 'Invalid header found.'})
+        return JsonResponse({'status': 'success',
+                             'message': 'Email sent!'})

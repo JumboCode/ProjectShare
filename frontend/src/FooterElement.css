@@ -1,5 +1,6 @@
 .footer-wrapper {
     position: relative;
+    left: 0;
     width: 100%;
     height: 261px;
     background-color: var(--header-color);
