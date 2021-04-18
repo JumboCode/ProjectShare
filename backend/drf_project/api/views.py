@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
-from rest_framework import viewsets, permissions
+from rest_framework import viewsets, permissions, filters
 from django.db.models import Q
 from . import serializers
 from . import models
@@ -29,7 +29,12 @@ class ImageViewSet(viewsets.ModelViewSet):
 
 class PostViewSet(viewsets.ModelViewSet):
     lookup_url_kwarg = 'post_id'
-    
+    serializer_class = serializers.PostSerializer
+    filter_backends = [filters.OrderingFilter]
+    ordering_fields = ['-featured_post_order', '-date']
+    ordering = ['-featured_post_order', '-date']
+
+
     def get_queryset(self):
         """
         Optionally restricts the returned posts by filtering
@@ -67,3 +72,7 @@ class LocationViewSet(viewsets.ModelViewSet):
     queryset = models.Location.objects.all()
     serializer_class = serializers.LocationSerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+
+
+#def set_featured_posts(request, methods=['POST']):
+    

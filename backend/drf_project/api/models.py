@@ -44,3 +44,6 @@ class Post(models.Model):
         default="EN",
         blank=True,
     )
+    #featured_post_order = models.DecimalField()
+    featured_post_order = models.IntegerField()
+
