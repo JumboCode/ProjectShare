@@ -43,48 +43,11 @@ class Navigation extends React.Component {
   }
 
   render() {
-    {const categories= } // and the other stuff before using 
-    inputValue !== "" && (
-      postSearchResults.map(post => (
-      // TODO this is most definitely not right 
-        <li>
-          <Link to={`/post/${post.id}/`}> 
-            {' '}
-            {post.title}
-            {' '}
-          </Link>
-        </li>
-      ))
-    )
-  //  const categoriesFiltered = categories.filter(categories => categories.includes(keyword));
-  //  const tagsFiltered= tags.filter(tags => tags.includes(keyword));
-
-  // TODO this is def not right either 
     const {searchInput} = this.state;
-    categories.filter(categories => categories.includes(searchInput)).map(categoriesFiltered => (
-      <li>
-        {categoriesFiltered}
-      
-        const categoryid = 
-        {' '}
-        {category.id}
-        ;
-        <Link to="/category/categoryid">{category.name}</Link>
-      </li>
-    ))
-    tags.filter(tags => tags.includes(searchInput)).map(tagsFiltered => (
-      <li>
-        {tagsFiltered}
-      
-        const tags_id = 
-        {' '}
-        {tags.id}
-        ;
-        <Link to="/category/tags_id">{tags.name}</Link>
-      </li>
-    ))
+    { const categoriesFiltered = categories.filter(categories => categories.includes(searchInput)); }
+    { const tagsFiltered= tags.filter(tags => tags.includes(searchInput)); }
+
     return (
-      // jsx here
       
       <div className="NavBar">
         <form onSubmit={this.handleSubmit}>
@@ -120,7 +83,28 @@ class Navigation extends React.Component {
                 )))}
     
             </div>
-
+            <div className="category">
+              {categoriesFiltered.map(categoriesFiltered => (
+                <li>
+                  <Link to={`/category/${category.id}`}> 
+                    {' '}
+                    {category.name}
+                    {' '}
+                  </Link>
+                </li>
+              ))}
+            </div>
+            <div className="tags">
+              {tagsFiltered.map(tagsFiltered => (
+                <li>
+                  <Link to={`/tags/${tags.id}`}> 
+                    {' '}
+                    {tags.name}
+                    {' '}
+                  </Link>
+                </li>
+              ))}
+            </div>
             <button 
               className="FindResource"
               type="button"
