@@ -1,20 +1,21 @@
 import React from 'react';
 import './SmallerPostPreview.css';
-
+import PropTypes from 'prop-types';
 
 function SmallerPostPreview({ Data }) {
+  const dateOptions = { year: 'numeric', month: 'long', day: 'numeric' };
   return (
     <div className="SmallerPostPreview">
       <p>
         { Data.images.length > 0 && (
-          <img src={Data.images[0].img_file} alt={Data.images[0].img_name} key={Data.images[0].id} className="Photo"/>
+          <img src={Data.images[0].img_file} alt={Data.images[0].img_name} key={Data.images[0].id} className="Photo" />
         )}
         { Data.images.length <= 0 && (
           <div className="PhotoPlaceHolder" />
         )}
       </p>
       <p className="DatePosted">
-        { Data.date }
+        {new Date(Data.date).toLocaleDateString("en-US", dateOptions)}
       </p>
       <p className="Title">
         { Data.title }
@@ -29,6 +30,16 @@ function SmallerPostPreview({ Data }) {
       </p>
     </div>
   )
+}
+
+SmallerPostPreview.propTypes = {
+  Data: PropTypes.shape({
+    images: PropTypes.arrayOf(PropTypes.objectOf([PropTypes.string, PropTypes.number])),
+    date: PropTypes.string,
+    title: PropTypes.string,
+    content: PropTypes.string,
+    tags: PropTypes.arrayOf(PropTypes.objectOf([PropTypes.string, PropTypes.number])),
+  }).isRequired
 }
 
 export default SmallerPostPreview;
