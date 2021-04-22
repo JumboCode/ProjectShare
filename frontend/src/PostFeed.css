@@ -1,0 +1,43 @@
+.postfeed {
+    /* position:absolute; */
+    display:flex;
+    flex-direction:column;
+    width:636px;
+    height:fit-content;
+}
+
+.title {
+  margin-top:100px;
+  top:0px;
+  font-family: 'NotoSans';
+  font-size: 24px;
+  font-weight: bold;
+  text-align: left;
+  color: var(--header-color);
+  position:relative;
+}
+
+.featuredPost {
+    position:relative;
+    top:-228px;
+    left:-585px;
+    margin-bottom:10px;
+}
+
+.smallerPosts {
+    position:relative;
+    margin: 10px 20px 10px 20px;
+    top:-755px;
+    left:-605px;
+    border:none;
+    display:block;
+}
+
+.allSmallerPosts {
+    position:relative;
+    margin: 10px 20px 10px 20px;
+    border:none;
+    display:block;
+    top:-920px;
+    left:-605px;
+}

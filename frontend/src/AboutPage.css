@@ -18,7 +18,7 @@ h2 {
   color: var(--header-color);
 }
 
-p {
+.about-page-paragraph {
   font-family: 'NotoSerif';
   margin: 30px 0 0;
   font-size: 15px;

@@ -1,34 +1,47 @@
 import React from 'react';
 import './PostPreview.css';
-
+import PropTypes from 'prop-types';
 
 function PostPreview({ Data }) {
+  const dateOptions = { year: 'numeric', month: 'long', day: 'numeric' };
   return (
     <div className="PostPreview">
-      <p>
-        <div className="PhotoPlaceHolder">
-          {/* Image */}
-        </div>
-      </p>
-      <h5 className="DatePosted">
-        { Data.date }
-      </h5>
-      <div className="Title">
-        { Data.title }
+      <div>
+        { Data.images.length > 0 && (
+          <img src={Data.images[0].img_file} alt={Data.images[0].img_name} key={Data.images[0].id} className="Photo" />
+        )}
+        { Data.images.length <= 0 && (
+          <div className="PhotoPlaceHolderLarge" />
+        )}
       </div>
-      <div className="PostContent">
+      <h5 className="DatePostedLarge">
+        {new Date(Data.date).toLocaleDateString("en-US", dateOptions)}
+      </h5>
+      <p className="TitleLarge">
+        { Data.title }
+      </p>
+      <p className="PostContentLarge">
         {
           `${Data.content.substr(0, 113)}...`
         }
-      </div>
-      <div text="..."> </div>
-      <p className="Tags">
+      </p>
+      <p className="TagsLarge">
         {Data.tags.map(tag => (
-          <a href="/" className="tagElemPost" key={tag}>{tag}</a>
+          <a href="/" className="tagElemPostLarge" key={tag.id}>{tag.name}</a>
         ))}
       </p>
     </div>
   )
+}
+
+PostPreview.propTypes = {
+  Data: PropTypes.shape({
+    images: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.oneOfType([PropTypes.string, PropTypes.number]))),
+    date: PropTypes.string,
+    title: PropTypes.string,
+    content: PropTypes.string,
+    tags: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.oneOfType([PropTypes.string, PropTypes.number]))),
+  }).isRequired
 }
 
 export default PostPreview;

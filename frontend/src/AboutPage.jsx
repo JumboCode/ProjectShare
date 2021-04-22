@@ -18,7 +18,7 @@ class AboutPage extends Component {
         <div className="intro">
           <h1>Let&apos;s SHARE</h1>
           <h2>Spread Health Acess, Resources, and Education</h2>
-          <p>
+          <p className="about-page-paragraph">
             Project SHARE focuses on reducing disparities among Tufts and local 
             communities by advancing access to health care, and providing 
             resources and education in support of the universal right to health.​
@@ -29,7 +29,7 @@ class AboutPage extends Component {
             <img className="bio-picture" src="https://breakthrough.org/wp-content/uploads/2018/10/default-placeholder-image.png" alt="Project SHARE club" />
             <div className="bio-text">
               <h2>We&apos;re a team of students at Tufts University</h2>
-              <p>
+              <p className="about-page-paragraph">
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do 
                 eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim 
                 ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut 
