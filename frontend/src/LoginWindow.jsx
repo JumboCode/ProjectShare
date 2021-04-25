@@ -30,42 +30,53 @@ class Login extends React.Component {
     const { useremail } = this.state;
     const { userpassword } = this.state;
 
-    fetch('http://localhost:8000/auth/login/', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        email: useremail,
-        password: userpassword
-      })
-    })
-      .then(response => {
-        this.setState({
-          response: response.status,
+
+    if (localStorage.getItem('pshare') === null) {
+      fetch('http://localhost:8000/auth/login/', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          email: useremail,
+          password: userpassword
         })
-        if (response.status >= 200 && response.status <= 299) {
-          return response.json()
-        }
-        this.setState({
-          error: true,
-        })
-        return "error"
       })
-      .then(data => { 
-        this.setState({
-          key: data.key,
-        })
-        this.childFunction();
-      })
-      .catch( error => {
-        const { response } = this.state;
-        if (response < 200 || response > 299) {
+        .then(response => {
+          this.setState({
+            response: response.status,
+          })
+          if (response.status >= 200 && response.status <= 299) {
+            return response.json()
+          }
           this.setState({
             error: true,
           })
-        }
+          return "error"
+        })
+        .then(data => { 
+          this.setState({
+            key: data.key,
+          })
+          localStorage.setItem('pshare', data.key);
+          this.childFunction();
+        })
+        .catch( error => {
+          const { response } = this.state;
+          if (response < 200 || response > 299) {
+            this.setState({
+              error: true,
+            })
+            localStorage.removeItem('pshare');
+          }
+        })
+    } else {
+      const authToken = localStorage.getItem('pshare');
+      this.setState({
+        key: authToken,
       })
+      this.childFunction()
+    }
   }
 
   render() {
