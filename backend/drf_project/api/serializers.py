@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Post, Location, Tag, Category, Image
+from .models import Post, Location, Tag, Category, Image, Pdf
 
 
 class LocationSerializer(serializers.ModelSerializer):
@@ -51,6 +51,19 @@ class ImageSerializer(serializers.ModelSerializer):
                 img_name="")
             instance.img_name = instance.img_file.name
             instance.save()
+        return instance
+
+
+class PdfSerializer(serializers.ModelSerializer):
+    pdf_file = serializers.FileField(required=False)
+
+    class Meta:
+        model = Pdf
+        fields = ['id', 'pdf_file']
+
+    def create(self, validated_data):
+        instance = Pdf.objects.create(pdf_file=validated_data['pdf_file'])
+        instance.save()
         return instance
 
 

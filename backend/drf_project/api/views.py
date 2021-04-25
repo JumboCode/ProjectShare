@@ -26,6 +26,13 @@ class ImageViewSet(viewsets.ModelViewSet):
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
 
 
+class PdfViewSet(viewsets.ModelViewSet):
+    lookup_url_kwarg = 'pdf_id'
+    queryset = models.Pdf.objects.all()
+    serializer_class = serializers.PdfSerializer
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+
+
 class PostViewSet(viewsets.ModelViewSet):
     lookup_url_kwarg = 'post_id'
     queryset = models.Post.objects.all()

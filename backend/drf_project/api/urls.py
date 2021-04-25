@@ -45,6 +45,18 @@ image_urls = [
     ),
 ]
 
+pdf_urls = [
+    path(
+        'pdfs/<int:pdf_id>/delete',
+        views.PdfViewSet.as_view({'delete': 'destroy'}),
+        name='delete pdf'
+    ),
+    path(
+        'pdfs/add',
+        views.PdfViewSet.as_view({'post': 'create'}),
+        name='add pdf'
+    ),
+]
 
 
 urlpatterns = tag_urls + category_urls + image_urls + post_urls + location_urls
