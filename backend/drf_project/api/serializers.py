@@ -56,6 +56,7 @@ class ImageSerializer(serializers.ModelSerializer):
 
 class PdfSerializer(serializers.ModelSerializer):
     pdf_file = serializers.FileField(required=False)
+    id = serializers.IntegerField(required=False)
 
     class Meta:
         model = Pdf

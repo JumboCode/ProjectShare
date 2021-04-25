@@ -28,7 +28,6 @@ class Image(models.Model):
 
 class Pdf(models.Model):
     pdf_file = models.FileField()
-    id = serializers.IntegerField(required=False)
 
 
 class Post(models.Model):
