@@ -1,7 +1,7 @@
 import React from 'react';
 import './Navigation.css';
 import * as Icon from 'react-feather';
-import { NavLink } from "react-router-dom";
+import { NavLink, Link } from "react-router-dom";
 import logo from './static/projectSHARELogo.jpeg';
 
 
@@ -13,6 +13,8 @@ class Navigation extends React.Component {
       searchInput: '',
       tags: [],
       categories: [],
+      // eslint-disable-next-line react/no-unused-state
+      postSearchResults: '',
       // should i add a post search result here to get rid of parsing error
     };
 
@@ -44,8 +46,14 @@ class Navigation extends React.Component {
 
   render() {
     const {searchInput} = this.state;
-    { const categoriesFiltered = categories.filter(categories => categories.includes(searchInput)); }
-    { const tagsFiltered= tags.filter(tags => tags.includes(searchInput)); }
+    const {tags} = this.state;
+    const {categories} = this.state;
+    const {postSearchResults} = this.state;
+    const categoriesFiltered = categories.filter(category => category.name.includes(searchInput)); 
+    const tagsFiltered= tags.filter(tag => tag.name.includes(searchInput)); 
+    console.log(categoriesFiltered);
+    // tags array is formatted so that each element formatted is an object that has 2 items (name and ID),
+    // so like a list of objects. so when filter your tags
 
     return (
       
@@ -65,12 +73,12 @@ class Navigation extends React.Component {
                 className="SearchBar"
                 placeholder="Search for a resource" 
                 type="text" 
-                searchinput={input} 
+                input={searchInput} 
                 onChange={this.handleChange} 
               />
               <Icon.X color="var(--primary)" />
               <div className="searchResults" />
-              {inputValue !== "" && (
+              {searchInput !== "" && (
                 postSearchResults.map(post => (
       
                   <li>
@@ -84,22 +92,22 @@ class Navigation extends React.Component {
     
             </div>
             <div className="category">
-              {categoriesFiltered.map(categoriesFiltered => (
+              {categoriesFiltered.map(categoryFiltered => (
                 <li>
-                  <Link to={`/category/${category.id}`}> 
+                  <Link to={`/category/${categoryFiltered.id}`}> 
                     {' '}
-                    {category.name}
+                    {categoryFiltered.name}
                     {' '}
                   </Link>
                 </li>
               ))}
             </div>
             <div className="tags">
-              {tagsFiltered.map(tagsFiltered => (
+              {tagsFiltered.map(tagFiltered => (
                 <li>
-                  <Link to={`/tags/${tags.id}`}> 
+                  <Link to={`/tags/${tagFiltered.id}`}> 
                     {' '}
-                    {tags.name}
+                    {tagFiltered.name}
                     {' '}
                   </Link>
                 </li>
@@ -138,3 +146,7 @@ class Navigation extends React.Component {
 export default Navigation;
 
 
+// more tags and categories
+// need fixing: in third fetch request, not using the search input keyword correctly. concatanate searchINput with rest of the fetch endpoint.
+// backend: pipenv run python3 manage.py runserver
+ 
