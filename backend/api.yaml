@@ -536,6 +536,43 @@ paths:
           description: OK
       tags:
         - locations
+  /pdfs/add:
+    post:
+      summary: Add Pdf
+      operationId: post-pdfs-add
+      responses:
+        '200':
+          description: OK
+      description: Add a PDF file
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                pdf_file:
+                  type: string
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                pdf_file:
+                  type: string
+        description: Make sure to send data as `multipart/form-data`.
+  '/pdfs/{pdf_id}/delete':
+    parameters:
+      - schema:
+          type: string
+        name: pdf_id
+        in: path
+        required: true
+    delete:
+      summary: Delete Pdf
+      operationId: delete-pdfs-pdf_id-delete
+      responses:
+        '200':
+          description: OK
+      description: Delete a PDF file
 components:
   schemas: {}
 tags:
