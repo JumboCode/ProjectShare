@@ -61,19 +61,19 @@ class Navigation extends React.Component {
             </button>
           </div>
           <div className="navbarLink">
-            <NavLink className="tuftsResources" activeClassName="active" to="/tuftsResources">
+            <NavLink className="tuftsResources" activeClassName="nav-active" to="/tuftsResources">
               Tufts Resources
             </NavLink>
-            <NavLink className="communityResources" activeClassName="active" to="/communityResources">
+            <NavLink className="communityResources" activeClassName="nav-active" to="/communityResources">
               Community Resources 
             </NavLink>
-            <NavLink className="sharewood" activeClassName="active" to="/sharewoodProject">
+            <NavLink className="sharewood" activeClassName="nav-active" to="/sharewoodProject">
               The Sharewood Project
             </NavLink>
-            <NavLink className="newsletterArchives" activeClassName="active" to="/newsletterArchives">
+            <NavLink className="newsletterArchives" activeClassName="nav-active" to="/newsletterArchives">
               Newsletter Archives
             </NavLink>
-            <NavLink className="howCanHelp" activeClassName="active" to="/howYouCanHelp">
+            <NavLink className="howCanHelp" activeClassName="nav-active" to="/howYouCanHelp">
               How You Can Help
             </NavLink>
           </div>

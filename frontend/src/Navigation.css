@@ -42,7 +42,7 @@
     margin: 14px 30px;
 }
 
-.active {
+.nav-active {
     color:var(--header-color);
     display: inline-block;
     border: none;
