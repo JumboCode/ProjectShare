@@ -24,10 +24,17 @@ form {
   background-color: #FFC008;
   margin-left: 1%;
   font-size: small;
+}
+
+
+.badge-secondary.tagBadgeHover {
+  background-color: #FFC008;
+  margin-left: 1%;
+  font-size: small;
   cursor: pointer;
 }
 
-.badge-secondary.tagBadge:hover {
+.badge-secondary.tagBadgeHover:hover {
   background-color: #E0A700;
   opacity: 0.8; 
 }

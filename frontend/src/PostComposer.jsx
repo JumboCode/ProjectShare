@@ -5,6 +5,9 @@ import DropdownButton from 'react-bootstrap/DropdownButton';
 import Dropdown from 'react-bootstrap/Dropdown';
 import Badge from 'react-bootstrap/Badge';
 import Col from 'react-bootstrap/Col';
+import Alert from 'react-bootstrap/Alert';
+import Tooltip from 'react-bootstrap/Tooltip';
+import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import PostContentEditor from './PostContentEditor';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './PostComposer.css';
@@ -34,7 +37,10 @@ class PostComposer extends React.Component {
       newLatitude: '',
       newLocationName: '',
       addLocationClicked: false,
-      selectedFile: ''
+      selectedFile: '',
+      errors: {},
+      success: null,
+      show: true
     };
 
     this.fileInput = React.createRef();
@@ -50,6 +56,7 @@ class PostComposer extends React.Component {
     this.handleRemoveTag = this.handleRemoveTag.bind(this);
     this.handleAddLocation = this.handleAddLocation.bind(this);
     this.handleUploadImage = this.handleUploadImage.bind(this);
+    this.clearForm = this.clearForm.bind(this);
   }
 
   // When component is created, fetch current list of categories 
@@ -118,7 +125,37 @@ class PostComposer extends React.Component {
       method: 'POST',
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(post)
-    }).then(() => alert("New post created!"));
+    })
+      .then((response) => {
+        // Status code is 400, throw error object to display error messages
+        if (!response.ok) {
+          return response.json().then((error) => {throw error})
+        }
+        
+        // Status code is 200, clear form and display success message
+        this.setState({ 
+          errors: {},
+          success: "New post successfully created!" 
+        })
+        this.clearForm();
+        return response.json();
+      })
+      .catch((error) => {     
+        this.setState({ errors: error });        
+      });
+  }
+
+  // Clear out the form when post has successfully been created
+  clearForm() {
+    this.setState({
+      title: '',
+      content: '',
+      category: '',
+      selectedTags: [],
+      locations: [],
+      images: [],
+      categories: []
+    })
   }
 
   // When a category is selected from dropdown, save to state 
@@ -199,7 +236,13 @@ class PostComposer extends React.Component {
   // Get information of chosen file and upload to server
   handleUploadImage() {
     const { selectedFile, images } = this.state;
-    
+
+    // no file chosen
+    if (selectedFile === '') { 
+      this.setState({ selectedFile: null });
+      return;
+    };
+
     const formdata = new FormData();
     formdata.append("img_file", selectedFile);
     
@@ -223,15 +266,30 @@ class PostComposer extends React.Component {
     const { title, categories, category, addCategoryClicked, 
       newCategoryName, tags, addTagClicked, 
       newTagName, selectedTags, locations, addLocationClicked, newLatitude, 
-      newLongitude, newLocationName, images } = this.state;
+      newLongitude, newLocationName, images, errors, success, selectedFile,
+      show } = this.state;
 
     return (
       <div>
         <Form onSubmit={this.handleSubmit}>
           {/* Categories Form */}
           {/* Title input */}
+          {success && show && (
+            <Alert 
+              variant="success" 
+              onClose={() => this.setState({show: false})} 
+              dismissible
+            > 
+              {success} 
+            </Alert> 
+          )}
           <Form.Group>
             <Form.Label>Post title</Form.Label>
+            {errors.title && (
+              <Alert variant="danger"> 
+                {`${errors.content}`} 
+              </Alert> 
+            )}
             <Form.Control 
               type="text" 
               placeholder="Enter title" 
@@ -243,6 +301,11 @@ class PostComposer extends React.Component {
           {/* Content input */}
           <Form.Group>
             <Form.Label>Post Content</Form.Label>
+            {errors.content && (
+              <Alert variant="danger"> 
+                {`${errors.content}`} 
+              </Alert>
+            )}
             <PostContentEditor
               setTextFormatted={this.handleSetContent}
             />
@@ -255,6 +318,11 @@ class PostComposer extends React.Component {
             >
               {category.name}
             </Badge>
+            {errors.category && (
+              <Alert variant="danger"> 
+                {`${errors.category.non_field_errors}`} 
+              </Alert>
+            )}
             <div className="groupButtons">
               <DropdownButton
                 title="Choose a Category"
@@ -298,17 +366,26 @@ class PostComposer extends React.Component {
           {/* Tags Form */}
           <Form.Group>
             <Form.Label>Tags</Form.Label>
-            {selectedTags.map(tag => 
-              ( 
+            {selectedTags.map(tag => ( 
+              <OverlayTrigger
+                key='bottom'
+                placement='bottom'
+                overlay={(
+                  <Tooltip id="tooltip-bottom">
+                    Remove tag
+                  </Tooltip>
+                )}
+              >
                 <Badge 
                   onClick={this.handleRemoveTag}
                   key={tag.name}
-                  variant="secondary" className="tagBadge"
+                  variant="secondary" className="tagBadgeHover"
                   value={tag.name}
                 >
                   {tag.name}
                 </Badge>
-              ))}
+              </OverlayTrigger>
+            ))}
             <div className="groupButtons">
               <DropdownButton
                 title="Choose a Tag"
@@ -363,6 +440,28 @@ class PostComposer extends React.Component {
                 </Badge>
               ))}
             <br />
+            {errors.locations && (
+              <Alert variant="danger"> 
+                {errors.locations[0].latitude && (
+                  <span>
+                    {`Latitude: ${errors.locations[0].latitude}`}
+                    <br />
+                  </span>
+                )}
+                {errors.locations[0].longitude && (
+                  <span>
+                    {`Longitude: ${errors.locations[0].longitude}`}
+                    <br />
+                  </span>
+                )}
+                {errors.locations[0].name && (
+                  <span>
+                    {`Location name: ${errors.locations[0].name}`}
+                    <br />
+                  </span>
+                )}
+              </Alert>
+            )}
             <Button
               onClick={() => this.setState({ addLocationClicked:true })}
             >
@@ -381,7 +480,6 @@ class PostComposer extends React.Component {
                       onChange={this.handleInputChange} 
                     />
                   </Form.Group>
-
                   <Form.Group as={Col}>
                     <Form.Label>Longitude</Form.Label>
                     <Form.Control 
@@ -414,10 +512,14 @@ class PostComposer extends React.Component {
               </Form.Group>
             )}
           </Form.Group>
-
           {/* Add Image */}
           <Form.Group>
             <Form.Label> Images </Form.Label>
+            {(selectedFile === null) && (
+              <Alert variant="danger"> 
+                Image must be selected.
+              </Alert>
+            )}
             {images.map(image => 
               ( 
                 <Badge 
