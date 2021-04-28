@@ -8,8 +8,8 @@
 .SmallerPostPreview {
   width: 636px;
   height: 183px;
-  top:  796px;
-  left: 585px;
+  /* top:  796px;
+  left: 585px; */
   position: relative;
   border-radius: 3px;
   border: solid 1px var(--shade);

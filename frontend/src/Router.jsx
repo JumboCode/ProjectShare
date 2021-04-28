@@ -11,6 +11,9 @@ import Navigation from './Navigation';
 import IndexPage from './indexPage';
 import FooterElement from './FooterElement';
 import HomePage from './HomePage';
+import CategoryPage from './CategoryPage';
+import TagPage from './TagPage';
+import SearchResultsPage from './SearchResultsPage';
 import Post from './Post';
  
 function AppRouter() {
@@ -24,6 +27,9 @@ function AppRouter() {
           <Route path="/about" component={AboutPage} />
           <Route path="/home" component={HomePage} />
           <Route path="/post/:postId" component={Post} />
+          <Route path="/category/:categoryId" component={CategoryPage} />
+          <Route path="/tag/:tagId" component={TagPage} />
+          <Route path="/search" component={SearchResultsPage} />
           <Route component={NotFound} />
         </Switch>
         <FooterElement /> 
