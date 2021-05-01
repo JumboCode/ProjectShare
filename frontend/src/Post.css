@@ -95,3 +95,12 @@
     height: 480px;
     left: -189px;
   }
+
+.post h2 {
+  font-size: 1.5rem;
+}
+.post h3 {
+  font-size: 1rem;
+  color: var(--header-color);
+  font-weight: 700;
+}

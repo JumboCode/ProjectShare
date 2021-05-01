@@ -23,7 +23,7 @@ function PostPreview({ Data }) {
       </Link>
       <p className="PostContentLarge">
         {
-          `${Data.content.substr(0, 113)}...`
+          `${Data.content.substr(0, 113).replace(/#/g, "")}...`
         }
       </p>
       <p className="TagsLarge">

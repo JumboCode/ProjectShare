@@ -7,18 +7,22 @@
 
 .SmallerPostPreview {
   width: 636px;
-  height: 183px;
-  /* top:  796px;
-  left: 585px; */
+  flex-direction: row;
+  display: flex;
+  height: fit-content;
   position: relative;
   border-radius: 3px;
   border: solid 1px var(--shade);
+  padding: 21.5px;
+}
+
+.post-info {
+  flex: 1 0;
+  display: flex;
+  flex-direction: column;
 }
 
 .PhotoPlaceHolder {
-    position: relative;
-    left: 479.5px;
-    top: 28.5px;
     width: 135px;
     height: 126px;
     background-color: var(--shade-color);
@@ -26,20 +30,12 @@
 }
 
 .Photo {
-    position: relative;
-    left: 225px;
-    top: 28.5px;
-    width: 135px;
-    height: 126px;
-    text-align: center;
+  width: 135px;
+  height: 126px;
+  text-align: center;
 }
 
 .DatePosted {
-  position: relative;
-  width: 443px;
-  height: 22px;
-  bottom: 117px;
-  left: 21.5px;
   font-family: 'Noto Sans', sans-serif;
   font-size: 16px;
   font-weight: 500;
@@ -52,12 +48,7 @@
 }
 
 .Title {
-  position: relative;
-  width: 443px;
-  height: 25px;
   font-size: 18px;
-  bottom: 135px;
-  left: 21.5px;
   color: var(--header);
   font-family: 'Noto Sans', sans-serif;
   text-align: left;
@@ -67,41 +58,34 @@
 }
 
 .Tags {
-  position: relative;
-  width: max-content;
-  height: 3px;
-  bottom: 160px;
-  left: 21.5px;
+  width: 443px;
   align-items: center;
   gap: 10px;
   white-space: nowrap;
   text-align: left;
+  display: flex;
+  flex-wrap: wrap;
 }
 
 
 .tagElemPost {
-    width: 24;
-    height: 19px;
-    font-family: 'Noto Sans', sans-serif;
-    font-size: 14px;
-    font-weight: 100;
-    text-align: left;
-    margin: 0 10px 0 0;
-    padding: 5px 5px 5px 5px;
-    border-radius: 3px;
-    border: solid 1px;
-    border-color: #3da9fc;
-    color: #3da9fc;
-    background-color: white;
-    text-decoration: none;
+  width: 24;
+  height: 19px;
+  font-family: 'Noto Sans', sans-serif;
+  font-size: 14px;
+  font-weight: 100;
+  text-align: left;
+  margin: 0 10px 0 0;
+  padding: 5px 5px 5px 5px;
+  border-radius: 3px;
+  border: solid 1px;
+  border-color: #3da9fc;
+  color: #3da9fc;
+  background-color: white;
+  text-decoration: none;
 }
 
 .PostContent {
-  position: relative;
-  width: 443px;
-  height: 52px;
-  left: 21.5px;
-  bottom:150px;
   font-size: 15px;
   font-family: 'Noto Serif';
   font-size: 15px;

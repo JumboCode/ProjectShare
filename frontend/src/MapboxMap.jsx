@@ -2,20 +2,11 @@
 import * as React from 'react';
 import { Component } from 'react';
 import MapGL, { Marker, WebMercatorViewport } from 'react-map-gl';
+import PropTypes from 'prop-types';
 import Pin from './pin.png';
 import "./MapboxMap.css";
 
-
 const MAPBOX_TOKEN = process.env.REACT_APP_MAPBOX_ACCESS_TOKEN;
-const places = [
-  { id: 1, pos: {lat: 37.772, lng: -122.214}, name: "California", address: "123 Lily Road, CA, United States"},
-  { id: 2, pos: {lat: 29.772, lng: -102.214}, name: "Mexico", address: "52 Main Street, Mexico" },
-  { id: 3, pos: {lat: 42.418560, lng: -71.106453}, name: "Massachusetts", address: "103 Professors Row, MA, United States" },
-  { id: 4, pos: {lat: 51.507351, lng: -0.127758}, name: "United Kingdom", address: "4 Privet Drive, United Kingdom" },
-  { id: 5, pos: {lat: 41.436404, lng: -87.71741}, name: "Illinois", address: "510 52nd Street, IL, United States" },
-  { id: 6, pos: {lat: 19.65513, lng: -155.41502}, name: "Hawaii", address: "11 Clover Lane, HI, United States" }, 
-  { id: 7, pos: {lat: -2.7018522, lng: -51.92381}, name: "Brazil", address: "5 Parker Court, Brazil" }
-]
 
 class Map extends Component {
   constructor(props) {
@@ -35,8 +26,9 @@ class Map extends Component {
 
   componentDidMount() {
     /* Calculate pairs of min lnglat and max lnglat */
-    const lat = places.map(location => Number(location.pos.lat));
-    const lng = places.map(location => Number(location.pos.lng));
+    const { locations } = this.props;
+    const lat = locations.map(location => Number(location.latitude));
+    const lng = locations.map(location => Number(location.longitude));
 
     const minCoords = [Math.min.apply(null, lng), Math.min.apply(null, lat)];
     const maxCoords = [Math.max.apply(null, lng), Math.max.apply(null, lat)];
@@ -79,21 +71,26 @@ class Map extends Component {
 
   render() {
     const { viewport, viewState } = this.state;
-
+    const { locations } = this.props;
     return (
       <div className="mapComponent">
         
         <div className="mapLocationListContainer">
-          {places.map((city) => (
-            <div className="mapLocationRectangles">
+          {locations.map((loc) => (
+            <div className="mapLocationRectangles" key={loc.id}>
               <p className="mapAddressName">  
-                {city.name} 
+                {loc.name} 
               </p>
               <p className="mapAddress">
-                {city.address}
+                {loc.address}
               </p>
               <p className="mapBulletPoints" /> 
-              <button className="locationButtons" type="button" onClick={() => this.onLocationClick(city.pos.lat, city.pos.lng)}>  </button>
+              <button
+                className="locationButtons"
+                type="button"
+                onClick={() => this.onLocationClick(Number(loc.latitude), Number(loc.longitude))}
+                aria-label="Move map to this location"
+              />
             </div>
           ))}
         </div>
@@ -107,13 +104,13 @@ class Map extends Component {
           mapboxApiAccessToken={MAPBOX_TOKEN}
         >
           {
-            places.map(
-              city => 
+            locations.map(
+              loc => 
                 (
                   <Marker
-                    key={city.id}
-                    longitude={city.pos.lng}
-                    latitude={city.pos.lat}
+                    key={loc.id}
+                    longitude={Number(loc.longitude)}
+                    latitude={Number(loc.latitude)}
                     offsetLeft={-32/2}
                     offsetTop={-32}
                   >
@@ -129,3 +126,14 @@ class Map extends Component {
 }
 
 export default Map;
+
+Map.propTypes = {
+  locations: PropTypes.arrayOf(PropTypes.shape({
+    name: PropTypes.string,
+    longitude: PropTypes.string,
+    latitude: PropTypes.string,
+  }))
+}
+Map.defaultProps = {
+  locations: []
+}

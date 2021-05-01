@@ -1,4 +1,5 @@
 import React from "react";
+import Markdown from 'markdown-to-jsx';
 import Map from "./MapboxMap";
 import "./Post.css";
 
@@ -9,8 +10,8 @@ class Post extends React.Component {
   }
 
   componentDidMount() {
-    const { match: { params } } = this.props;
-    fetch ("http://localhost:8000/api/posts") 
+    const { match: { params: { postId } } } = this.props;
+    fetch(`http://localhost:8000/api/posts?post_id=${postId}`)
       .then(res => res.json())
       .then(res => this.setState({posts: res}));
   }
@@ -21,6 +22,7 @@ class Post extends React.Component {
     if (posts.length !== 0) {
       post = posts[posts.length - 1]
     }
+    const dateOptions = { year: 'numeric', month: 'long', day: 'numeric' };
     return (
       <div className="post">
         { posts.length > 0 && (
@@ -42,16 +44,7 @@ class Post extends React.Component {
         )}
         { posts.length > 0 && (
           <p className="date">
-            { post.date }
-          </p>
-        )}
-        { posts.length > 0 && (
-          <p>
-            <div className="image"> 
-              {post.images.map(image => (
-                <img src={image.img_file} alt={image.img_name} key={image.id} className="image" />
-              ))}
-            </div>
+            {new Date(post.date).toLocaleDateString("en-US", dateOptions)}
           </p>
         )}
         { posts.length > 0 && (
@@ -60,13 +53,20 @@ class Post extends React.Component {
           </p>
         )}
         { posts.length > 0 && (
-          <p className="contents">
-            { post.content }
-          </p>
+          <div className="contents">
+            <Markdown>{post.content}</Markdown>
+          </div>
         )}
         { posts.length > 0 && (
+          <div className="image">
+            {post.images.map(image => (
+              <img src={image.img_file} alt={image.img_name} key={image.id} className="image" />
+            ))}
+          </div>
+        )}
+        { posts.length > 0 && post.locations.length !== 0 && (
           <div className="map">
-            <Map />
+            <Map locations={post.locations} />
           </div>
         )}
       </div>
