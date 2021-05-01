@@ -109,7 +109,7 @@ def bulk_add_tags(request, methods='POST'):
         tags = tags_string.split(",")
         tag_objects = [models.Tag(name=tag.strip()) for tag in tags]
         try:
-            models.Tag.objects.bulk_create(tag_objects)
+            models.Tag.objects.bulk_create(tag_objects, ignore_conflicts=True)
         except IntegrityError as err:
             return JsonResponse({'status': 'fail',
                                  'message': str(err)})
