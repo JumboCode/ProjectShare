@@ -117,3 +117,23 @@ def bulk_add_tags(request, methods='POST'):
                             'message': 'Added tags to database.'})
     return JsonResponse({'status': 'fail',
                          'message': 'Please send a list of tags.'})
+
+
+@csrf_exempt
+def bulk_add_categories(request, methods='POST'):
+    categories_string = request.POST.get("categories", "")
+    if len(categories_string) != 0:
+        categories = categories_string.split(",")
+        cat_objects = [models.Category(name=cat.strip()) for cat in categories]
+        try:
+            models.Category.objects.bulk_create(
+                cat_objects,
+                ignore_conflicts=True
+            )
+        except IntegrityError as err:
+            return JsonResponse({'status': 'fail',
+                                 'message': str(err)})
+        return JsonResponse({'status': 'success',
+                             'message': 'Added categories to database.'})
+    return JsonResponse({'status': 'fail',
+                         'message': 'Please send a list of categories.'})
