@@ -5,12 +5,13 @@ import Router from './Router';
 class App extends React.Component {
   constructor(props) {
     super(props);
+    this.updateAuthentication = this.updateAuthentication.bind(this);
     this.state = {
       isAuthenticated: false
     };
   }
 
-  updateAuth(props) {
+  updateAuthentication(props) {
     this.setState({
       isAuthenticated: props,
     })
@@ -19,7 +20,7 @@ class App extends React.Component {
   render() {
     return (
       <div className="App">
-        <Router updateAuth={this.updateAuth} />
+        <Router updateAuth={this.updateAuthentication} />
       </div>
     );
   }

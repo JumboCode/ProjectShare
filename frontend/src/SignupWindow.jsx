@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from 'prop-types';
 import { Form } from "react-bootstrap";
 import { Button } from "react-bootstrap";
 import { Alert } from "react-bootstrap";
@@ -38,43 +39,53 @@ class Signup extends React.Component {
         passMatch: false,
       })
     } else {
-      fetch('http://localhost:8000/auth/signup/', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          email: useremail,
-          password1: userpassword1,
-          password2: userpassword2
-        })
-      })
-        .then(response => {
-          this.setState({
-            response: response.status,
+      if (localStorage.getItem('pshare') === null) {
+        fetch('http://localhost:8000/auth/signup/', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            email: useremail,
+            password1: userpassword1,
+            password2: userpassword2
           })
-          if (response.status >= 200 && response.status <= 299) {
-            return response.json()
-          }
-          this.setState({
-            error: true,
-          })
-          return "error"
         })
-        .then(data => { 
-          this.setState({
-            key: data.key,
-          })
-          this.childFunction();
-        })
-        .catch( error => {
-          const { response } = this.state;
-          if (response < 200 || response > 299) {
+          .then(response => {
+            this.setState({
+              response: response.status,
+            })
+            if (response.status >= 200 && response.status <= 299) {
+              return response.json()
+            }
             this.setState({
               error: true,
             })
-          }
+            return "error"
+          })
+          .then(data => { 
+            this.setState({
+              key: data.key,
+            })
+            localStorage.setItem('pshare', data.key);
+            this.childFunction();
+          })
+          .catch( error => {
+            const { response } = this.state;
+            if (response < 200 || response > 299) {
+              this.setState({
+                error: true,
+              })
+              localStorage.removeItem('pshare');
+            }
+          })
+      } else {
+        const authToken = localStorage.getItem('pshare');
+        this.setState({
+          key: authToken,
         })
+        this.childFunction()
+      }
     }
   }
 
@@ -133,5 +144,13 @@ class Signup extends React.Component {
       
   }
 }
+
+Signup.defaultProps = {
+  authUpdate: null,
+}
+
+Signup.propTypes = {
+  authUpdate: PropTypes.func,
+};
 
 export default Signup;

@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from 'prop-types';
 import { Form } from "react-bootstrap";
 import { Button } from "react-bootstrap";
 import { Alert } from "react-bootstrap";
@@ -117,5 +118,13 @@ class Login extends React.Component {
     
   }
 }
+
+Login.defaultProps = {
+  authUpdate: null,
+}
+
+Login.propTypes = {
+  authUpdate: PropTypes.func,
+};
 
 export default Login;

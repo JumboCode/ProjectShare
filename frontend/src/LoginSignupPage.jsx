@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from 'prop-types';
 import { Tabs } from "react-bootstrap";
 import { Tab } from "react-bootstrap";
 import Signup from './SignupWindow';
@@ -18,17 +19,26 @@ class LoginSignupPage extends React.Component {
   }
 
   render() {
+    const {updateAuth} = this.props
     return (
       <Tabs className="toggleSignupLogin" defaultActiveKey="signup" id="toggleSignupLogin">
         <Tab eventKey="signup" title="Sign Up">
-          <Signup callbackFromParent={this.HandleCallback} />
+          <Signup callbackFromParent={this.HandleCallback} authUpdate={updateAuth} />
         </Tab>
         <Tab eventKey="login" title="Log In">
-          <Login callbackFromParent={this.HandleCallback} />
+          <Login callbackFromParent={this.HandleCallback} authUpdate={updateAuth} />
         </Tab>
       </Tabs>
     );
   }
 }
+
+LoginSignupPage.defaultProps = {
+  updateAuth: null,
+}
+
+LoginSignupPage.propTypes = {
+  updateAuth: PropTypes.func,
+};
 
 export default LoginSignupPage;
