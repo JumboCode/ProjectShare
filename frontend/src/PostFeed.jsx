@@ -14,23 +14,23 @@ export const PostFeed = ({title, subtitle, posts,featured}) => {
       <div className="subtitle">
         {subtitle}
       </div>
-      { featured === true && (
-        <div className="featuredPost">
+      { featured === true && posts.length !== 0 && (
+        <div className="featuredPost" key={posts[0].id}>
           <PostPreview Data={posts[0]} /> 
         </div>
       )}
-      {posts.slice(1).map(post => (
-        <div className="smallerPosts" key={post.id}>
-          { featured === true &&
-            <SmallerPostPreview Data={post} /> }
-        </div>
-      ))}
-      {posts.map(post => (
-        <div className="allSmallerPosts" key={post.id}>
-          { featured === false &&
-            <SmallerPostPreview Data={post} />}
-        </div>
-      ))}
+      { posts.length !== 0 && featured === true && (
+        posts.slice(1, posts.length).map(post => (
+          <div className="smallerPosts" key={post.id}>
+            <SmallerPostPreview Data={post} /> 
+          </div>
+        )) )}
+      { posts.length !== 0 && featured === false && (
+        posts.map(post => (
+          <div className="allSmallerPosts" key={post.id}>
+            <SmallerPostPreview Data={post} />
+          </div>
+        )) )}
     </div>
   )
 }

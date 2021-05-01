@@ -14,10 +14,10 @@ class PostFeedPage extends React.Component {
     super(props);
     this.state = {posts:[]};
   }
-    
+  
   componentDidMount() {
-    // const { match: { params } } = this.props;
-    fetch (this.props.fetchEndpoint) 
+    const {fetchEndpoint} = this.props
+    fetch (fetchEndpoint) 
       .then(res => res.json())
       .then(res => this.setState({posts: res}));
   }
@@ -58,7 +58,7 @@ class PostFeedPage extends React.Component {
           </div>
         </div>
         <div className="postfeedFormat">
-          <PostFeed posts={posts} featured={featured} subtitle={subtitle} title={title}/>
+          <PostFeed posts={posts} featured={featured} subtitle={subtitle} title={title} />
         </div>
       </div>
     );
