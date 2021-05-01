@@ -87,7 +87,7 @@ WSGI_APPLICATION = 'drf_project.wsgi.application'
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
 
 DATABASES = {'default': dj_database_url.config()}
-if DEBUG:
+if 'DATABASE_URL' not in os.environ:
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql_psycopg2',
