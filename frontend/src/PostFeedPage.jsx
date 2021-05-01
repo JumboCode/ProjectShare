@@ -37,7 +37,12 @@ class PostFeedPage extends React.Component {
     const { tags } = this.state;
     const listItems = tags.map((tag) => (
       <li key={tag.id.toString()}>
-        <Link to={`/tag/${tag.id}`}>{tag.name}</Link>
+        <Link
+          to={{ pathname: `/tag/${tag.id}`, state: { tagName: tag.name } }}
+          key={tag.id}
+        >
+          {tag.name}
+        </Link>
       </li>
     )
     );
