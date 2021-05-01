@@ -17,6 +17,8 @@ pillow = "*"
 django-allauth = "*"
 psycopg2 = "*"
 sendgrid = "*"
+django-heroku = "*"
+gunicorn = "*"
 
 [requires]
 python_version = "3.8"
