@@ -68,7 +68,12 @@ class PostFeedPage extends React.Component {
           </div>
         </div>
         <div className="postfeedFormat">
-          <PostFeed posts={posts} featured={featured} subtitle={subtitle} title={title} />
+          {posts.length === 0 ? (
+            <p>No resources were found.</p>
+          ) : (
+            <PostFeed posts={posts} featured={featured} subtitle={subtitle} title={title} />
+          )}
+          
         </div>
       </div>
     );
