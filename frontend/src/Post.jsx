@@ -1,6 +1,7 @@
 import React from "react";
 import Markdown from 'markdown-to-jsx';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import Map from "./MapboxMap";
 import "./Post.css";
 
@@ -29,7 +30,13 @@ class Post extends React.Component {
         { posts.length > 0 && (
           <p className="tags">
             {post.tags.map(tag => (
-              <a href="/" className="tagElem" key={tag.name}>{tag.name}</a>
+              <Link
+                to={{ pathname: `/tag/${tag.id}`, state: { tagName: tag.name } }}
+                className="tagElem"
+                key={tag.id}
+              >
+                {tag.name}
+              </Link>
             ))}
           </p>
         )}
