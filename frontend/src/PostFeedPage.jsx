@@ -22,6 +22,16 @@ class PostFeedPage extends React.Component {
       .then(res => this.setState({posts: res}));
   }
 
+  componentDidUpdate(prevProps) {
+    const { fetchEndpoint } = this.props;
+    if (fetchEndpoint !== prevProps.fetchEndpoint)
+    {
+      fetch(fetchEndpoint)
+        .then(res => res.json())
+        .then(res => this.setState({ posts: res }));
+    }
+  }
+
   render() {
 
     const listItems = topics.map((topic) => (

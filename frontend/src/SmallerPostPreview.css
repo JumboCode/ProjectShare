@@ -62,6 +62,8 @@
   font-family: 'Noto Sans', sans-serif;
   text-align: left;
   font-weight: bold;
+  display: block;
+  margin-block-end: 1em;
 }
 
 .Tags {

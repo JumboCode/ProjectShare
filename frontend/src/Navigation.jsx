@@ -1,6 +1,6 @@
 import React from 'react';
 import './Navigation.css';
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import logo from './static/projectSHARELogo.jpeg';
 import searchIcon from './static/searchIcon.png';
 
@@ -32,12 +32,13 @@ class Navigation extends React.Component {
       <div className="NavBar">
         <form onSubmit={this.handleSubmit}>
           <div className="topRow">
-            <img 
-              className="Logo"
-              src={logo} 
-              alt="Project SHARE Logo" 
-            />
-
+            <Link to="/">
+              <img 
+                className="Logo"
+                src={logo} 
+                alt="Project SHARE Logo" 
+              />
+            </Link>
             <div className="Search">
               <img 
                 className="SearchIcon" 

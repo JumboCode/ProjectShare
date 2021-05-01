@@ -28,7 +28,6 @@ function AppRouter() {
           <Route path="/category/:categoryId" component={CategoryPage} />
           <Route path="/tag/:tagId" component={TagPage} />
           <Route path="/search" component={SearchResultsPage} />
-          <Route path="/" component={HomePage} />
           <Route component={NotFound} />
         </Switch>
         <FooterElement /> 

@@ -1,6 +1,7 @@
 import React from 'react';
 import './SmallerPostPreview.css';
 import PropTypes from 'prop-types';
+import { Link} from 'react-router-dom';
 
 function SmallerPostPreview({ Data }) {
   const dateOptions = { year: 'numeric', month: 'long', day: 'numeric' };
@@ -17,15 +18,22 @@ function SmallerPostPreview({ Data }) {
       <p className="DatePosted">
         {new Date(Data.date).toLocaleDateString("en-US", dateOptions)}
       </p>
-      <p className="Title">
-        { Data.title }
-      </p>
+      <Link to={`/post/${Data.id}`} className="Title">
+        {Data.title}
+      </Link>
       <p className="PostContent">
         { `${Data.content.substr(0, 113)}...` }
       </p>
       <p className="Tags">
         {Data.tags.map (tag => (
-          <a href="/" className="tagElemPost" key={tag.id}>{tag.name}</a>
+          <Link
+            to={{ pathname: `/tag/${tag.id}`, state: { tagName: tag.name } }}
+            className="tagElemPostLarge"
+            key={tag.id}
+          >
+            {tag.name}
+
+          </Link>
         ))}
       </p>
     </div>

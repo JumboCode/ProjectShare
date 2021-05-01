@@ -1,5 +1,6 @@
 import React from 'react';
 import './PostPreview.css';
+import { Link} from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 function PostPreview({ Data }) {
@@ -17,9 +18,9 @@ function PostPreview({ Data }) {
       <h5 className="DatePostedLarge">
         {new Date(Data.date).toLocaleDateString("en-US", dateOptions)}
       </h5>
-      <p className="TitleLarge">
+      <Link className="TitleLarge" to={`/post/${Data.id}`}>
         { Data.title }
-      </p>
+      </Link>
       <p className="PostContentLarge">
         {
           `${Data.content.substr(0, 113)}...`
@@ -27,7 +28,14 @@ function PostPreview({ Data }) {
       </p>
       <p className="TagsLarge">
         {Data.tags.map(tag => (
-          <a href="/" className="tagElemPostLarge" key={tag.id}>{tag.name}</a>
+          <Link 
+            to={{ pathname: `/tag/${tag.id}`, state: { tagName: tag.name } }} 
+            className="tagElemPostLarge" 
+            key={tag.id}
+          >
+            {tag.name}
+
+          </Link>
         ))}
       </p>
     </div>

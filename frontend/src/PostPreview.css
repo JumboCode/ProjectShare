@@ -47,7 +47,7 @@
   text-align: left;
 }
 
-.TitleLarge {
+a.TitleLarge {
   position: relative;
   width: 270px;
   height: 25px;
@@ -60,6 +60,7 @@
   text-align: left;
   font-weight: bold;
   background-color: #ffffff;
+  display: block;
 }
 
 .TagsLarge {
