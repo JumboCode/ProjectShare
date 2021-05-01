@@ -107,7 +107,7 @@ def bulk_add_tags(request, methods='POST'):
     tags_string = request.POST.get("tags", "")
     if len(tags_string) != 0:
         tags = tags_string.split(",")
-        tag_objects = [models.Tag(name=tag.strip()) for tag in tags]
+        tag_objects = [models.Tag(name=tag.strip().title()) for tag in tags]
         try:
             models.Tag.objects.bulk_create(tag_objects, ignore_conflicts=True)
         except IntegrityError as err:
@@ -124,7 +124,8 @@ def bulk_add_categories(request, methods='POST'):
     categories_string = request.POST.get("categories", "")
     if len(categories_string) != 0:
         categories = categories_string.split(",")
-        cat_objects = [models.Category(name=cat.strip()) for cat in categories]
+        cat_objects = [models.Category(
+            name=cat.strip().title()) for cat in categories]
         try:
             models.Category.objects.bulk_create(
                 cat_objects,
