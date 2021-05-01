@@ -63,7 +63,7 @@ class PostViewSet(viewsets.ModelViewSet):
                         | Q(category__name__icontains=keyword)
                         | Q(content__icontains=keyword)
                         | Q(tags__name__icontains=keyword))
-            queryset = queryset.filter(q_object)
+            queryset = queryset.filter(q_object).distinct()
         return queryset
 
     serializer_class = serializers.PostSerializer
