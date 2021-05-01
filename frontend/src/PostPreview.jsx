@@ -48,6 +48,7 @@ PostPreview.propTypes = {
     date: PropTypes.string,
     title: PropTypes.string,
     content: PropTypes.string,
+    id: PropTypes.number,
     tags: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.oneOfType([PropTypes.string, PropTypes.number]))),
   }).isRequired
 }
