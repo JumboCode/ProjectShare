@@ -19,6 +19,7 @@ psycopg2 = "*"
 sendgrid = "*"
 django-heroku = "*"
 gunicorn = "*"
+dj-database-url = "*"
 
 [requires]
 python_version = "3.8"
