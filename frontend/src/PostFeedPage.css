@@ -1,9 +1,9 @@
-
-.HomePage {
+.postfeedPage {
     display:flex;
     flex-direction:row;
     height:fit-content;
 }
+
 .sideBar{
     align-content: left;
     font-family: "Noto Sans", sans-serif;
@@ -94,13 +94,11 @@
     color: white;
 }
 
-.postFeed {
+.postfeedFormat {
     display:flex;
-    /* position:relative; */
     flex-direction:column;
     width:636px;
     height:fit-content;
     margin-bottom:52px;
     margin-top:80px;
 }
-
