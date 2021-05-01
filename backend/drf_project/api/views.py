@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
-from rest_framework import viewsets, permissions, views
-from rest_framework.decorators import api_view
+from rest_framework import viewsets, permissions
 from django.db.models import Q
 from . import serializers
 from . import models
@@ -10,6 +9,7 @@ from sendgrid.helpers.mail import Mail
 from django.core.mail import BadHeaderError
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
+from django.db import IntegrityError
 import json
 import os
 
@@ -37,7 +37,7 @@ class ImageViewSet(viewsets.ModelViewSet):
 
 class PostViewSet(viewsets.ModelViewSet):
     lookup_url_kwarg = 'post_id'
-    
+
     def get_queryset(self):
         """
         Optionally restricts the returned posts by filtering
@@ -60,9 +60,9 @@ class PostViewSet(viewsets.ModelViewSet):
             queryset = queryset.filter(category_id=category_id)
         if keyword is not None:
             q_object = (Q(title__icontains=keyword)
-                | Q(category__name__icontains=keyword)
-                | Q(content__icontains=keyword)
-                | Q(tags__name__icontains=keyword))
+                        | Q(category__name__icontains=keyword)
+                        | Q(content__icontains=keyword)
+                        | Q(tags__name__icontains=keyword))
             queryset = queryset.filter(q_object)
         return queryset
 
@@ -100,3 +100,20 @@ def contact(request):
                                  'message': 'Invalid header found.'})
         return JsonResponse({'status': 'success',
                              'message': 'Email sent!'})
+
+
+@csrf_exempt
+def bulk_add_tags(request, methods='POST'):
+    tags_string = request.POST.get("tags", "")
+    if len(tags_string) != 0:
+        tags = tags_string.split(",")
+        tag_objects = [models.Tag(name=tag.strip()) for tag in tags]
+        try:
+            models.Tag.objects.bulk_create(tag_objects)
+        except IntegrityError as err:
+            return JsonResponse({'status': 'fail',
+                                 'message': str(err)})
+        return JsonResponse({'status': 'success',
+                            'message': 'Added tags to database.'})
+    return JsonResponse({'status': 'fail',
+                         'message': 'Please send a list of tags.'})

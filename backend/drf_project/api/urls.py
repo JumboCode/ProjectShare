@@ -48,5 +48,7 @@ image_urls = [
 
 contact_url = [path('contact', views.contact, name='contact')]
 
+add_tags_url = [path('add_tags_bulk', views.bulk_add_tags)]
+
 urlpatterns = (tag_urls + category_urls + image_urls + post_urls
-               + location_urls + contact_url)
+               + location_urls + contact_url + add_tags_url)
