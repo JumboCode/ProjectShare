@@ -6,14 +6,14 @@ function SmallerPostPreview({ Data }) {
   const dateOptions = { year: 'numeric', month: 'long', day: 'numeric' };
   return (
     <div className="SmallerPostPreview">
-      <p>
+      <div>
         { Data.images.length > 0 && (
           <img src={Data.images[0].img_file} alt={Data.images[0].img_name} key={Data.images[0].id} className="Photo" />
         )}
         { Data.images.length <= 0 && (
-          <div className="PhotoPlaceHolder" />
+          <p className="PhotoPlaceHolder" />
         )}
-      </p>
+      </div>
       <p className="DatePosted">
         {new Date(Data.date).toLocaleDateString("en-US", dateOptions)}
       </p>
