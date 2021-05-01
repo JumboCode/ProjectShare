@@ -3,16 +3,14 @@ import PropTypes from 'prop-types';
 import DropdownButton from 'react-bootstrap/DropdownButton';
 import Dropdown from 'react-bootstrap/esm/Dropdown';
 import DropdownItem from 'react-bootstrap/esm/DropdownItem';
+import { Link} from 'react-router-dom';
 import PostFeed from "./PostFeed";
 import './PostFeedPage.css';
-
-const topics = ["Access", "Education", "Environment", "Equality", "Food Insecurity", "Gender Equality", "Maternal & Child Health", 
-  "Mental Health", "Sharewood Project", "Women's Health", "Vulnerable Groups (at risk)"];
 
 class PostFeedPage extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {posts:[]};
+    this.state = {posts:[], tags: []};
   }
   
   componentDidMount() {
@@ -20,6 +18,9 @@ class PostFeedPage extends React.Component {
     fetch (fetchEndpoint) 
       .then(res => res.json())
       .then(res => this.setState({posts: res}));
+    fetch('http://localhost:8000/api/tags')
+      .then(res => res.json())
+      .then(res => this.setState({tags: res}))
   }
 
   componentDidUpdate(prevProps) {
@@ -33,10 +34,10 @@ class PostFeedPage extends React.Component {
   }
 
   render() {
-
-    const listItems = topics.map((topic) => (
-      <li key={topic.toString()}>
-        {topic}
+    const { tags } = this.state;
+    const listItems = tags.map((tag) => (
+      <li key={tag.id.toString()}>
+        <Link to={`/tag/${tag.id}`}>{tag.name}</Link>
       </li>
     )
     );

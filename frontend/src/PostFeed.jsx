@@ -5,7 +5,7 @@ import SmallerPostPreview from "./SmallerPostPreview";
 import PostPreview from "./PostPreview";
 import './PostFeed.css';
 
-export const PostFeed = ({title, subtitle, posts,featured}) => {
+const PostFeed = ({title, subtitle, posts,featured}) => {
   return (
     <div className="postfeed">
       <div className="title">
