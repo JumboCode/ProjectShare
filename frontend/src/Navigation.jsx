@@ -10,10 +10,17 @@ class Navigation extends React.Component {
     super(props);
     this.state = {
       searchInput: '',
+      categories: [],
     };
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  componentDidMount() {
+    fetch('http://localhost:8000/api/categories')
+      .then(res => res.json())
+      .then(res => this.setState({ categories: res }));
   }
 
   handleChange(event) {
@@ -26,8 +33,9 @@ class Navigation extends React.Component {
     event.preventDefault();
   }
 
+
   render() {
-    const { input } = this.state;
+    const { input, categories } = this.state;
     return (
       <div className="NavBar">
         <form onSubmit={this.handleSubmit}>
@@ -62,21 +70,16 @@ class Navigation extends React.Component {
             </button>
           </div>
           <div className="navbarLink">
-            <NavLink className="tuftsResources" activeClassName="nav-active" to="/tuftsResources">
-              Tufts Resources
-            </NavLink>
-            <NavLink className="communityResources" activeClassName="nav-active" to="/communityResources">
-              Community Resources 
-            </NavLink>
-            <NavLink className="sharewood" activeClassName="nav-active" to="/sharewoodProject">
-              The Sharewood Project
-            </NavLink>
-            <NavLink className="newsletterArchives" activeClassName="nav-active" to="/newsletterArchives">
-              Newsletter Archives
-            </NavLink>
-            <NavLink className="howCanHelp" activeClassName="nav-active" to="/howYouCanHelp">
-              How You Can Help
-            </NavLink>
+            {categories.map(cat => (
+              <NavLink 
+                key={cat.id}
+                className="tuftsResources"
+                activeClassName="nav-active"
+                to={`/category/${cat.id}`}
+              >
+                {cat.name}
+              </NavLink>
+            ))}
           </div>
         </form>
       </div>
