@@ -51,7 +51,10 @@
     text-align: left;
     color: #556474; 
     list-style-type: none;
-    line-height: 32px;
+    line-height: 1rem;
+}
+.filterList li {
+    padding-bottom: 1rem;
 }
 .helpHeader {
     height: 31px;
