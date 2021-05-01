@@ -1,5 +1,6 @@
 import React from "react";
 import Markdown from 'markdown-to-jsx';
+import PropTypes from 'prop-types';
 import Map from "./MapboxMap";
 import "./Post.css";
 
@@ -75,3 +76,12 @@ class Post extends React.Component {
 }
 
 export default Post;
+
+
+Post.propTypes = {
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      postId: PropTypes.string,
+    })
+  }).isRequired,
+};

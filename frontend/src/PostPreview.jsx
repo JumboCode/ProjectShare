@@ -11,9 +11,6 @@ function PostPreview({ Data }) {
         { Data.images.length > 0 && (
           <img src={Data.images[0].img_file} alt={Data.images[0].img_name} key={Data.images[0].id} className="Photo" />
         )}
-        { Data.images.length <= 0 && (
-          <div className="PhotoPlaceHolderLarge" />
-        )}
       </div>
       <h5 className="DatePostedLarge">
         {new Date(Data.date).toLocaleDateString("en-US", dateOptions)}
