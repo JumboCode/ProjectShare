@@ -33,6 +33,7 @@
   margin: 10px 0px 0 44px;
   line-height: normal;
   text-align: left;
+  list-style-type: circle;
 }
 
 .mapAddress {

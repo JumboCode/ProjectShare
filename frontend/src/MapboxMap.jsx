@@ -25,32 +25,37 @@ class Map extends Component {
   }
 
   componentDidMount() {
-    /* Calculate pairs of min lnglat and max lnglat */
     const { locations } = this.props;
-    const lat = locations.map(location => Number(location.latitude));
-    const lng = locations.map(location => Number(location.longitude));
+    if (locations.length === 1) {
+      this.onLocationClick(Number(locations[0].latitude), Number(locations[0].longitude))
+    } else {
+      /* Calculate pairs of min lnglat and max lnglat */
+      const lat = locations.map(location => Number(location.latitude));
+      const lng = locations.map(location => Number(location.longitude));
 
-    const minCoords = [Math.min.apply(null, lng), Math.min.apply(null, lat)];
-    const maxCoords = [Math.max.apply(null, lng), Math.max.apply(null, lat)];
-    const bounds = [minCoords, maxCoords];
+      const minCoords = [Math.min.apply(null, lng), Math.min.apply(null, lat)];
+      const maxCoords = [Math.max.apply(null, lng), Math.max.apply(null, lat)];
 
-    /* Create new viewport with new bounds from calculations */
-    const { viewport } = this.state;
+      const bounds = [minCoords, maxCoords];
+      /* Create new viewport with new bounds from calculations */
+      const { viewport } = this.state;
 
-    const vp = new WebMercatorViewport(viewport);
-    const {longitude, latitude, zoom} = vp.fitBounds(bounds, {padding: 10});
+      const vp = new WebMercatorViewport(viewport);
+      const { longitude, latitude, zoom } = vp.fitBounds(bounds, { padding: 10 });
 
-    this.setState({
-      viewport: {
-        width: "100%",
-        height: "100%",
-      },
-      viewState: {
-        latitude,
-        longitude,
-        zoom
-      }
-    });
+      this.setState({
+        viewport: {
+          width: "100%",
+          height: "100%",
+        },
+        viewState: {
+          latitude,
+          longitude,
+          zoom
+        }
+      });
+    }
+    
   }
 
   onLocationClick = (newLatitude, newLongitude) => {
@@ -78,13 +83,12 @@ class Map extends Component {
         <div className="mapLocationListContainer">
           {locations.map((loc) => (
             <div className="mapLocationRectangles" key={loc.id}>
-              <p className="mapAddressName">  
+              <li className="mapAddressName">  
                 {loc.name} 
-              </p>
+              </li>
               <p className="mapAddress">
                 {loc.address}
               </p>
-              <p className="mapBulletPoints" /> 
               <button
                 className="locationButtons"
                 type="button"
