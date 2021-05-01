@@ -4,8 +4,8 @@ from django.db import models
 
 
 class Location(models.Model):
-    latitude = models.DecimalField(max_digits=8, decimal_places=5)
-    longitude = models.DecimalField(max_digits=8, decimal_places=5)
+    latitude = models.DecimalField(max_digits=20, decimal_places=10)
+    longitude = models.DecimalField(max_digits=20, decimal_places=10)
     name = models.CharField(max_length=80, blank=True)
 
 
@@ -31,8 +31,8 @@ class Post(models.Model):
     date = models.DateTimeField(auto_now_add=True)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     tags = models.ManyToManyField(Tag, related_name='posts')
-    images = models.ManyToManyField(Image, related_name='posts')
-    locations = models.ManyToManyField(Location, related_name='posts')
+    images = models.ManyToManyField(Image, related_name='posts', blank=True)
+    locations = models.ManyToManyField(Location, related_name='posts', blank=True)
     content = models.TextField()
     language = models.CharField(
         max_length=20,

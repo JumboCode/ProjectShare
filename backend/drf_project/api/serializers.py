@@ -35,7 +35,7 @@ class CategorySerializer(serializers.ModelSerializer):
 
 
 class ImageSerializer(serializers.ModelSerializer):
-    id = serializers.IntegerField(required=False) 
+    id = serializers.IntegerField(required=False)
     img_file = serializers.ImageField(required=False)
     
     class Meta:
