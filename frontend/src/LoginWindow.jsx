@@ -1,7 +1,6 @@
 import React from "react";
 import PropTypes from 'prop-types';
 import { Form , Button , Alert } from "react-bootstrap";
-import 'bootstrap/dist/css/bootstrap.min.css';
 
 class Login extends React.Component {
   constructor(props) {

@@ -80,7 +80,9 @@ class Navigation extends React.Component {
                 activeClassName="nav-active"
                 to={{ pathname: `/category/${cat.id}`, state: { pageName: cat.name } }}
               >
-                {cat.name}
+                <h5>
+                  {cat.name}
+                </h5>
               </NavLink>
             ))}
           </div>

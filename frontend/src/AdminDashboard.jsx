@@ -1,6 +1,5 @@
 import React from "react";
 import { Table } from 'react-bootstrap';
-import 'bootstrap/dist/css/bootstrap.min.css';
 import './AdminDashboard.css';
 
 class Dashboard extends React.Component {

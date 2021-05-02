@@ -5,7 +5,6 @@ import { Redirect } from "react-router-dom";
 import Signup from './SignupWindow';
 import Login from './LoginWindow';
 import './LoginSignupPage.css';
-import 'bootstrap/dist/css/bootstrap.min.css';
 
 function LoginSignupPage({updateAuth}) {
   const key = localStorage.getItem('pshare');

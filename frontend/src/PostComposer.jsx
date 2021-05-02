@@ -9,7 +9,6 @@ import Alert from 'react-bootstrap/Alert';
 import Tooltip from 'react-bootstrap/Tooltip';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import PostContentEditor from './PostContentEditor';
-import 'bootstrap/dist/css/bootstrap.min.css';
 import './PostComposer.css';
 
 /* 
