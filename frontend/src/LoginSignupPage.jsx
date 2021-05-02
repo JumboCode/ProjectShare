@@ -4,6 +4,7 @@ import { Tabs , Tab } from "react-bootstrap";
 import { Redirect } from "react-router-dom";
 import Signup from './SignupWindow';
 import Login from './LoginWindow';
+import './LoginSignupPage.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 function LoginSignupPage({updateAuth}) {
@@ -15,14 +16,16 @@ function LoginSignupPage({updateAuth}) {
     )
   }
   return (
-    <Tabs className="toggleSignupLogin" defaultActiveKey="login" id="toggleSignupLogin">
-      <Tab eventKey="signup" title="Sign Up">
-        <Signup authUpdate={updateAuth} />
-      </Tab>
-      <Tab eventKey="login" title="Log In">
-        <Login authUpdate={updateAuth} />
-      </Tab>
-    </Tabs>
+    <div className="login-signup-page-container">
+      <Tabs className="toggleSignupLogin" defaultActiveKey="login" id="toggleSignupLogin">
+        <Tab eventKey="signup" title="Sign Up">
+          <Signup authUpdate={updateAuth} />
+        </Tab>
+        <Tab eventKey="login" title="Log In">
+          <Login authUpdate={updateAuth} />
+        </Tab>
+      </Tabs>
+    </div>
   );
 }
 
