@@ -63,7 +63,7 @@ class PdfSerializer(serializers.ModelSerializer):
         fields = ['id', 'pdf_file']
 
     def create(self, validated_data):
-        instance = Pdf.objects.create(pdf_file=validated_data['pdf_file'])
+        instance = Pdf.objects.create(**validated_data)
         instance.save()
         return instance
 
