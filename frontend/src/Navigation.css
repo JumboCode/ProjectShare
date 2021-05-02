@@ -28,7 +28,9 @@
     display: flex;
     justify-content: center;
 }
- 
+.tuftsResources {
+     font-family: 'Noto Sans', sans-serif;
+ }
 .Home, .Topics, .tuftsResources, .communityResources, .sharewood, .newsletterArchives, .howCanHelp {
     border: none;
     font-size: 16px;

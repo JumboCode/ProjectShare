@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'allauth.account',  # needed for rest_auth.registration
     'rest_auth.registration',
     'rest_framework.authtoken',  # needed for rest_auth
+    'allauth.socialaccount',  # needed to dump data with rest_auth
     'rest_auth',
     'drf_project.api',
     'corsheaders',
@@ -82,6 +83,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'drf_project.wsgi.application'
 
+DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
 
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
@@ -96,6 +98,7 @@ if 'DATABASE_URL' not in os.environ:
             'PASSWORD': os.environ['DB_PASS'],
             'HOST': os.environ['DB_HOST'],
             'PORT': os.environ['DB_PORT'],
+            'DISABLE_SERVER_SIDE_CURSORS': True,
         }
     }
 
