@@ -1,7 +1,6 @@
 import React from "react";
-import { Form } from "react-bootstrap";
-import { Button } from "react-bootstrap";
-import { Alert } from "react-bootstrap";
+import PropTypes from 'prop-types';
+import { Form , Button , Alert } from "react-bootstrap";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 class Login extends React.Component {
@@ -12,16 +11,14 @@ class Login extends React.Component {
     this.state = {
       useremail: "",
       userpassword: "",
-      key: "",
       error: false,
       response: 0
     };
   }
 
-  childFunction = () => {
-    const { key } = this.state;
-    const { callbackFromParent } = this.props;
-    callbackFromParent(key);
+  childFunction = (key) => {
+    const { authUpdate } = this.props;
+    authUpdate(true, key);
   }
 
   handleSubmit(props) {
@@ -30,42 +27,47 @@ class Login extends React.Component {
     const { useremail } = this.state;
     const { userpassword } = this.state;
 
-    fetch('http://localhost:8000/auth/login/', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        email: useremail,
-        password: userpassword
-      })
-    })
-      .then(response => {
-        this.setState({
-          response: response.status,
+
+    if (localStorage.getItem('pshare') === null) {
+      fetch('http://localhost:8000/auth/login/', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          email: useremail,
+          password: userpassword
         })
-        if (response.status >= 200 && response.status <= 299) {
-          return response.json()
-        }
-        this.setState({
-          error: true,
-        })
-        return "error"
       })
-      .then(data => { 
-        this.setState({
-          key: data.key,
-        })
-        this.childFunction();
-      })
-      .catch( error => {
-        const { response } = this.state;
-        if (response < 200 || response > 299) {
+        .then(response => {
+          this.setState({
+            response: response.status,
+          })
+          if (response.status >= 200 && response.status <= 299) {
+            return response.json()
+          }
           this.setState({
             error: true,
           })
-        }
-      })
+          return "error"
+        })
+        .then(data => {
+          localStorage.setItem('pshare', data.key);
+          this.childFunction();
+        })
+        .catch( error => {
+          const { response } = this.state;
+          if (response < 200 || response > 299) {
+            this.setState({
+              error: true,
+            })
+            localStorage.removeItem('pshare');
+          }
+        })
+    } else {
+      const authToken = localStorage.getItem('pshare');
+      this.childFunction(authToken)
+    }
   }
 
   render() {
@@ -106,5 +108,13 @@ class Login extends React.Component {
     
   }
 }
+
+Login.defaultProps = {
+  authUpdate: null,
+}
+
+Login.propTypes = {
+  authUpdate: PropTypes.func,
+};
 
 export default Login;

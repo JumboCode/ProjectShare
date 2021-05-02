@@ -1,34 +1,37 @@
 import React from "react";
-import { Tabs } from "react-bootstrap";
-import { Tab } from "react-bootstrap";
+import PropTypes from 'prop-types';
+import { Tabs , Tab } from "react-bootstrap";
+import { Redirect } from "react-router-dom";
 import Signup from './SignupWindow';
 import Login from './LoginWindow';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-class LoginSignupPage extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      authToken: ""
-    };
-  }
-
-  HandleCallback = (key) => {
-    this.setState({authToken: key});
-  }
-
-  render() {
+function LoginSignupPage({updateAuth}) {
+  const key = localStorage.getItem('pshare');
+  if (key !== null) {
+    updateAuth(true, key);
     return (
-      <Tabs className="toggleSignupLogin" defaultActiveKey="signup" id="toggleSignupLogin">
-        <Tab eventKey="signup" title="Sign Up">
-          <Signup callbackFromParent={this.HandleCallback} />
-        </Tab>
-        <Tab eventKey="login" title="Log In">
-          <Login callbackFromParent={this.HandleCallback} />
-        </Tab>
-      </Tabs>
-    );
+      <Redirect to="/dashboard" />
+    )
   }
+  return (
+    <Tabs className="toggleSignupLogin" defaultActiveKey="login" id="toggleSignupLogin">
+      <Tab eventKey="signup" title="Sign Up">
+        <Signup authUpdate={updateAuth} />
+      </Tab>
+      <Tab eventKey="login" title="Log In">
+        <Login authUpdate={updateAuth} />
+      </Tab>
+    </Tabs>
+  );
 }
+
+LoginSignupPage.defaultProps = {
+  updateAuth: null,
+}
+
+LoginSignupPage.propTypes = {
+  updateAuth: PropTypes.func,
+};
 
 export default LoginSignupPage;
