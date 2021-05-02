@@ -20,7 +20,7 @@ function SmallerPostPreview({ Data }) {
         <p className="Tags">
           {Data.tags.map(tag => (
             <Link
-              to={{ pathname: `/tag/${tag.id}`, state: { tagName: tag.name } }}
+              to={{ pathname: `/tag/${tag.id}`, state: { pageName: tag.name } }}
               className="tagElemPostLarge"
               key={tag.id}
             >

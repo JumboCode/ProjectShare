@@ -75,7 +75,7 @@ class Navigation extends React.Component {
                 key={cat.id}
                 className="tuftsResources"
                 activeClassName="nav-active"
-                to={`/category/${cat.id}`}
+                to={{ pathname: `/category/${cat.id}`, state: { pageName: cat.name } }}
               >
                 {cat.name}
               </NavLink>
