@@ -1,8 +1,8 @@
 import React from "react";
 import PropTypes from 'prop-types';
-import { Form } from "react-bootstrap";
-import { Button } from "react-bootstrap";
-import { Alert } from "react-bootstrap";
+import { Form , Button , Alert } from "react-bootstrap";
+
+
 import "./SignupWindow.css";
 
 class Signup extends React.Component {
@@ -14,17 +14,15 @@ class Signup extends React.Component {
       useremail: "",
       userpassword1: "",
       userpassword2: "",
-      key: "",
       error: false,
       passMatch: true,
       response: 0
     };
   }
 
-  childFunction = () => {
-    const { key } = this.state;
-    const { callbackFromParent } = this.props;
-    callbackFromParent(key);
+  childFunction = (key) => {
+    const { authUpdate } = this.props;
+    authUpdate(true, key);
   }
 
   handleSubmit(props) {
@@ -63,12 +61,9 @@ class Signup extends React.Component {
             })
             return "error"
           })
-          .then(data => { 
-            this.setState({
-              key: data.key,
-            })
+          .then(data => {
             localStorage.setItem('pshare', data.key);
-            this.childFunction();
+            this.childFunction(data.key);
           })
           .catch( error => {
             const { response } = this.state;
@@ -81,10 +76,7 @@ class Signup extends React.Component {
           })
       } else {
         const authToken = localStorage.getItem('pshare');
-        this.setState({
-          key: authToken,
-        })
-        this.childFunction()
+        this.childFunction(authToken);
       }
     }
   }
@@ -108,7 +100,7 @@ class Signup extends React.Component {
       )
     }
     return (
-      <Form className="signupForm" onSubmit={ this.handleSubmit }>
+      <Form className="signupForm" onSubmit={this.handleSubmit}>
         <Form.Group className="email" controlid="useremail">
           <Form.Label>Email   </Form.Label>
           <Form.Control 

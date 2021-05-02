@@ -7,20 +7,23 @@ class App extends React.Component {
     super(props);
     this.updateAuthentication = this.updateAuthentication.bind(this);
     this.state = {
-      isAuthenticated: false
+      isAuthenticated: false,
+      authToken: ""
     };
   }
 
-  updateAuthentication(props) {
+  updateAuthentication(isAuthenticated, authToken) {
     this.setState({
-      isAuthenticated: props,
+      isAuthenticated,
+      authToken
     })
   }
 
   render() {
+    const { authToken, isAuthenticated } = this.state;
     return (
       <div className="App">
-        <Router updateAuth={this.updateAuthentication} />
+        <Router updateAuth={this.updateAuthentication} isAuthenticated={isAuthenticated} authToken={authToken} />
       </div>
     );
   }

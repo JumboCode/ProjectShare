@@ -1,8 +1,6 @@
 import React from "react";
 import PropTypes from 'prop-types';
-import { Form } from "react-bootstrap";
-import { Button } from "react-bootstrap";
-import { Alert } from "react-bootstrap";
+import { Form , Button , Alert } from "react-bootstrap";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 class Login extends React.Component {
@@ -13,16 +11,14 @@ class Login extends React.Component {
     this.state = {
       useremail: "",
       userpassword: "",
-      key: "",
       error: false,
       response: 0
     };
   }
 
-  childFunction = () => {
-    const { key } = this.state;
-    const { callbackFromParent } = this.props;
-    callbackFromParent(key);
+  childFunction = (key) => {
+    const { authUpdate } = this.props;
+    authUpdate(true, key);
   }
 
   handleSubmit(props) {
@@ -55,10 +51,7 @@ class Login extends React.Component {
           })
           return "error"
         })
-        .then(data => { 
-          this.setState({
-            key: data.key,
-          })
+        .then(data => {
           localStorage.setItem('pshare', data.key);
           this.childFunction();
         })
@@ -73,10 +66,7 @@ class Login extends React.Component {
         })
     } else {
       const authToken = localStorage.getItem('pshare');
-      this.setState({
-        key: authToken,
-      })
-      this.childFunction()
+      this.childFunction(authToken)
     }
   }
 
