@@ -11,6 +11,7 @@ import NotFound from "./NotFound";
 import LogoutPage from "./LogoutPage";
 import AboutPage from './AboutPage';
 import Navigation from './Navigation';
+import PostComposer from './PostComposer';
 import AdminDashboard from './AdminDashboard';
 import FooterElement from './FooterElement';
 import HomePage from './HomePage';
@@ -57,6 +58,7 @@ function AppRouter({updateAuth, isAuthenticated }) {
               )}
             />
             <Route path="/post/:postId" component={Post} />
+            <ProtectedRoute path="/add-post" Component={PostComposer} isAuthenticated={isAuthenticated} />
             <ProtectedRoute path="/dashboard" Component={AdminDashboard} isAuthenticated={isAuthenticated} />
             <Route component={NotFound} />
           </Switch>
