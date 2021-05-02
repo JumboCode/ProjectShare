@@ -43,7 +43,7 @@ INSTALLED_APPS = [
     'allauth.account',  # needed for rest_auth.registration
     'rest_auth.registration',
     'rest_framework.authtoken',  # needed for rest_auth
-    'allauth.socialaccount', # needed to dump data with rest_auth
+    'allauth.socialaccount',  # needed to dump data with rest_auth
     'rest_auth',
     'drf_project.api',
     'corsheaders',
