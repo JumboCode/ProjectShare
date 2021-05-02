@@ -7,6 +7,7 @@ import {
 
 import PropTypes from 'prop-types';
 import NotFound from "./NotFound";
+import LogoutPage from "./LogoutPage";
 import AboutPage from './AboutPage';
 import Navigation from './Navigation';
 import AdminDashboard from './AdminDashboard';
@@ -35,10 +36,19 @@ function AppRouter({updateAuth, isAuthenticated }) {
           <Route path="/search" component={SearchResultsPage} />
           <Route path="/home" component={HomePage} />
           <Route 
-            path="/LoginSignupPage" 
+            path="/login" 
             render={() => (
               <LoginSignupPage 
                 updateAuth={auth} 
+                isAuthenticated={isAuthenticated}
+              />
+            )}
+          />
+          <Route
+            path="/logout"
+            render={() => (
+              <LogoutPage
+                updateAuth={auth}
                 isAuthenticated={isAuthenticated}
               />
             )}
@@ -47,7 +57,7 @@ function AppRouter({updateAuth, isAuthenticated }) {
           <Route path="/dashboard" component={AdminDashboard} />
           <Route component={NotFound} />
         </Switch>
-        <FooterElement /> 
+        <FooterElement isAuthenticated={isAuthenticated} />
       </div>
     </Router>
   );
