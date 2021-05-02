@@ -7,7 +7,7 @@ import './HelpModal.css';
 class HelpModal extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { tags: [], selectedTag: [], modalPage: "tags", isModalOpen: true}
+    this.state = { tags: [], selectedTags: [], modalPage: "tags", isModalOpen: true}
     this.onTagClick = this.onTagClick.bind(this);
   }
 
@@ -19,15 +19,19 @@ class HelpModal extends React.Component {
   }
 
   onTagClick(event) {
-    const {target: selectedTag} = event;
-    const { tags } = this.state;
-    if (selectedTag.id in tags) {
-      const tagsModified = tags.filter(tag => tag.id !== selectedTag.id)
-      this.setState({ selectedTag: tagsModified })
+    const { target: { value: selectedTagId }} = event;
+    
+    const { tags, selectedTags } = this.state;
+    const selectedTagsIds = selectedTags.map(t => t.id);
+    const selectedTagData = tags.filter(tag => tag.id === +selectedTagId );
+
+    if (selectedTagsIds.includes(+selectedTagId)) {
+      const tagsModified = selectedTags.filter(tag => tag.id !== +selectedTagId)
+      this.setState({ selectedTags: tagsModified })
     } else {
-      this.setState({
-        selectedTag: [...tags, selectedTag]
-      })
+      this.setState(prevState => ({
+        selectedTags: [...prevState.selectedTags, ...selectedTagData]
+      }))
     }
 
   }
@@ -54,7 +58,7 @@ class HelpModal extends React.Component {
                 <p className="modal-p-text"> Select topics you are interested in:</p>
                 {tags && tags.map(tag=> (
                   <div key={tag.id}>
-                    <input type="checkbox" className="checkbox" variant="primary" onClick={this.onTagClick} />
+                    <input value={tag.id} type="checkbox" className="checkbox" variant="primary" onClick={this.onTagClick} />
                     <label htmlFor="tag.id" className="tagid" variant="paragraph"> 
                       {' '}
                       {tag.name}
