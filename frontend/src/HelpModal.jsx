@@ -7,7 +7,8 @@ import './HelpModal.css';
 class HelpModal extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { tags: [] }
+    this.state = { tags: [], selectedTag: [], modalPage: "tags", isModalOpen: true}
+    this.onTagClick = this.onTagClick.bind(this);
   }
 
   componentDidMount() {
@@ -17,37 +18,63 @@ class HelpModal extends React.Component {
       .then(res => this.setState({tags: res}))
   }
 
+  onTagClick(event) {
+    const {target: selectedTag} = event;
+    if (selectedTag.id in this.state.tags) {
+      let tagsModified = this.state.tags.filter(tag => tag.id !== selectedTag.id)
+      this.setState({ selectedTag: tagsModified })
+    } else {
+      this.setState({
+        selectedTag: [...this.state.tags, selectedTag]
+      })
+    }
+
+  }
+
+  modalPage = () => {
+      this.setState({modalPage: "locations"})
+  }
+
+  closeModal = () => {
+      this.setState({isModalOpen: false})
+  }
+
   render() {
-    const {tags} = this.state
+    const {tags, isModalOpen, modalPage} = this.state
     return (
       <div>
-
-              <Modal.Dialog>
-                <Modal.Header closeButton>
-                    <Modal.Title variant="header">Resource Finder</Modal.Title>
-                </Modal.Header>
-
-                <Modal.Body>Select topics you are interested in: </Modal.Body>
-                <Modal.Body>
-                    {tags && tags.map(tag=> (
-                        <div key = {tag.id}>
-                            <div class="checkbox">
-                                <div text="         "> </div>
-                                <label class="tagid"> {tag.name} </label>
+            <Modal show={isModalOpen}>
+                  <Modal.Dialog>
+                    <Modal.Header closeButton>
+                        <Modal.Title variant="header">Resource Finder</Modal.Title>
+                    </Modal.Header>
+                        {modalPage === "tags" && (
+                            <div>
+                                <Modal.Body>Select topics you are interested in: </Modal.Body>
+                                <Modal.Body>
+                                    {tags && tags.map(tag=> (
+                                        <div key = {tag.id}>
+                                            <input type="checkbox" className="checkbox" variant="primary" onClick={this.onTagClick}/>
+                                            <label for="tag.id" className="tagid" variant="paragraph"> {tag.name} </label>
+                                        </div>
+                                    ))}
+                                </Modal.Body>
                             </div>
-                        </div>
-                    ))}
-                </Modal.Body>
-                <Modal.Footer>
-                    <Button variant="outline-primary">Cancel</Button>{' '}
-                    <Button variant="primary">Next</Button>{' '}
-                </Modal.Footer>
-            </Modal.Dialog>
-
-
+                        )}
+                    <Modal.Footer>
+                        <Button variant="outline-primary" onClick={this.closeModal}>Cancel</Button>{' '}
+                        {modalPage === "tags" && (
+                            <div>
+                                <Button variant="primary" onClick={this.modalPage}>Next</Button>{' '}
+                            </div>
+                        )}
+                    </Modal.Footer>
+                </Modal.Dialog>
+            </Modal>
     </div>
     );
   }
 }
+
 
 export default HelpModal;

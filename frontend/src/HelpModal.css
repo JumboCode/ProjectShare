@@ -57,15 +57,5 @@
 }
 
 .tagid {
-    width: 149px;
- height: 33px;
- display: flex;
- flex-direction: row;
- justify-content: flex-start;
- align-items: center;
- /* gap: 7px; */
- margin: 15px 100px 17px 15px;
- /* padding: 7px 10px; */
- /* border-radius: 3px; */
- background-color: #ffffff;
+ color: var(--paragraph);
 }
