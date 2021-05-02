@@ -6,6 +6,7 @@ import {
 } from "react-router-dom";
 
 import PropTypes from 'prop-types';
+import ProtectedRoute from './ProtectedRoute';
 import NotFound from "./NotFound";
 import LogoutPage from "./LogoutPage";
 import AboutPage from './AboutPage';
@@ -56,7 +57,7 @@ function AppRouter({updateAuth, isAuthenticated }) {
               )}
             />
             <Route path="/post/:postId" component={Post} />
-            <Route path="/dashboard" component={AdminDashboard} />
+            <ProtectedRoute path="/dashboard" Component={AdminDashboard} isAuthenticated={isAuthenticated} />
             <Route component={NotFound} />
           </Switch>
         </ScrollToTop>
