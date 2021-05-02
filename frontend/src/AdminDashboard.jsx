@@ -1,6 +1,7 @@
 import React from "react";
 import { Table } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import './AdminDashboard.css';
 
 class Dashboard extends React.Component {
   constructor(props) {
@@ -27,7 +28,7 @@ class Dashboard extends React.Component {
     const { isLoading, fetchData } = this.state
     if(!isLoading) {
       return (
-        <div className="container">
+        <div className="admin-page-container">
           <Table striped bordered className="DataTable">
             <thead>
               <tr>
