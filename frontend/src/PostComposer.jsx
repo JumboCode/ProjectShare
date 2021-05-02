@@ -271,7 +271,7 @@ class PostComposer extends React.Component {
 
     return (
       <div>
-        <Form onSubmit={this.handleSubmit}>
+        <Form onSubmit={this.handleSubmit} className="form-post-composer">
           {/* Categories Form */}
           {/* Title input */}
           {success && show && (
