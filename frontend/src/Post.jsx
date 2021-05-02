@@ -31,7 +31,7 @@ class Post extends React.Component {
           <p className="tags">
             {post.tags.map(tag => (
               <Link
-                to={{ pathname: `/tag/${tag.id}`, state: { tagName: tag.name } }}
+                to={{ pathname: `/tag/${tag.id}`, state: { pageName: tag.name } }}
                 className="tagElem"
                 key={tag.id}
               >
