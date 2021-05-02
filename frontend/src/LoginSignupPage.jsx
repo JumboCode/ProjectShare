@@ -15,14 +15,16 @@ function LoginSignupPage({updateAuth}) {
     )
   }
   return (
-    <Tabs className="toggleSignupLogin" defaultActiveKey="login" id="toggleSignupLogin">
-      <Tab eventKey="signup" title="Sign Up">
-        <Signup authUpdate={updateAuth} />
-      </Tab>
-      <Tab eventKey="login" title="Log In">
-        <Login authUpdate={updateAuth} />
-      </Tab>
-    </Tabs>
+    <div className="container">
+      <Tabs className="toggleSignupLogin" defaultActiveKey="login" id="toggleSignupLogin">
+        <Tab eventKey="signup" title="Sign Up">
+          <Signup authUpdate={updateAuth} />
+        </Tab>
+        <Tab eventKey="login" title="Log In">
+          <Login authUpdate={updateAuth} />
+        </Tab>
+      </Tabs>
+    </div>
   );
 }
 
