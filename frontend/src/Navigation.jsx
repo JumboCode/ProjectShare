@@ -3,7 +3,7 @@ import './Navigation.css';
 import { Link, NavLink } from "react-router-dom";
 import logo from './static/projectSHARELogo.jpeg';
 import searchIcon from './static/searchIcon.png';
-
+import HelpModal from './HelpModal';
 
 class Navigation extends React.Component {
   constructor(props) {
@@ -11,6 +11,7 @@ class Navigation extends React.Component {
     this.state = {
       searchInput: '',
       categories: [],
+      isModalOpen: false,
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -35,9 +36,10 @@ class Navigation extends React.Component {
 
 
   render() {
-    const { input, categories } = this.state;
+    const { input, categories, isModalOpen } = this.state;
     return (
       <div className="NavBar">
+        {isModalOpen && <HelpModal />}
         <form onSubmit={this.handleSubmit}>
           <div className="topRow">
             <Link to="/">
@@ -65,6 +67,7 @@ class Navigation extends React.Component {
             <button 
               className="FindResource"
               type="button"
+              onClick={() => this.setState({ isModalOpen: true })}
             >
               Help Me Find a Resource
             </button>
