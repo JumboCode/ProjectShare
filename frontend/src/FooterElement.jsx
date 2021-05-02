@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { PropTypes } from 'prop-types';
 import { Link } from "react-router-dom";
 import './FooterElement.css';
 
@@ -31,3 +32,7 @@ class FooterElement extends Component {
   }
 }
 export default FooterElement;
+
+FooterElement.propTypes = {
+  isAuthenticated: PropTypes.bool.isRequired,
+}
