@@ -24,6 +24,15 @@
      font-size: 16px;
      color: var(--header);
      text-align: left;
+     padding: 50px;
+ }
+ .modal-p-text {
+    font-size: 16px;
+    color: var(--header);
+    text-align: left;
+    font-family: 'Noto Sans', sans-serif;
+    margin: 0;
+    padding-bottom: 20px;
  }
 
 
@@ -36,24 +45,10 @@
  }
 
  .checkbox {
-     /* width: 149px;
-  height: 33px; */
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  align-items: center;
   gap: 7px;
-  margin: 19px 213px 19px 93px;
+  margin-right: 19px;
   padding: 7px 10px;
-  border-radius: 3px;
-  background-color: #ffffff;
-     width: 13px;
-   height: 13px;
-   flex-grow: 0;
-   border-radius: 3px;
    border: solid 1px var(--primary);
-   background-color: #ffffff;
-   /* position: relative; */
 }
 
 .tagid {
