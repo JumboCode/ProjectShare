@@ -28,7 +28,7 @@ class PdfViewTestCase(TestCase):
             content_type='application/pdf')
 
     def test_delete_pdf(self):
-        obj = models.Pdf.objects.create(img_file=self.test_pdf)
+        obj = models.Pdf.objects.create(pdf_file=self.test_pdf)
         old_count = models.Pdf.objects.count()
         res = self.client.delete(
             reverse('delete pdf', kwargs={'pdf_id': obj.id}))
