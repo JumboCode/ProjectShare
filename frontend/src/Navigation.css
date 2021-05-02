@@ -85,8 +85,6 @@
     vertical-align: middle;
     display: inline-block;
 
-    background-color: #efefef;
-
 }
 
 .SearchBox {
@@ -95,11 +93,20 @@
     height: 30%;
     position: relative;
     margin-top: 30px;
-    background-color: #efefef;
+    /* background-color: #efefef; */
     padding: 8px 10px ;
     border-radius: 3px;
     gap: 10px;
+    color: white;
+    box-shadow: 0 4px 10px 1px rgba(9, 64, 103, 0.2);
+    border-radius: 3px;
 
+}
+.category{
+    text-align: center;
+}
+.tags{
+    text-align: center;
 }
 
 .Search img {
@@ -112,7 +119,10 @@
     border-radius: 3px;
     /* vertical-align: middle; */
 }
-
+.searchResults{
+    display:flex;
+    flex-direction:column;
+}
 input::placeholder {
     width: 166px;
     height: 22px;
@@ -122,3 +132,11 @@ input::placeholder {
     text-align: left;
     color:var(--paragraph-color);
 }
+
+/* 
+Problem:
+
+2. tags cannot be centered aligned
+3. weird gap in between 
+4. help me find a resource button weirdly enlarged
+*/

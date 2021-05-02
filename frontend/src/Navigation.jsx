@@ -14,28 +14,38 @@ class Navigation extends React.Component {
       tags: [],
       categories: [],
       // eslint-disable-next-line react/no-unused-state
-      postSearchResults: '',
+      postSearchResults: [],
       // should i add a post search result here to get rid of parsing error
     };
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.clearSearchBar = this.clearSearchBar.bind(this);
   }
 
   componentDidMount(){
+    const {searchInput}=this.state;
     fetch("http://localhost:8000/api/tags")
       .then(res => res.json())
       .then(res => this.setState({tags: res}))
     fetch("http://localhost:8000/api/categories")
       .then(res => res.json())
       .then(res => this.setState({categories: res}))
-    fetch("http://localhost:8000/api/posts?keyword={keyword_value}")
+    fetch(`http://localhost:8000/api/posts?keyword=${searchInput}`)
       .then(res => res.json())
       .then(res => this.setState({postSearchResults: res}))
   }
 
+  clearSearchBar(){
+    this.setState({searchInput:''})
+  }
+
   handleChange(event) {
+    const {searchInput}=this.state;
     this.setState({searchInput: event.target.value});
+    fetch(`http://localhost:8000/api/posts?keyword=${searchInput}`)
+      .then(res => res.json())
+      .then(res => this.setState({postSearchResults: res}))
   }
 
   handleSubmit(event) {
@@ -76,43 +86,47 @@ class Navigation extends React.Component {
                 input={searchInput} 
                 onChange={this.handleChange} 
               />
-              <Icon.X color="var(--primary)" />
-              <div className="searchResults" />
-              {searchInput !== "" && (
-                postSearchResults.map(post => (
+              <Icon.X onClick={this.clearSearchBar} color="var(--primary)" />
+              <div className="searchResults"> 
+                <div className="postSearchResults">
+                  {searchInput !== "" && (
+                    postSearchResults.map(post => (
       
-                  <li>
-                    <Link to={`/post/${post.id}/`}> 
-                      {' '}
-                      {post.title}
-                      {' '}
-                    </Link>
-                  </li>
-                )))}
-    
+                      <li>
+                        <Link to={`/post/${post.id}/`}> 
+                          {' '}
+                          {post.title}
+                          {' '}
+                        </Link>
+                      </li>
+                    )))}
+                </div>
+              
+                <div className="category">
+                  {categoriesFiltered.map(categoryFiltered => (
+                    <li>
+                      <Link to={`/category/${categoryFiltered.id}`}> 
+                        {' '}
+                        {categoryFiltered.name}
+                        {' '}
+                      </Link>
+                    </li>
+                  ))}
+                </div>
+                <div className="tags">
+                  {tagsFiltered.map(tagFiltered => (
+                    <li>
+                      <Link to={`/tags/${tagFiltered.id}`}> 
+                        {' '}
+                        {tagFiltered.name}
+                        {' '}
+                      </Link>
+                    </li>
+                  ))}
+                </div>
+              </div>
             </div>
-            <div className="category">
-              {categoriesFiltered.map(categoryFiltered => (
-                <li>
-                  <Link to={`/category/${categoryFiltered.id}`}> 
-                    {' '}
-                    {categoryFiltered.name}
-                    {' '}
-                  </Link>
-                </li>
-              ))}
-            </div>
-            <div className="tags">
-              {tagsFiltered.map(tagFiltered => (
-                <li>
-                  <Link to={`/tags/${tagFiltered.id}`}> 
-                    {' '}
-                    {tagFiltered.name}
-                    {' '}
-                  </Link>
-                </li>
-              ))}
-            </div>
+
             <button 
               className="FindResource"
               type="button"
@@ -145,8 +159,20 @@ class Navigation extends React.Component {
 
 export default Navigation;
 
-
-// more tags and categories
-// need fixing: in third fetch request, not using the search input keyword correctly. concatanate searchINput with rest of the fetch endpoint.
 // backend: pipenv run python3 manage.py runserver
  
+
+// TODO: 
+// test tags (health1, health2, health3 all should come up should be inside tag filtered)
+// zeplin: add designs for the various types of search results - format things to look that way
+// icons in feather icons - on the big X onClick={}
+
+// put all of the results inside a div 
+// one div for categoriesfiltered, another for tagsFiltered, one for searchResults. 
+// on the big box surrounding everything, put displayflex, flexdirection make sure things are stacked in a column
+//* display flex *around containing div 
+
+// hash and file text icons from feather icons
+
+// display:flex;flex-direction:column;
+// Hash, FileText
