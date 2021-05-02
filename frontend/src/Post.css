@@ -5,29 +5,29 @@
 }
 
 .tags {
-    width: max-content;
-    height: 32px;
+    width: 40vw;
+    gap: 10px;
     margin-top: 51px;
     border-radius: 20px;
     border: solid 1px var(--text);
     background-color: #ffffff;
     white-space: nowrap;
     position: relative;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
   }
 
 .tagElem {
-    width: max-content;
-    height: 30px;
-    font-family: 'Noto Sans';
-    font-size: 16px;
-    font-weight: 500;
+    font-family: 'Noto Sans', san-serif;
+    font-size: 14px;
+    font-weight: 100;
     text-align: left;
-    color: var(--text);
-    margin: 0 10px 0 0;
-    padding: 5px 10px 5px 10px;
-    border-radius: 20px;
+    padding: 5px 5px 5px 5px;
+    border-radius: 3px;
     border: solid 1px;
-    background-color: #ffffff;
+    border-color: #3da9fc;
+    color: #3da9fc;
     text-decoration: none;
   }
 
