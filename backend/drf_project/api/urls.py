@@ -59,4 +59,5 @@ pdf_urls = [
 ]
 
 
-urlpatterns = tag_urls + category_urls + image_urls + post_urls + location_urls
+urlpatterns = tag_urls + category_urls + image_urls + post_urls \
+    + location_urls + pdf_urls
