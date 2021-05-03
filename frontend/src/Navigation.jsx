@@ -4,7 +4,7 @@ import { Link, NavLink } from "react-router-dom";
 import * as Icon from 'react-feather';
 import logo from './static/projectSHARELogo.jpeg';
 import HelpModal from './HelpModal';
-
+import { BACKEND_URL } from './fetch';
 
 class Navigation extends React.Component {
   constructor(props) {
@@ -26,13 +26,13 @@ class Navigation extends React.Component {
 
   componentDidMount(){
     const {searchInput}=this.state;
-    fetch("http://localhost:8000/api/tags")
+    fetch(`${BACKEND_URL}/api/tags`)
       .then(res => res.json())
       .then(res => this.setState({tags: res}))
-    fetch("http://localhost:8000/api/categories")
+    fetch(`${BACKEND_URL}/api/categories`)
       .then(res => res.json())
       .then(res => this.setState({categories: res}))
-    fetch(`http://localhost:8000/api/posts?keyword=${searchInput}`)
+    fetch(`${BACKEND_URL}/api/posts?keyword=${searchInput}`)
       .then(res => res.json())
       .then(res => this.setState({postSearchResults: res}))
   }
@@ -50,7 +50,7 @@ class Navigation extends React.Component {
   handleChange(event) {
     const {searchInput}=this.state;
     this.setState({searchInput: event.target.value});
-    fetch(`http://localhost:8000/api/posts?keyword=${searchInput}`)
+    fetch(`${BACKEND_URL}/api/posts?keyword=${searchInput}`)
       .then(res => res.json())
       .then(res => this.setState({postSearchResults: res}))
   }

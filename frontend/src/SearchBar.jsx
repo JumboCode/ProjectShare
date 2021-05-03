@@ -1,6 +1,7 @@
 import React from 'react';
 import './SearchBar.css';
 import * as Icon from 'react-feather';
+import { BACKEND_URL } from './fetch';
 
 class SearchBar extends React.Component{
   constructor(props) {
@@ -15,13 +16,13 @@ class SearchBar extends React.Component{
   }
 
   componentDidMount(){
-    fetch("http://localhost:8000/api/tags")
+    fetch(`${BACKEND_URL}/api/tags`)
       .then(res => res.json())
       .then(res => this.setState({tags: res}))
-    fetch("http://localhost:8000/api/categories")
+    fetch(`${BACKEND_URL}/api/categories`)
       .then(res => res.json())
       .then(res => this.setState({categories: res}))
-    fetch("http://localhost:8000/api/posts?keyword={keyword_value}"
+    fetch(`${BACKEND_URL}/api/posts?keyword={keyword_value}`
       .then(res => res.json())
       .then(res => this.setState({postSearchResults: res}))
   }

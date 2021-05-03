@@ -3,6 +3,7 @@ import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import { PropTypes } from 'prop-types';
 import './HelpModal.css';
+import { BACKEND_URL } from './fetch';
 
 
 class HelpModal extends React.Component {
@@ -13,7 +14,7 @@ class HelpModal extends React.Component {
   }
 
   componentDidMount() {
-    fetch('http://localhost:8000/api/tags')
+    fetch(`${BACKEND_URL}/api/tags`)
       .then(res => res.json())
       // .then(res => console.log(res))
       .then(res => this.setState({tags: res}))

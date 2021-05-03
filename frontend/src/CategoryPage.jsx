@@ -1,11 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import PostFeedPage from "./PostFeedPage";
+import { BACKEND_URL } from './fetch';
 
 function CategoryPage(props) {
     
   const { match: { params: { categoryId } } } = props;
-  const endpoint = `http://localhost:8000/api/posts?category_id=${categoryId}`;
+  const endpoint = `${BACKEND_URL}/api/posts?category_id=${categoryId}`;
   let catLabel = categoryId;
   const { location: { state } } = props;
   if (state) {
