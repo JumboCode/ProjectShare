@@ -1,4 +1,4 @@
-import React, { useEffect, Fragment } from 'react';
+import React, { useEffect } from 'react';
 import { withRouter } from 'react-router-dom';
 import { PropTypes } from 'prop-types';
 
@@ -10,7 +10,7 @@ function ScrollToTop({ history, children }) {
     return () => {
       unlisten();
     }
-  }, []);
+  }, [history]);
   return <>{children}</>;
 }
 
