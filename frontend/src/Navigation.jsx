@@ -24,18 +24,18 @@ class Navigation extends React.Component {
       .then(res => this.setState({ categories: res }));
   }
 
-  handleChange(event) {
-    this.setState({searchInput: event.target.value});
+  updateIsModalOpen = (val) => {
+    this.setState({isModalOpen: val })
   }
 
   handleSubmit(event) {
     // eslint-disable-next-line no-unused-vars
-    const { searchInput:search } = this.state;
+    const { searchInput: search } = this.state;
     event.preventDefault();
   }
 
-  updateIsModalOpen = (val) => {
-    this.setState({isModalOpen: val })
+  handleChange(event) {
+    this.setState({ searchInput: event.target.value });
   }
 
   render() {

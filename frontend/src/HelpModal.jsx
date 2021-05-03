@@ -8,7 +8,7 @@ import './HelpModal.css';
 class HelpModal extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { tags: [], selectedTags: [], modalPage: "tags", isModalOpen: true}
+    this.state = { tags: [], selectedTags: [], modalPage: "tags" }
     this.onTagClick = this.onTagClick.bind(this);
   }
 
