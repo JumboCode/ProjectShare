@@ -3,6 +3,8 @@ import 'bootstrap/dist/css/bootstrap.css';
 import './App.css';
 import Router from './Router';
 
+require('dotenv').config()
+
 class App extends React.Component {
   constructor(props) {
     super(props);
