@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import Map from "./MapboxMap";
 import "./Post.css";
+import { BACKEND_URL } from './fetch';
 
 class Post extends React.Component {
   constructor(props) {
@@ -13,7 +14,7 @@ class Post extends React.Component {
 
   componentDidMount() {
     const { match: { params: { postId } } } = this.props;
-    fetch(`http://localhost:8000/api/posts?post_id=${postId}`)
+    fetch(`${BACKEND_URL}/api/posts?post_id=${postId}`)
       .then(res => res.json())
       .then(res => this.setState({posts: res}));
   }
@@ -23,15 +24,25 @@ class Post extends React.Component {
     let post;
     if (posts.length !== 0) {
       post = posts[posts.length - 1]
-    }
-    const dateOptions = { year: 'numeric', month: 'long', day: 'numeric' };
-    return (
-      <div className="post">
-        { posts.length > 0 && (
+      const dateOptions = { year: 'numeric', month: 'long', day: 'numeric' };
+      return (
+        <div className="post">
+          
+          <h5 className="post-category-navigator">
+            All Topics &gt;
+            <Link 
+              className="post-category-navigator"
+              to={{ pathname: `/category/${post.category.id}`, state: { pageName: post.category.name } }}
+            >
+              {` ${post.category.name}`}
+            </Link>
+          </h5>
+          
+        
           <p className="tags">
             {post.tags.map(tag => (
               <Link
-                to={{ pathname: `/tag/${tag.id}`, state: { tagName: tag.name } }}
+                to={{ pathname: `/tag/${tag.id}`, state: { pageName: tag.name } }}
                 className="tagElem"
                 key={tag.id}
               >
@@ -39,46 +50,36 @@ class Post extends React.Component {
               </Link>
             ))}
           </p>
-        )}
-        { posts.length > 0 && (
           <p className="title">
             { post.title } 
           </p> 
-        )}
-        { posts.length > 0 && (
-          <p className="author">
+          <h5 className="author">
             By Project SHARE
-          </p>
-        )}
-        { posts.length > 0 && (
-          <p className="date">
+          </h5>
+          <h5 className="date">
             {new Date(post.date).toLocaleDateString("en-US", dateOptions)}
-          </p>
-        )}
-        { posts.length > 0 && (
-          <p className="caption">
-            { post.caption }
-          </p>
-        )}
-        { posts.length > 0 && (
+          </h5>
+          {post.caption && (
+            <p className="caption">
+              { post.caption }
+            </p>
+          )}
           <div className="contents">
             <Markdown>{post.content}</Markdown>
           </div>
-        )}
-        { posts.length > 0 && (
           <div className="image">
             {post.images.map(image => (
               <img src={image.img_file} alt={image.img_name} key={image.id} className="image" />
             ))}
           </div>
-        )}
-        { posts.length > 0 && post.locations.length !== 0 && (
-          <div className="map">
-            <Map locations={post.locations} />
-          </div>
-        )}
-      </div>
-    );
+          { posts.length > 0 && post.locations.length !== 0 && (
+            <div className="map">
+              <Map locations={post.locations} />
+            </div>
+          )}
+        </div>
+      )}
+    return null;
   }
 }
 

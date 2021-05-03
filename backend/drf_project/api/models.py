@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 from django.db import models
+from rest_framework import serializers
 
 
 class Location(models.Model):
@@ -19,6 +20,10 @@ class Category(models.Model):
 
 class Image(models.Model):
     img_file = models.ImageField()
+
+
+class Pdf(models.Model):
+    pdf_file = models.FileField()
 
 
 class Post(models.Model):

@@ -3,7 +3,7 @@ import * as React from 'react';
 import { Component } from 'react';
 import MapGL, { Marker, WebMercatorViewport } from 'react-map-gl';
 import PropTypes from 'prop-types';
-import Pin from './pin.png';
+import { MapPin, Circle } from 'react-feather';
 import "./MapboxMap.css";
 
 const MAPBOX_TOKEN = process.env.REACT_APP_MAPBOX_ACCESS_TOKEN;
@@ -83,12 +83,15 @@ class Map extends Component {
         <div className="mapLocationListContainer">
           {locations.map((loc) => (
             <div className="mapLocationRectangles" key={loc.id}>
-              <li className="mapAddressName">  
+              <p className="mapAddressName">
+                <Circle size={12} color="#3da9fc" className="mapAddressCircle" />
                 {loc.name} 
-              </li>
-              <p className="mapAddress">
-                {loc.address}
               </p>
+              {loc.address && (
+                <p className="mapAddress">
+                  {loc.address}
+                </p>
+              )}
               <button
                 className="locationButtons"
                 type="button"
@@ -118,7 +121,7 @@ class Map extends Component {
                     offsetLeft={-32/2}
                     offsetTop={-32}
                   >
-                    <img src={Pin} alt="pin" width="32px" height="32px" />
+                    <MapPin size={32} color='#3da9fc' />
                   </Marker>
                 )
             )

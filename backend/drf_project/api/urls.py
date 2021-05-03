@@ -46,10 +46,22 @@ image_urls = [
 ]
 
 contact_url = [path('contact', views.contact, name='contact')]
+pdf_urls = [
+    path(
+        'pdfs/<int:pdf_id>/delete',
+        views.PdfViewSet.as_view({'delete': 'destroy'}),
+        name='delete pdf'
+    ),
+    path(
+        'pdfs/add',
+        views.PdfViewSet.as_view({'post': 'create'}),
+        name='add pdf'
+    ),
+]
 
 add_tags_url = [path('add_tags_bulk', views.bulk_add_tags)]
 add_cats_url = [path('add_categories_bulk', views.bulk_add_categories)]
 
 urlpatterns = (tag_urls + category_urls + image_urls + post_urls
                + location_urls + contact_url + add_tags_url
-               + add_cats_url)
+               + add_cats_url + pdf_urls)

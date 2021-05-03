@@ -1,8 +1,5 @@
 .NavBar {
     width: 100%;
-    height: 158px;
-    box-shadow: 0 4px 5px 1px 
-        rgba(0, 0, 0, 0.05);
     background-color: #ffffff;
     white-space: nowrap;
     display: inline-block;
@@ -21,42 +18,39 @@
     top: 29px;
     width: 40px;
     height: 40px;
-    margin: 6px 15px 6px 30px;
+    margin: 3px 15px 6px 30px;
 }
 
 .navbarLink {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
+    width: 70vw;
+    margin: 0 15vw;
 }
 .tuftsResources {
-     font-family: 'Noto Sans', sans-serif;
- }
-.Home, .Topics, .tuftsResources, .communityResources, .sharewood, .newsletterArchives, .howCanHelp {
+    font-family: 'Noto Sans', sans-serif;
+    font-weight: 500;
     border: none;
     font-size: 16px;
-    text-decoration:none;
-    background-color: transparent;
-    width: max-content;
-    line-height: normal;
-    letter-spacing: normal;
     color: var(--paragraph-color);
     text-align: left;
-    margin: 14px 30px;
+    padding-bottom: 17px;
 }
-
+.tuftsResources:hover {
+    text-decoration: none;
+}
 .nav-active {
     color:var(--header-color);
-    display: inline-block;
-    border: none;
-    background-color: transparent;
-    width: max-content;
-    line-height: normal;
-    letter-spacing: normal;
-    text-align: left;
-    margin: 14px 30px;
-    text-decoration:none;
-    border-bottom:1px solid var(--header-color);
-    padding-bottom:22px;
+    padding-bottom: 15px;
+    border-bottom: 2px solid var(--header-color);
+} 
+.nav-bottom-bar {
+    height: 0;
+    width: 100%;
+    border-bottom: 2px solid var(--background-color);
+    transform: translate(0, -2px);
+    z-index: -10;
+    position: relative;
 }
 
 .FindResource {
@@ -76,23 +70,58 @@
     cursor: pointer;
 }
 
+
 .SearchBar {
-    width: 35vw;
+    width: 80%;
     height: 30%;
     position: relative;
-    top: 25px;
-    padding: 15px;
-    padding-left: 35px;
     border-radius: 3px;
-    background-color: var(--shade-color);
+    background-color:  var(--shade-color);
     border: none;
     color: var(--paragraph-color);
     vertical-align: middle;
+    display: inline-block;
 }
 
-.Search {
-    /* position: relative; */
+.SearchBar:focus-within {
+    background-color:  #ffffff;
+    border: none;
+    color: var(--paragraph-color);
+    vertical-align: middle;
     display: inline-block;
+}
+
+.SearchBar:focus-within {
+    outline: none !important;
+}
+
+
+.SearchBox {
+    background-color:  var(--shade-color);
+    width: 35vw;
+    height: 30%;
+    position: relative;
+    margin-top: 30px;
+    padding: 8px 0px ;
+    border-radius: 3px;
+    color: white;
+    border-radius: 3px;
+}
+
+.search-icon-nav {
+    margin-right: 10px;
+}
+
+.SearchBox:focus-within {
+    background-color: white;
+    box-shadow: 0 4px 10px 1px rgba(9, 64, 103, 0.2);
+}
+.category{
+    text-align: center;
+}
+.tags-wrapper{
+    text-align: center;
+    width: 100%;
 }
 
 .Search img {
@@ -105,7 +134,21 @@
     border-radius: 3px;
     /* vertical-align: middle; */
 }
+.searchResults{
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    background-color: white;
+    width: 100%;
+    padding: 10px;
+    border-radius: 3px;
+    grid-gap: 10px;
+    gap: 10px;
+    box-shadow: 0px 8px 10px 0px rgba(0,0,0,0.15); 
+    border: none;
+    border-radius: 3px;
 
+}
 input::placeholder {
     width: 166px;
     height: 22px;
@@ -114,4 +157,23 @@ input::placeholder {
     letter-spacing: normal;
     text-align: left;
     color:var(--paragraph-color);
+}
+
+.nav-search-result {
+    text-align: left;
+    margin: 2.5px 0;
+    font-family: 'Noto Sans', sans-serif;
+}
+
+.search-results-type {
+    color: var(--secondary-color);
+    font-size: 16px;
+    font-weight: 500;
+    float: right; 
+}
+.close-button-wrapper {
+    width: fit-content;
+    height: fit-content;
+    float: right;
+    margin-right: 10px;
 }

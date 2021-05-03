@@ -5,10 +5,9 @@
 }
 
 .tags {
-    width: 40vw;
     gap: 10px;
-    margin-top: 51px;
-    border-radius: 20px;
+    margin-top: 20px;
+    margin-bottom: 50px;
     border: solid 1px var(--text);
     background-color: #ffffff;
     white-space: nowrap;
@@ -17,13 +16,16 @@
     flex-direction: row;
     flex-wrap: wrap;
   }
+.post-category-navigator {
+  color: var(--header);
+}
 
 .tagElem {
     font-family: 'Noto Sans', san-serif;
     font-size: 14px;
     font-weight: 100;
     text-align: left;
-    padding: 5px 5px 5px 5px;
+    padding: 5px 10px;
     border-radius: 3px;
     border: solid 1px;
     border-color: #3da9fc;
@@ -43,22 +45,12 @@
   }
 
 .author {
-    height: 22px;
     margin: 0 0 5px;
-    font-family: 'Noto Sans';
-    font-size: 16px;
-    font-weight: 600;
-    text-align: left;
     color: #6a6a6a;
   }
 
 .date {
-    height: 22px;
     margin: 5px 2px 0 0;
-    font-family: 'Noto Sans';
-    font-size: 16px;
-    font-weight: 600;
-    text-align: left;
     color: #6a6a6a;
   }
 
@@ -81,6 +73,8 @@
   }
 
 .contents {
+    margin-top: 50px;
+    margin-bottom: 75px;
     font-family: 'Noto Serif';
     font-size: 16px;
     line-height: 1.75;

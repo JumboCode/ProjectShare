@@ -8,19 +8,19 @@ function SmallerPostPreview({ Data }) {
   return (
     <div className="SmallerPostPreview">
       <div className="post-info">
-        <p className="DatePosted">
+        <h5 className="DatePosted">
           {new Date(Data.date).toLocaleDateString("en-US", dateOptions)}
-        </p>
+        </h5>
         <Link to={`/post/${Data.id}`} className="Title">
           {Data.title}
         </Link>
         <p className="PostContent">
           {`${Data.content.substr(0, 113).replace(/#/g, "")}...`}
         </p>
-        <p className="Tags">
+        <div className="Tags">
           {Data.tags.map(tag => (
             <Link
-              to={{ pathname: `/tag/${tag.id}`, state: { tagName: tag.name } }}
+              to={{ pathname: `/tag/${tag.id}`, state: { pageName: tag.name } }}
               className="tagElemPostLarge"
               key={tag.id}
             >
@@ -28,10 +28,12 @@ function SmallerPostPreview({ Data }) {
 
             </Link>
           ))}
-        </p>
+        </div>
       </div>
       { Data.images.length > 0 && (
-        <img src={Data.images[0].img_file} alt={Data.images[0].img_name} key={Data.images[0].id} className="Photo" />
+        <div className="Photo">
+          <img src={Data.images[0].img_file} alt={Data.images[0].img_name} key={Data.images[0].id} />
+        </div>
       )}
     </div>
   )

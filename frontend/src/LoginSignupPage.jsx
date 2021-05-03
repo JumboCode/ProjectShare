@@ -4,7 +4,7 @@ import { Tabs , Tab } from "react-bootstrap";
 import { Redirect } from "react-router-dom";
 import Signup from './SignupWindow';
 import Login from './LoginWindow';
-import 'bootstrap/dist/css/bootstrap.min.css';
+import './LoginSignupPage.css';
 
 function LoginSignupPage({updateAuth}) {
   const key = localStorage.getItem('pshare');
@@ -15,14 +15,16 @@ function LoginSignupPage({updateAuth}) {
     )
   }
   return (
-    <Tabs className="toggleSignupLogin" defaultActiveKey="login" id="toggleSignupLogin">
-      <Tab eventKey="signup" title="Sign Up">
-        <Signup authUpdate={updateAuth} />
-      </Tab>
-      <Tab eventKey="login" title="Log In">
-        <Login authUpdate={updateAuth} />
-      </Tab>
-    </Tabs>
+    <div className="login-signup-page-container">
+      <Tabs className="toggleSignupLogin" defaultActiveKey="login" id="toggleSignupLogin">
+        <Tab eventKey="signup" title="Sign Up">
+          <Signup authUpdate={updateAuth} />
+        </Tab>
+        <Tab eventKey="login" title="Log In">
+          <Login authUpdate={updateAuth} />
+        </Tab>
+      </Tabs>
+    </div>
   );
 }
 

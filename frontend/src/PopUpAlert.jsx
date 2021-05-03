@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Alert from 'react-bootstrap/Alert';
-import 'bootstrap/dist/css/bootstrap.min.css';
 
 class PopUpAlert extends React.PureComponent {
   render() {

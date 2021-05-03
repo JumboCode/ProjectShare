@@ -5,7 +5,9 @@ import Dropdown from 'react-bootstrap/esm/Dropdown';
 import DropdownItem from 'react-bootstrap/esm/DropdownItem';
 import { Link} from 'react-router-dom';
 import PostFeed from "./PostFeed";
+import HelpModal from './HelpModal';
 import './PostFeedPage.css';
+import { BACKEND_URL } from './fetch';
 
 class PostFeedPage extends React.Component {
   constructor(props) {
@@ -18,7 +20,7 @@ class PostFeedPage extends React.Component {
     fetch (fetchEndpoint) 
       .then(res => res.json())
       .then(res => this.setState({posts: res}));
-    fetch('http://localhost:8000/api/tags')
+    fetch(`${BACKEND_URL}/api/tags`)
       .then(res => res.json())
       .then(res => this.setState({tags: res}))
   }
@@ -33,12 +35,16 @@ class PostFeedPage extends React.Component {
     }
   }
 
+  updateIsModalOpen = (val) => {
+    this.setState({ isModalOpen: val })
+  }
+
   render() {
     const { tags } = this.state;
     const listItems = tags.map((tag) => (
       <li key={tag.id.toString()}>
         <Link
-          to={{ pathname: `/tag/${tag.id}`, state: { tagName: tag.name } }}
+          to={{ pathname: `/tag/${tag.id}`, state: { pageName: tag.name } }}
           key={tag.id}
         >
           {tag.name}
@@ -47,10 +53,13 @@ class PostFeedPage extends React.Component {
     )
     );
     const {featured,title, subtitle} = this.props
-    const {posts} = this.state
+    const {posts , isModalOpen } = this.state
 
     return (
       <div className="postfeedPage">
+        {isModalOpen && (
+          <HelpModal updateIsModalOpen={this.updateIsModalOpen} isModalOpen={isModalOpen} />
+        )}
         <div className="sideBar">
           <div className="sortBy"> 
             <h3 className="sortByHeader"> Sort By </h3>
@@ -70,7 +79,13 @@ class PostFeedPage extends React.Component {
           <div className="needHelp">  
             <h3 className="helpHeader"> Need Help? </h3>
             <p className="helpParagraph"> Use our resource finder to find the information you are looking for. </p>
-            <button type="button" className="helpButton"> Resource Finder </button>
+            <button
+              type="button"
+              className="helpButton"
+              onClick={() => this.setState({isModalOpen: true})}
+            >
+              Resource Finder 
+            </button>
           </div>
         </div>
         <div className="postfeedFormat">

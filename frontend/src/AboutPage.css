@@ -74,6 +74,15 @@ button {
   align-self: flex-start;
 }
 
+.about-subheading {
+  text-align: left;
+  color: var(--header-color);
+}
+
+.about-page-heading {
+  font-weight: 800;
+}
+
 .bio-text {
   width: auto;
   height: auto;
