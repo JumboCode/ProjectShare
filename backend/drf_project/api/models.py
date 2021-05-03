@@ -35,6 +35,7 @@ class Post(models.Model):
     title = models.CharField(max_length=5000)
     date = models.DateTimeField(auto_now_add=True)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
+    pdf = models.ForeignKey(Pdf, on_delete=models.CASCADE, blank=True, null=True)
     tags = models.ManyToManyField(Tag, related_name='posts')
     images = models.ManyToManyField(Image, related_name='posts', blank=True)
     locations = models.ManyToManyField(Location, related_name='posts', blank=True)
