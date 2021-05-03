@@ -1,5 +1,6 @@
 import React from "react";
-import { Table } from 'react-bootstrap';
+import { Table , Button} from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 import './AdminDashboard.css';
 import { BACKEND_URL } from './fetch';
 
@@ -29,6 +30,9 @@ class Dashboard extends React.Component {
     if(!isLoading) {
       return (
         <div className="admin-page-container">
+          <Button className="add-post-button" variant="primary">
+            <Link to="/add-post">Add Post</Link>
+          </Button>
           <Table striped bordered className="DataTable">
             <thead>
               <tr>
