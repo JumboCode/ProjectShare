@@ -8,6 +8,7 @@ import { EditorState, convertToRaw } from 'draft-js';
 import draftToMarkdown from 'draftjs-to-markdown';
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import PropTypes from 'prop-types';
+import { BACKEND_URL } from './fetch';
 
 class MyEditor extends React.Component {
   static uploadImage(img) {
@@ -18,7 +19,7 @@ class MyEditor extends React.Component {
       body: formdata,
       redirect: 'follow'
     };
-    return fetch("http://localhost:8000/api/images/add", requestOptions)
+    return fetch(`${BACKEND_URL}/api/images/add`, requestOptions)
       .then(response => response.json())
       .then(response => ({ data: { link: response.img_file } }))
   }

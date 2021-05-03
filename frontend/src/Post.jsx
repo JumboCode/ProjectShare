@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import Map from "./MapboxMap";
 import "./Post.css";
+import { BACKEND_URL } from './fetch';
 
 class Post extends React.Component {
   constructor(props) {
@@ -13,7 +14,7 @@ class Post extends React.Component {
 
   componentDidMount() {
     const { match: { params: { postId } } } = this.props;
-    fetch(`http://localhost:8000/api/posts?post_id=${postId}`)
+    fetch(`${BACKEND_URL}/api/posts?post_id=${postId}`)
       .then(res => res.json())
       .then(res => this.setState({posts: res}));
   }

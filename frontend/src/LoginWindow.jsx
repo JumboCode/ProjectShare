@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from 'prop-types';
 import { Form , Button , Alert } from "react-bootstrap";
+import { BACKEND_URL } from './fetch';
 
 class Login extends React.Component {
   constructor(props) {
@@ -28,7 +29,7 @@ class Login extends React.Component {
 
 
     if (localStorage.getItem('pshare') === null) {
-      fetch('http://localhost:8000/auth/login/', {
+      fetch(`${BACKEND_URL}/auth/login/`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

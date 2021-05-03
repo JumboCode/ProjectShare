@@ -10,6 +10,7 @@ import Tooltip from 'react-bootstrap/Tooltip';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import PostContentEditor from './PostContentEditor';
 import './PostComposer.css';
+import { BACKEND_URL } from './fetch';
 
 /* 
  * Component for admins to create a new post, then save and POST to database 
@@ -66,7 +67,7 @@ class PostComposer extends React.Component {
 
   // Get list of categories to populate dropdown selector
   getCategoriesList() {
-    fetch('http://localhost:8000/api/categories')
+    fetch(`${BACKEND_URL}/api/categories`)
       .then(res => res.json())
       .then(
         (result) => {
@@ -78,7 +79,7 @@ class PostComposer extends React.Component {
 
   // Get list of tags to populate dropdown selector
   getTagsList() {
-    fetch('http://localhost:8000/api/tags')
+    fetch(`${BACKEND_URL}/api/tags`)
       .then(res => res.json())
       .then(
         (result) => {
@@ -120,7 +121,7 @@ class PostComposer extends React.Component {
     event.preventDefault();
     const post = this.postModel();       
     
-    fetch('http://localhost:8000/api/posts/add', {
+    fetch(`${BACKEND_URL}/api/posts/add`, {
       method: 'POST',
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(post)
@@ -251,7 +252,7 @@ class PostComposer extends React.Component {
     };
 
     // POST request to upload image and append to list of post's images 
-    fetch("http://localhost:8000/api/images/add", requestOptions)
+    fetch(`${BACKEND_URL}/api/images/add`, requestOptions)
       .then(response => response.json())
       .then(data => { images.push({ id: data.id })})
       // reset input Image file

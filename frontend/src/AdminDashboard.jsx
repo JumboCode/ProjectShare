@@ -1,6 +1,7 @@
 import React from "react";
 import { Table } from 'react-bootstrap';
 import './AdminDashboard.css';
+import { BACKEND_URL } from './fetch';
 
 class Dashboard extends React.Component {
   constructor(props) {
@@ -12,7 +13,7 @@ class Dashboard extends React.Component {
   }
 
   componentDidMount() {
-    fetch('http://localhost:8000/api/posts')
+    fetch(`${BACKEND_URL}/api/posts`)
       .then(response => response.json())
       .then(data => 
         this.setState({

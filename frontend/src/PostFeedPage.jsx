@@ -7,6 +7,7 @@ import { Link} from 'react-router-dom';
 import PostFeed from "./PostFeed";
 import HelpModal from './HelpModal';
 import './PostFeedPage.css';
+import { BACKEND_URL } from './fetch';
 
 class PostFeedPage extends React.Component {
   constructor(props) {
@@ -19,7 +20,7 @@ class PostFeedPage extends React.Component {
     fetch (fetchEndpoint) 
       .then(res => res.json())
       .then(res => this.setState({posts: res}));
-    fetch('http://localhost:8000/api/tags')
+    fetch(`${BACKEND_URL}/api/tags`)
       .then(res => res.json())
       .then(res => this.setState({tags: res}))
   }

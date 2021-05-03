@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from 'prop-types';
 import { Form , Button , Alert } from "react-bootstrap";
-
+import { BACKEND_URL } from './fetch';
 
 import "./SignupWindow.css";
 
@@ -38,7 +38,7 @@ class Signup extends React.Component {
       })
     } else {
       if (localStorage.getItem('pshare') === null) {
-        fetch('http://localhost:8000/auth/signup/', {
+        fetch(`${BACKEND_URL}/auth/signup/`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
