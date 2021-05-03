@@ -5,7 +5,7 @@ function HomePage() {
     
   const endpoint = `http://localhost:8000/api/posts`;
   return (
-    <PostFeedPage fetchEndpoint={endpoint} featured title="Featured" /> 
+    <PostFeedPage fetchEndpoint={endpoint} featured title="Featured Resources" /> 
   );
 }
 export default HomePage;

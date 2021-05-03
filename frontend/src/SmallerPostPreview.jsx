@@ -31,7 +31,9 @@ function SmallerPostPreview({ Data }) {
         </div>
       </div>
       { Data.images.length > 0 && (
-        <img src={Data.images[0].img_file} alt={Data.images[0].img_name} key={Data.images[0].id} className="Photo" />
+        <div className="Photo">
+          <img src={Data.images[0].img_file} alt={Data.images[0].img_name} key={Data.images[0].id} />
+        </div>
       )}
     </div>
   )

@@ -33,6 +33,10 @@
   width: 135px;
   height: 126px;
   text-align: center;
+  overflow: hidden;
+}
+.Photo img {
+  width: 100%;
 }
 
 .DatePosted {
