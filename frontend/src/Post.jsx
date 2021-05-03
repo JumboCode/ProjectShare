@@ -72,7 +72,7 @@ class Post extends React.Component {
               <img src={image.img_file} alt={image.img_name} key={image.id} className="image" />
             ))}
           </div>
-          {Object.values(post.pdf).length !== 0 && (
+          {post.pdf && Object.values(post.pdf).length !== 0 && (
             <embed
               className="embed-pdf"
               src={post.pdf.pdf_file} width="500" height="375"
