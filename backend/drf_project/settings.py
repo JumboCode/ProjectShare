@@ -23,8 +23,11 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'y1i4-o3e)p1wqjri$xq6qnrctgws!f$pl!v(@p344-uu=bjty$'
 
-# SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
+
+if 'DATABASE_URL' in os.environ:
+    DEBUG = False
+
 CORS_ORIGIN_ALLOW_ALL = True
 
 ALLOWED_HOSTS = ["localhost"]
@@ -145,6 +148,10 @@ STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(PROJECT_ROOT, 'static')
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+if 'DATABASE_URL' in os.environ:
+    SECURE_SSL_REDIRECT = True
+    SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 # help view stdout when running tests
 NOSE_ARGS = ['--nocapture',
