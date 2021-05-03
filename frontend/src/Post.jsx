@@ -73,9 +73,7 @@ class Post extends React.Component {
             ))}
           </div>
           { posts.length > 0 && post.locations.length !== 0 && (
-            <div className="map">
-              <Map locations={post.locations} />
-            </div>
+            <Map locations={post.locations} />
           )}
         </div>
       )}

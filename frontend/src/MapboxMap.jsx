@@ -45,7 +45,7 @@ class Map extends Component {
 
       this.setState({
         viewport: {
-          width: "100%",
+          width: "50%",
           height: "100%",
         },
         viewState: {
@@ -62,7 +62,7 @@ class Map extends Component {
     
     this.setState({ 
       viewport: {
-        width: "100%",
+        width: "50%",
         height: "100%",
       }, 
       viewState: {
@@ -80,27 +80,6 @@ class Map extends Component {
     return (
       <div className="mapComponent">
         
-        <div className="mapLocationListContainer">
-          {locations.map((loc) => (
-            <div className="mapLocationRectangles" key={loc.id}>
-              <p className="mapAddressName">
-                <Circle size={12} color="#3da9fc" className="mapAddressCircle" />
-                {loc.name} 
-              </p>
-              {loc.address && (
-                <p className="mapAddress">
-                  {loc.address}
-                </p>
-              )}
-              <button
-                className="locationButtons"
-                type="button"
-                onClick={() => this.onLocationClick(Number(loc.latitude), Number(loc.longitude))}
-                aria-label="Move map to this location"
-              />
-            </div>
-          ))}
-        </div>
         
         <MapGL
           width={viewport.width}
@@ -127,6 +106,27 @@ class Map extends Component {
             )
           }
         </MapGL>
+        <div className="mapLocationListContainer">
+          {locations.map((loc) => (
+            <div className="mapLocationRectangles" key={loc.id}>
+              <p className="mapAddressName">
+                <Circle size={12} color="#3da9fc" className="mapAddressCircle" />
+                {loc.name}
+              </p>
+              {loc.address && (
+                <p className="mapAddress">
+                  {loc.address}
+                </p>
+              )}
+              <button
+                className="locationButtons"
+                type="button"
+                onClick={() => this.onLocationClick(Number(loc.latitude), Number(loc.longitude))}
+                aria-label="Move map to this location"
+              />
+            </div>
+          ))}
+        </div>
       </div>
     );
   }
