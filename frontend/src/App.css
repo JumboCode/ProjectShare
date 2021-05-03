@@ -118,3 +118,7 @@ button, input {
 .dropdown-menu, .dropdown-item {
   color: var(--primary-color) !important;
 }
+
+:focus:not(:focus-visible) { 
+  outline: none 
+}

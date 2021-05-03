@@ -1,0 +1,30 @@
+/* div that takes up 30% of the width of the website (use width: 30vw). This div should contain all of the other parts of your component. Put a border or drop shadow on this div. */
+.searchBar{
+    width: 30vw;
+    height: 48px;
+    box-shadow: 3px 3px 3px lightgray;
+    background-color: #ffffff;
+    align-content: center;
+    position: relative;
+    border: none;
+}
+/* For your text input field, set it up so that it's the same width as its parent div (from the bullet point above). Don't give it a border. */
+.searchBarText{
+    width: 30vw;
+    height: 22px;
+    background-color: #ffffff;
+    font-family: "Noto Sans", sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+    text-align: left;
+    border:none;
+    color: var(--secondary);
+}
+.belowInput{
+    width: 30vw;
+    min-height: 144px;
+    background-color: #ffffff;
+}
+
+/* why is it not in the middle */
+/* TODO: get the search logo and the x logo */
