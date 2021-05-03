@@ -4,7 +4,6 @@ import { Component } from 'react';
 import MapGL, { Marker, WebMercatorViewport } from 'react-map-gl';
 import PropTypes from 'prop-types';
 import { MapPin, Circle } from 'react-feather';
-import Pin from './pin.png';
 import "./MapboxMap.css";
 
 const MAPBOX_TOKEN = process.env.REACT_APP_MAPBOX_ACCESS_TOKEN;
