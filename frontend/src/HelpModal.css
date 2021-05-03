@@ -8,6 +8,10 @@
 
  .modal-header {
      font-size: 24px;
+     color: var(--header);
+     padding: 50px;
+     padding-bottom: 10px;
+     border-bottom: none;
  }
 
  .modal-title {
@@ -25,23 +29,26 @@
      color: var(--header);
      text-align: left;
      padding: 50px;
+     padding-top: 0;
  }
  .modal-p-text {
-    font-size: 16px;
-    color: var(--header);
+    color: var(--paragraph);
     text-align: left;
-    font-family: 'Noto Sans', sans-serif;
     margin: 0;
-    padding-bottom: 20px;
+    padding-bottom: 40px;
  }
 
 
 
  .modal-footer {
-     display: flex;
-     justify-content: flex-start;
-     text-align: left;
-     background-color: #ebf6ff;
+    display: flex;
+    justify-content: flex-start;
+    text-align: left;
+    background-color: #ebf6ff;
+    padding: 50px;
+ }
+ .modal-footer div, .modal-footer button {
+     margin-right: 15px;
  }
 
  .checkbox {
@@ -53,4 +60,12 @@
 
 .tagid {
  color: var(--paragraph);
+ font-family: 'Noto Sans', sans-serif;
+ font-size: 14px;
+}
+.modal-tags-list-wrapper {
+    display: flex;
+    flex-direction: column;
+    height: 70vh;
+    flex-wrap: wrap;
 }

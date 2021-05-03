@@ -102,9 +102,9 @@ button, input {
 }
 
 /* override bootstrap colors */
-.btn, .btn-color-primary {
-    border-color: var(--primary-color) !important;
-    color: var(--primary-color) !important;
+.btn-primary {
+    background-color: var(--primary-color) !important;
+    color: white !important;
 }
 .btn:hover, .btn-color-primary:hover,  .btn-color-primary:visited {
     border-color: var(--primary-color) !important;

@@ -50,22 +50,25 @@ class HelpModal extends React.Component {
       <div>
         <Modal show={isModalOpen} size="lg">
           <Modal.Header closeButton>
-            <Modal.Title variant="header">Resource Finder</Modal.Title>
+            <h3 variant="header">Resource Finder</h3>
           </Modal.Header>
           {modalPage === "tags" && (
             <div>
               <Modal.Body>
-                <p className="modal-p-text"> Select topics you are interested in:</p>
-                {tags && tags.map(tag=> (
-                  <div key={tag.id}>
-                    <input value={tag.id} type="checkbox" className="checkbox" variant="primary" onClick={this.onTagClick} />
-                    <label htmlFor="tag.id" className="tagid" variant="paragraph"> 
-                      {' '}
-                      {tag.name}
-                      {' '}
-                    </label>
-                  </div>
-                ))}
+                <h5 className="modal-p-text"> Select topics you are interested in:</h5>
+                <div className="modal-tags-list-wrapper">
+                  {tags && tags.map(tag => (
+                    <div key={tag.id}>
+                      <input value={tag.id} type="checkbox" className="checkbox" variant="primary" onClick={this.onTagClick} />
+                      <label htmlFor="tag.id" className="tagid" variant="paragraph">
+                        {' '}
+                        {tag.name}
+                        {' '}
+                      </label>
+                    </div>
+                  ))}
+                </div>
+                
               </Modal.Body>
             </div>
           )}
