@@ -25,9 +25,6 @@ SECRET_KEY = 'y1i4-o3e)p1wqjri$xq6qnrctgws!f$pl!v(@p344-uu=bjty$'
 
 DEBUG = True
 
-if 'DATABASE_URL' in os.environ:
-    DEBUG = False
-
 CORS_ORIGIN_ALLOW_ALL = True
 
 ALLOWED_HOSTS = ["localhost"]
