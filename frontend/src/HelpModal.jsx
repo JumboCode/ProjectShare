@@ -1,6 +1,7 @@
 import React from "react";
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
+import { PropTypes } from 'prop-types';
 import './HelpModal.css';
 
 
@@ -41,14 +42,16 @@ class HelpModal extends React.Component {
   }
 
   closeModal = () => {
-    this.setState({isModalOpen: false})
+    const { updateIsModalOpen } = this.props;
+    updateIsModalOpen(false);
   }
 
   render() {
-    const {tags, isModalOpen, modalPage} = this.state
+    const { isModalOpen, updateIsModalOpen } = this.props;
+    const {tags, modalPage} = this.state
     return (
       <div>
-        <Modal show={isModalOpen} size="lg">
+        <Modal show={isModalOpen} size="lg" onHide={updateIsModalOpen}>
           <Modal.Header closeButton>
             <h3 variant="header">Resource Finder</h3>
           </Modal.Header>
@@ -90,3 +93,9 @@ class HelpModal extends React.Component {
 
 
 export default HelpModal;
+
+
+HelpModal.propTypes = {
+  updateIsModalOpen: PropTypes.func.isRequired,
+  isModalOpen: PropTypes.bool.isRequired,
+}

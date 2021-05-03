@@ -34,12 +34,17 @@ class Navigation extends React.Component {
     event.preventDefault();
   }
 
+  updateIsModalOpen = (val) => {
+    this.setState({isModalOpen: val })
+  }
 
   render() {
     const { input, categories, isModalOpen } = this.state;
     return (
       <div className="NavBar">
-        {isModalOpen && <HelpModal />}
+        {isModalOpen && (
+          <HelpModal updateIsModalOpen={this.updateIsModalOpen} isModalOpen={isModalOpen} />
+        )}
         <form onSubmit={this.handleSubmit}>
           <div className="topRow">
             <Link to="/">
