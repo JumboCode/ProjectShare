@@ -72,10 +72,16 @@ class Post extends React.Component {
               <img src={image.img_file} alt={image.img_name} key={image.id} className="image" />
             ))}
           </div>
+          {post.pdf && Object.values(post.pdf).length !== 0 && (
+            <embed
+              className="embed-pdf"
+              src={post.pdf.pdf_file} width="500" height="375"
+              type="application/pdf"
+            />
+          )}
+
           { posts.length > 0 && post.locations.length !== 0 && (
-            <div className="map">
-              <Map locations={post.locations} />
-            </div>
+            <Map locations={post.locations} />
           )}
         </div>
       )}

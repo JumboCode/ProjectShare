@@ -1,7 +1,8 @@
 import React from 'react';
 import './Navigation.css';
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, withRouter } from "react-router-dom";
 import * as Icon from 'react-feather';
+import { PropTypes } from 'prop-types';
 import logo from './static/projectSHARELogo.jpeg';
 import HelpModal from './HelpModal';
 import { BACKEND_URL } from './fetch';
@@ -56,8 +57,10 @@ class Navigation extends React.Component {
   }
 
   handleSubmit(event) {
-    // eslint-disable-next-line no-unused-vars
-    const { searchInput: search } = this.state;
+    const { searchInput } = this.state;
+    const { history } = this.props;
+    history.push(`search?keyword=${searchInput}`);
+    this.clearSearchBar();
     event.preventDefault();
   }
 
@@ -114,8 +117,7 @@ class Navigation extends React.Component {
                   <div className="postSearchResults">
                     {searchInput !== "" && (
                       postSearchResults.map(post => (
-      
-                        <p className="nav-search-result">
+                        <p className="nav-search-result" key={post.id}>
                           <Link to={`/post/${post.id}/`} onClick={this.clearSearchBar}> 
                             {' '}
                             {post.title}
@@ -128,7 +130,7 @@ class Navigation extends React.Component {
               
                   <div className="category">
                     {categoriesFiltered.map(categoryFiltered => (
-                      <p className="nav-search-result">
+                      <p className="nav-search-result" key={categoryFiltered.id}>
                         <Link to={`/category/${categoryFiltered.id}`} onClick={this.clearSearchBar}> 
                           {' '}
                           {categoryFiltered.name}
@@ -140,7 +142,7 @@ class Navigation extends React.Component {
                   </div>
                   <div className="tags-wrapper">
                     {tagsFiltered.map(tagFiltered => (
-                      <p className="nav-search-result">
+                      <p className="nav-search-result" key={tagFiltered.id}>
                         <Link to={`/tag/${tagFiltered.id}`} onClick={this.clearSearchBar}> 
                           {' '}
                           {tagFiltered.name}
@@ -183,4 +185,10 @@ class Navigation extends React.Component {
   }
 }
 
-export default Navigation;
+export default withRouter(Navigation);
+
+Navigation.propTypes = {
+  history: PropTypes.shape({
+    push: PropTypes.func
+  }).isRequired,
+}
