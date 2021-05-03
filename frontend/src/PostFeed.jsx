@@ -8,9 +8,9 @@ import './PostFeed.css';
 const PostFeed = ({title, subtitle, posts,featured}) => {
   return (
     <div className="postfeed">
-      <div className="title">
+      <h3 className="postfeed-title">
         {title}
-      </div>
+      </h3>
       <div className="subtitle">
         {subtitle}
       </div>

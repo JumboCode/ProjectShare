@@ -23,11 +23,21 @@ class Post extends React.Component {
     let post;
     if (posts.length !== 0) {
       post = posts[posts.length - 1]
-    }
-    const dateOptions = { year: 'numeric', month: 'long', day: 'numeric' };
-    return (
-      <div className="post">
-        { posts.length > 0 && (
+      const dateOptions = { year: 'numeric', month: 'long', day: 'numeric' };
+      return (
+        <div className="post">
+          
+          <h5 className="post-category-navigator">
+            All Topics &gt;
+            <Link 
+              className="post-category-navigator"
+              to={{ pathname: `/category/${post.category.id}`, state: { pageName: post.category.name } }}
+            >
+              {` ${post.category.name}`}
+            </Link>
+          </h5>
+          
+        
           <p className="tags">
             {post.tags.map(tag => (
               <Link
@@ -39,46 +49,36 @@ class Post extends React.Component {
               </Link>
             ))}
           </p>
-        )}
-        { posts.length > 0 && (
           <p className="title">
             { post.title } 
           </p> 
-        )}
-        { posts.length > 0 && (
-          <p className="author">
+          <h5 className="author">
             By Project SHARE
-          </p>
-        )}
-        { posts.length > 0 && (
-          <p className="date">
+          </h5>
+          <h5 className="date">
             {new Date(post.date).toLocaleDateString("en-US", dateOptions)}
-          </p>
-        )}
-        { posts.length > 0 && (
-          <p className="caption">
-            { post.caption }
-          </p>
-        )}
-        { posts.length > 0 && (
+          </h5>
+          {post.caption && (
+            <p className="caption">
+              { post.caption }
+            </p>
+          )}
           <div className="contents">
             <Markdown>{post.content}</Markdown>
           </div>
-        )}
-        { posts.length > 0 && (
           <div className="image">
             {post.images.map(image => (
               <img src={image.img_file} alt={image.img_name} key={image.id} className="image" />
             ))}
           </div>
-        )}
-        { posts.length > 0 && post.locations.length !== 0 && (
-          <div className="map">
-            <Map locations={post.locations} />
-          </div>
-        )}
-      </div>
-    );
+          { posts.length > 0 && post.locations.length !== 0 && (
+            <div className="map">
+              <Map locations={post.locations} />
+            </div>
+          )}
+        </div>
+      )}
+    return null;
   }
 }
 

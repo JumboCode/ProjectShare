@@ -34,14 +34,14 @@
     font-size: 16px;
     color: var(--paragraph-color);
     text-align: left;
-    padding-bottom: 12px;
+    padding-bottom: 17px;
 }
 .tuftsResources:hover {
     text-decoration: none;
 }
 .nav-active {
     color:var(--header-color);
-    padding-bottom: 10px;
+    padding-bottom: 15px;
     border-bottom: 2px solid var(--header-color);
 } 
 .nav-bottom-bar {

@@ -28,6 +28,7 @@
   padding: 14px;
   margin: 6px auto;
   width: 100%;
+  border: 2px solid var(--shade-color);
 }
 
 .message-field {
@@ -36,6 +37,7 @@
   padding: 14px;
   margin: 6px auto;
   width: 612px;
+  border: 2px solid var(--shade-color);
 }
 
 .submit-button {

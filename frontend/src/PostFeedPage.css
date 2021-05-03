@@ -1,4 +1,5 @@
 .postfeedPage {
+    margin-top: 50px;
     display:flex;
     flex-direction:row;
     height:fit-content;
@@ -27,7 +28,7 @@
 .sortByHeader {
   width: 100px;
   height: 25px;
-  margin: 21px auto 10px 220px;
+  margin: 0 auto 10px 220px;
   font-size: 18px;
   font-weight: bold;
   color: #094067;  
@@ -92,6 +93,7 @@
     background-color: var(--primary-color);  
     border: none;
     color: white;
+    justify-content: center;
 }
 
 .postfeedFormat {
@@ -100,5 +102,4 @@
     width:636px;
     height:fit-content;
     margin-bottom:52px;
-    margin-top:80px;
 }
