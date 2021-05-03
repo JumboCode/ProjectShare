@@ -74,39 +74,55 @@
     cursor: pointer;
 }
 
+
 .SearchBar {
     width: 80%;
     height: 30%;
     position: relative;
     border-radius: 3px;
+    background-color:  var(--shade-color);
+    border: none;
+    color: var(--paragraph-color);
+    vertical-align: middle;
+    display: inline-block;
+}
+
+.SearchBar:focus {
     background-color:  #ffffff;
     border: none;
     color: var(--paragraph-color);
     vertical-align: middle;
     display: inline-block;
-
 }
 
-.SearchBox {
+.SearchBar:focus-within {
+    outline: none !important;
+}
 
+:focus:not(:focus-visible) { outline: none }
+
+.SearchBox {
+    background-color:  var(--shade-color);
     width: 35vw;
     height: 30%;
     position: relative;
     margin-top: 30px;
-    /* background-color: #efefef; */
-    padding: 8px 10px ;
+    padding: 8px 0px ;
     border-radius: 3px;
-    gap: 10px;
     color: white;
-    box-shadow: 0 4px 10px 1px rgba(9, 64, 103, 0.2);
     border-radius: 3px;
+}
 
+.SearchBox:focus-within {
+    background-color: white;
+    box-shadow: 0 4px 10px 1px rgba(9, 64, 103, 0.2);
 }
 .category{
     text-align: center;
 }
-.tags{
+.tags-wrapper{
     text-align: center;
+    width: 100%;
 }
 
 .Search img {
@@ -120,8 +136,19 @@
     /* vertical-align: middle; */
 }
 .searchResults{
-    display:flex;
-    flex-direction:column;
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    background-color: white;
+    width: 100%;
+    padding: 10px;
+    border-radius: 3px;
+    grid-gap: 10px;
+    gap: 10px;
+    box-shadow: 0px 8px 10px 0px rgba(0,0,0,0.15); 
+    border: none;
+    border-radius: 3px;
+
 }
 input::placeholder {
     width: 166px;
@@ -133,10 +160,20 @@ input::placeholder {
     color:var(--paragraph-color);
 }
 
-/* 
-Problem:
+.nav-search-result {
+    text-align: left;
+    margin: 2.5px 0;
+}
 
-2. tags cannot be centered aligned
-3. weird gap in between 
-4. help me find a resource button weirdly enlarged
-*/
+.search-results-type {
+    color: var(--secondary-color);
+    font-size: 16px;
+    font-weight: 500;
+    float: right; 
+}
+.close-button-wrapper {
+    width: fit-content;
+    height: fit-content;
+    float: right;
+    margin-right: 10px;
+}

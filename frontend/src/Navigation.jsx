@@ -59,11 +59,15 @@ class Navigation extends React.Component {
     const {tags} = this.state;
     const {categories} = this.state;
     const {postSearchResults} = this.state;
-    const categoriesFiltered = categories.filter(category => category.name.includes(searchInput)); 
-    const tagsFiltered= tags.filter(tag => tag.name.includes(searchInput)); 
+    const categoriesFiltered = searchInput === "" ? [] :
+      categories.filter(category => category.name.includes(searchInput)); 
+    const tagsFiltered = searchInput === "" ? [] :
+      tags.filter(tag => tag.name.includes(searchInput));
     console.log(categoriesFiltered);
     // tags array is formatted so that each element formatted is an object that has 2 items (name and ID),
     // so like a list of objects. so when filter your tags
+    const shouldDisplayResults = (searchInput !== '' && 
+      (tagsFiltered.length !== 0 || postSearchResults.length !== 0 || categoriesFiltered.length !== 0 ))
 
     return (
       
@@ -83,48 +87,61 @@ class Navigation extends React.Component {
                 className="SearchBar"
                 placeholder="Search for a resource" 
                 type="text" 
-                input={searchInput} 
-                onChange={this.handleChange} 
+                value={searchInput} 
+                onChange={this.handleChange}
               />
-              <Icon.X onClick={this.clearSearchBar} color="var(--primary)" />
-              <div className="searchResults"> 
-                <div className="postSearchResults">
-                  {searchInput !== "" && (
-                    postSearchResults.map(post => (
+              <div 
+                onClick={this.clearSearchBar}
+                className="close-button-wrapper"
+                role="button"
+                tabIndex="0"
+                onKeyDown={this.clearSearchBar}
+              >
+                <Icon.X color="var(--primary)" />
+              </div>
+              {shouldDisplayResults && (
+                <div className="searchResults"> 
+                  <div className="postSearchResults">
+                    {searchInput !== "" && (
+                      postSearchResults.map(post => (
       
-                      <li>
-                        <Link to={`/post/${post.id}/`}> 
+                        <p className="nav-search-result">
+                          <Link to={`/post/${post.id}/`}> 
+                            {' '}
+                            {post.title}
+                            {' '}
+                          </Link>
+                          <span className="search-results-type">POST</span>
+                        </p>
+                      )))}
+                  </div>
+              
+                  <div className="category">
+                    {categoriesFiltered.map(categoryFiltered => (
+                      <p className="nav-search-result">
+                        <Link to={`/category/${categoryFiltered.id}`}> 
                           {' '}
-                          {post.title}
+                          {categoryFiltered.name}
                           {' '}
                         </Link>
-                      </li>
-                    )))}
+                        <span className="search-results-type">CATEGORY</span>
+                      </p>
+                    ))}
+                  </div>
+                  <div className="tags-wrapper">
+                    {tagsFiltered.map(tagFiltered => (
+                      <p className="nav-search-result">
+                        <Link to={`/tags/${tagFiltered.id}`}> 
+                          {' '}
+                          {tagFiltered.name}
+                          {' '}
+                        </Link>
+                        <span className="search-results-type">TAG</span>
+                      </p>
+                    ))}
+                  </div>
                 </div>
-              
-                <div className="category">
-                  {categoriesFiltered.map(categoryFiltered => (
-                    <li>
-                      <Link to={`/category/${categoryFiltered.id}`}> 
-                        {' '}
-                        {categoryFiltered.name}
-                        {' '}
-                      </Link>
-                    </li>
-                  ))}
-                </div>
-                <div className="tags">
-                  {tagsFiltered.map(tagFiltered => (
-                    <li>
-                      <Link to={`/tags/${tagFiltered.id}`}> 
-                        {' '}
-                        {tagFiltered.name}
-                        {' '}
-                      </Link>
-                    </li>
-                  ))}
-                </div>
-              </div>
+              )}
             </div>
 
             <button 
