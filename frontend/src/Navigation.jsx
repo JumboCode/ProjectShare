@@ -86,6 +86,7 @@ class Navigation extends React.Component {
               </NavLink>
             ))}
           </div>
+          <div className="nav-bottom-bar" />
         </form>
       </div>
     );

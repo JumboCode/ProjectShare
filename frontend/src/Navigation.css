@@ -1,6 +1,5 @@
 .NavBar {
     width: 100%;
-    border-bottom: 2px solid var(--background-color);
     background-color: #ffffff;
     white-space: nowrap;
     display: inline-block;
@@ -27,25 +26,31 @@
     justify-content: space-between;
     width: 70vw;
     margin: 0 15vw;
-    
 }
 .tuftsResources {
-     font-family: 'Noto Sans', sans-serif;
-     font-weight: 500;
- }
-.Home, .Topics, .tuftsResources, .communityResources, .sharewood, .newsletterArchives, .howCanHelp {
+    font-family: 'Noto Sans', sans-serif;
+    font-weight: 500;
     border: none;
     font-size: 16px;
     color: var(--paragraph-color);
     text-align: left;
-    padding-bottom: 10px;
+    padding-bottom: 12px;
 }
-
+.tuftsResources:hover {
+    text-decoration: none;
+}
 .nav-active {
     color:var(--header-color);
     padding-bottom: 10px;
     border-bottom: 2px solid var(--header-color);
-    /* box-sizing: border-box; */
+} 
+.nav-bottom-bar {
+    height: 0;
+    width: 100%;
+    border-bottom: 2px solid var(--background-color);
+    transform: translate(0, -2px);
+    z-index: -10;
+    position: relative;
 }
 
 .FindResource {
