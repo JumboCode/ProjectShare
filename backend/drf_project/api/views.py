@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 from rest_framework import viewsets, permissions
-from django.db.models import Q
+from django.db.models import Q, F
 from . import serializers
 from . import models
 from sendgrid import SendGridAPIClient
@@ -55,6 +55,18 @@ class PostViewSet(viewsets.ModelViewSet):
         body text.
         """
         queryset = models.Post.objects.all()
+
+        if 'sort_by' in locals() and sort_by == 'newest':
+            queryset = queryset.order_by('-date')
+        elif 'sort_by' in locals() and sort_by == 'oldest':
+            queryset = queryset.order_by('date')
+        else: # By default sort by "featured"
+            # TODO: add 'featured_post_order' field
+            # queryset = queryset.order_by(
+            #     F('featured_post_order').desc(nulls_last=True), 
+            #     '-date')
+            queryset = queryset.order_by('-date')
+
         post_id = self.request.query_params.get('post_id', None)
         tag_id = self.request.query_params.get('tag_id', None)
         category_id = self.request.query_params.get('category_id', None)
