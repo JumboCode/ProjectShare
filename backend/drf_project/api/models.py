@@ -34,7 +34,7 @@ class Post(models.Model):
     images = models.ManyToManyField(Image, related_name='posts')
     locations = models.ManyToManyField(Location, related_name='posts')
     content = models.TextField()
-    region = models.CharField()
+    region = models.CharField(max_length=64)
     language = models.CharField(
         max_length=20,
         choices=LANG_CHOICES,
