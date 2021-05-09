@@ -5,6 +5,8 @@ from django.db.models import Q
 from . import serializers
 from . import models
 from django.http import HttpResponse
+from django.views.decorators.csrf import csrf_exempt
+import json
 
 class TagViewSet(viewsets.ModelViewSet):
     lookup_url_kwarg = 'tag_id'
@@ -74,10 +76,15 @@ class LocationViewSet(viewsets.ModelViewSet):
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
 
 
+@csrf_exempt
 def set_featured_posts(request, methods=['POST']):
-   post_response = request.body.decode('utf-8')
-   body = json.loads(post_response)
-   
+
+   #if empty string, send error response "provide post body"
+   value = request.POST.get("fp_1", "")
+   #post_response = request.body.decode('utf-8')
+   return HttpResponse(value)
+   #body = json.loads(post_response)
+   #return HttpResponse(body)
    #for n in body:  
        #update model  
        #update with body response
