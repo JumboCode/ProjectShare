@@ -54,6 +54,7 @@ class PostSerializer(serializers.ModelSerializer):
     category = CategorySerializer()
     tags = TagSerializer(many=True)
     content = serializers.CharField()
+    region = serializers.CharField()
     images = ImageSerializer(many=True)
     language = serializers.CharField(max_length=20, required=False)
     locations = LocationSerializer(many=True)
