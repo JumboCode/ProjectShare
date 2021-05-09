@@ -78,7 +78,7 @@ def set_featured_posts(request, methods=['POST']):
    post_response = request.body.decode('utf-8')
    body = json.loads(post_response)
    
-   for n in body:
-       
-   #update model 
-   #Post.objects.filter(pk=).update(featured_post_order=)
+   #for n in body:  
+       #update model  
+       #update with body response
+       #Post.objects.filter(post_id=n).update(featured_post_order=)
