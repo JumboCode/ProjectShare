@@ -26,7 +26,7 @@ SECRET_KEY = 'y1i4-o3e)p1wqjri$xq6qnrctgws!f$pl!v(@p344-uu=bjty$'
 DEBUG = True
 CORS_ORIGIN_ALLOW_ALL = True
 
-ALLOWED_HOSTS = ["localhost"]
+ALLOWED_HOSTS = ["127.0.0.1", "localhost:8000"]
 
 # Application definition
 
@@ -92,7 +92,7 @@ DATABASES = {
         'USER': 'projshare_test_user',
         'PASSWORD': '',
         'HOST': 'localhost',
-        'PORT': '',
+        'PORT': '5433',
     }
 }
 

@@ -46,7 +46,13 @@ image_urls = [
 ]
 
 
-#featured_posts_urls = path('posts/set_featured_posts', views.set_featured_posts)
+featured_posts_urls = [
+    path(
+        'posts/set_featured_posts', 
+        views.set_featured_posts
+        ),
+] 
+ 
 
 
-urlpatterns = tag_urls + category_urls + image_urls + post_urls + location_urls
+urlpatterns = tag_urls + category_urls + image_urls + post_urls + location_urls + featured_posts_urls

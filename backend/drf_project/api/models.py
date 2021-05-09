@@ -38,6 +38,7 @@ class Post(models.Model):
     images = models.ManyToManyField(Image, related_name='posts')
     locations = models.ManyToManyField(Location, related_name='posts')
     content = models.TextField()
+    featured_post_order = models.IntegerField()
     language = models.CharField(
         max_length=20,
         choices=LANG_CHOICES,
@@ -45,5 +46,5 @@ class Post(models.Model):
         blank=True,
     )
     #featured_post_order = models.DecimalField()
-    featured_post_order = models.IntegerField()
+   
 

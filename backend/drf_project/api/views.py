@@ -4,7 +4,7 @@ from rest_framework import viewsets, permissions, filters
 from django.db.models import Q
 from . import serializers
 from . import models
-
+from django.http import HttpResponse
 
 class TagViewSet(viewsets.ModelViewSet):
     lookup_url_kwarg = 'tag_id'
@@ -31,8 +31,8 @@ class PostViewSet(viewsets.ModelViewSet):
     lookup_url_kwarg = 'post_id'
     serializer_class = serializers.PostSerializer
     filter_backends = [filters.OrderingFilter]
-    ordering_fields = ['-featured_post_order', '-date']
-    ordering = ['-featured_post_order', '-date']
+    ordering_fields = ['featured_post_order', '-date']
+    ordering = ['featured_post_order', '-date']
 
 
     def get_queryset(self):
@@ -74,5 +74,11 @@ class LocationViewSet(viewsets.ModelViewSet):
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
 
 
-#def set_featured_posts(request, methods=['POST']):
-    
+def set_featured_posts(request, methods=['POST']):
+   post_response = request.body.decode('utf-8')
+   body = json.loads(post_response)
+   
+   for n in body:
+       
+   #update model 
+   #Post.objects.filter(pk=).update(featured_post_order=)
