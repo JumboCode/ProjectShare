@@ -56,9 +56,10 @@ class PostViewSet(viewsets.ModelViewSet):
         """
         queryset = models.Post.objects.all()
 
-        if 'sort_by' in locals() and sort_by == 'newest':
+        sort_by = self.request.query_params.get('sort_by', 'Newest')
+        if sort_by == 'Newest':
             queryset = queryset.order_by('-date')
-        elif 'sort_by' in locals() and sort_by == 'oldest':
+        elif sort_by == 'Oldest':
             queryset = queryset.order_by('date')
         else: # By default sort by "featured"
             # TODO: add 'featured_post_order' field
