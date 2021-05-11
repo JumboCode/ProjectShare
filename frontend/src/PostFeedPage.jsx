@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import DropdownButton from 'react-bootstrap/DropdownButton';
-import Dropdown from 'react-bootstrap/esm/Dropdown';
+// import Dropdown from 'react-bootstrap/esm/Dropdown';
 import DropdownItem from 'react-bootstrap/esm/DropdownItem';
 import { Link} from 'react-router-dom';
 import PostFeed from "./PostFeed";
@@ -12,7 +12,7 @@ import { BACKEND_URL } from './fetch';
 class PostFeedPage extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {posts:[], tags: []};
+    this.state = {posts:[], tags:[], sortBy:'Newest'};
   }
   
   componentDidMount() {
@@ -52,8 +52,15 @@ class PostFeedPage extends React.Component {
       </li>
     )
     );
-    const {featured,title, subtitle} = this.props
-    const {posts , isModalOpen } = this.state
+    const {featured, title, subtitle} = this.props
+    const {posts, isModalOpen, sortBy} = this.state
+    const {fetchEndpoint} = this.props
+    const handleSortSelect=(e)=>{
+      this.setState({sortBy:e})
+      fetch(`${fetchEndpoint}?sort_by=${e}`)
+        .then(res => res.json())
+        .then(res => this.setState({posts: res}))
+    }
 
     return (
       <div className="postfeedPage">
@@ -63,9 +70,13 @@ class PostFeedPage extends React.Component {
         <div className="sideBar">
           <div className="sortBy"> 
             <h3 className="sortByHeader"> Sort By </h3>
-            <DropdownButton variant="outline-primary" className="mostRecent" title="Most Recent"> 
-              <Dropdown.Item> Something </Dropdown.Item>
-              <DropdownItem> Something 2</DropdownItem>
+            <DropdownButton 
+              variant="outline-primary" className="sorting" 
+              title={sortBy} onSelect={handleSortSelect}
+            > 
+              <DropdownItem eventKey='Newest'> Newest </DropdownItem>
+              <DropdownItem eventKey='Oldest'> Oldest </DropdownItem>
+              <DropdownItem eventKey='Featured'> Featured </DropdownItem>
             </DropdownButton>
           </div>
           <div className="topicList"> 
