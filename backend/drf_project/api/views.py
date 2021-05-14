@@ -59,6 +59,7 @@ class PostViewSet(viewsets.ModelViewSet):
         tag_id = self.request.query_params.get('tag_id', None)
         category_id = self.request.query_params.get('category_id', None)
         keyword = self.request.query_params.get('keyword', None)
+        featured = self.request.query_params.get('featured', None)
         if post_id is not None:
             queryset = queryset.filter(id=post_id)
         if tag_id is not None:
@@ -71,6 +72,8 @@ class PostViewSet(viewsets.ModelViewSet):
                         | Q(content__icontains=keyword)
                         | Q(tags__name__icontains=keyword))
             queryset = queryset.filter(q_object).distinct()
+        if  featured is not None:
+            queryset = queryset.filter(featured__isnull=True)
         return queryset
 
     serializer_class = serializers.PostSerializer

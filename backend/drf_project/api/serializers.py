@@ -1,3 +1,4 @@
+from __future__ import all_feature_names
 from rest_framework import serializers
 from .models import Post, Location, Tag, Category, Image, Pdf
 
@@ -71,6 +72,7 @@ class PostSerializer(serializers.ModelSerializer):
     content = serializers.CharField()
     images = ImageSerializer(many=True)
     language = serializers.CharField(max_length=20, required=False)
+    featured = serializers.BooleanField()
     locations = LocationSerializer(many=True)
 
     class Meta:
