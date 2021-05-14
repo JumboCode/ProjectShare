@@ -80,9 +80,32 @@ class LocationViewSet(viewsets.ModelViewSet):
 def set_featured_posts(request, methods=['POST']):
 
    #if empty string, send error response "provide post body"
-   value = request.POST.get("fp_1", "")
+
+   ifEmptyVal = request.POST.get("fp_1", "")
+
+   fp_1_id = request.POST.get("fp_1", "")
+   fp_2_id = request.POST.get("fp_2", "")
+   fp_3_id= request.POST.get("fp_3", "")
+   fp_4_id = request.POST.get("fp_4", "")
+   fp_5_id = request.POST.get("fp_5", "")
+
+   if ifEmptyVal == "":
+       return HttpResponse("Error, Provide Post Body")
+   elif fp_1 != "":
+       Post.objects.filter(post_id=fp_1_id).update(featured_post_order=1)
+   elif fp_1 != "":
+       Post.objects.filter(post_id=fp_2_id).update(featured_post_order=2)
+   elif fp_1 != "":
+       Post.objects.filter(post_id=fp_3_id).update(featured_post_order=3)
+   elif fp_1 != "":
+       Post.objects.filter(post_id=fp_4_id).update(featured_post_order=4)
+   elif fp_1 != "":
+       Post.objects.filter(post_id=fp_5_id).update(featured_post_order=5)
+
+    
+   
    #post_response = request.body.decode('utf-8')
-   return HttpResponse(value)
+   #return HttpResponse(value)
    #body = json.loads(post_response)
    #return HttpResponse(body)
    #for n in body:  
