@@ -25,6 +25,7 @@ class Post extends React.Component {
       post = posts[posts.length - 1]
     }
     const dateOptions = { year: 'numeric', month: 'long', day: 'numeric' };
+    console.log(posts.locations)
     return (
       <div className="post">
         { posts.length > 0 && (

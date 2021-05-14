@@ -28,7 +28,7 @@ class Map extends Component {
     const { locations } = this.props;
     if (locations.length === 1) {
       this.onLocationClick(Number(locations[0].latitude), Number(locations[0].longitude))
-    } else {
+    } else if (locations.length > 1) {
       /* Calculate pairs of min lnglat and max lnglat */
       const lat = locations.map(location => Number(location.latitude));
       const lng = locations.map(location => Number(location.longitude));

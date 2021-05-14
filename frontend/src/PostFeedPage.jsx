@@ -6,11 +6,13 @@ import DropdownItem from 'react-bootstrap/esm/DropdownItem';
 import { Link} from 'react-router-dom';
 import PostFeed from "./PostFeed";
 import './PostFeedPage.css';
+import Map from "./MapboxMap";
 
 class PostFeedPage extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {posts:[], tags: []};
+    const { mapDefaultOpen} = this.props;
+    this.state = {posts:[], tags: [], isMapOpen: mapDefaultOpen };
   }
   
   componentDidMount() {
@@ -47,40 +49,47 @@ class PostFeedPage extends React.Component {
     )
     );
     const {featured,title, subtitle} = this.props
-    const {posts} = this.state
+    const {posts, isMapOpen} = this.state
+    const locationList = posts.map(post => post.locations).flat()
 
     return (
       <div className="postfeedPage">
-        <div className="sideBar">
-          <div className="sortBy"> 
-            <h3 className="sortByHeader"> Sort By </h3>
-            <DropdownButton variant="outline-primary" className="mostRecent" title="Most Recent"> 
-              <Dropdown.Item> Something </Dropdown.Item>
-              <DropdownItem> Something 2</DropdownItem>
-            </DropdownButton>
+        {  isMapOpen === false && (
+          <div className="sideBar">
+            <div className="sortBy"> 
+              <h3 className="sortByHeader"> Sort By </h3>
+              <DropdownButton variant="outline-primary" className="mostRecent" title="Most Recent"> 
+                <Dropdown.Item> Something </Dropdown.Item>
+                <DropdownItem> Something 2</DropdownItem>
+              </DropdownButton>
+            </div>
+            <div className="topicList"> 
+              <h3 className="filters">
+                Filters
+              </h3>
+              <ul className="filterList">
+                {listItems} 
+              </ul>
+            </div>
+            <div className="needHelp">  
+              <h3 className="helpHeader"> Need Help? </h3>
+              <p className="helpParagraph"> Use our resource finder to find the information you are looking for. </p>
+              <button type="button" className="helpButton"> Resource Finder </button>
+            </div>
           </div>
-          <div className="topicList"> 
-            <h3 className="filters">
-              Filters
-            </h3>
-            <ul className="filterList">
-              {listItems} 
-            </ul>
-          </div>
-          <div className="needHelp">  
-            <h3 className="helpHeader"> Need Help? </h3>
-            <p className="helpParagraph"> Use our resource finder to find the information you are looking for. </p>
-            <button type="button" className="helpButton"> Resource Finder </button>
-          </div>
-        </div>
+        )}
         <div className="postfeedFormat">
           {posts.length === 0 ? (
             <p>No resources were found.</p>
           ) : (
             <PostFeed posts={posts} featured={featured} subtitle={subtitle} title={title} />
           )}
-          
         </div>
+        {  isMapOpen === true && (
+          <div className="theMap">
+            <Map locations={locationList} />
+          </div>
+        ) }
       </div>
     );
   }
@@ -91,6 +100,7 @@ PostFeedPage.defaultProps = {
   featured: false,
   title: "",
   subtitle: "",
+  mapDefaultOpen: false,
 };
   
 PostFeedPage.propTypes = {
@@ -98,4 +108,5 @@ PostFeedPage.propTypes = {
   fetchEndpoint: PropTypes.string.isRequired,
   subtitle: PropTypes.string,
   featured: PropTypes.bool,
+  mapDefaultOpen: PropTypes.bool,
 };
