@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import PostFeedPage from "./PostFeedPage";
 import { BACKEND_URL } from './fetch';
+import * as Icon from 'react-feather';
 
 function SearchResultsPage(props) {
     
