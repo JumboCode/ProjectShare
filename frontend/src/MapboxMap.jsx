@@ -76,28 +76,29 @@ class Map extends Component {
 
   render() {
     const { viewport, viewState } = this.state;
-    const { locations } = this.props;
+    const { locations, searchMap } = this.props;
     return (
-      <div className="mapComponent">
-        
-        <div className="mapLocationListContainer">
-          {locations.map((loc) => (
-            <div className="mapLocationRectangles" key={loc.id}>
-              <li className="mapAddressName">  
-                {loc.name} 
-              </li>
-              <p className="mapAddress">
-                {loc.address}
-              </p>
-              <button
-                className="locationButtons"
-                type="button"
-                onClick={() => this.onLocationClick(Number(loc.latitude), Number(loc.longitude))}
-                aria-label="Move map to this location"
-              />
-            </div>
-          ))}
-        </div>
+      <div className={searchMap ? 'mapComponentTwo' : 'mapComponent'}>
+        {  searchMap === false &&  (
+          <div className="mapLocationListContainer">
+            {locations.map((loc) => (
+              <div className="mapLocationRectangles" key={loc.id}>
+                <li className="mapAddressName">  
+                  {loc.name} 
+                </li>
+                <p className="mapAddress">
+                  {loc.address}
+                </p>
+                <button
+                  className="locationButtons"
+                  type="button"
+                  onClick={() => this.onLocationClick(Number(loc.latitude), Number(loc.longitude))}
+                  aria-label="Move map to this location"
+                />
+              </div>
+            ))}
+          </div>
+        )}
         
         <MapGL
           width={viewport.width}
@@ -136,8 +137,10 @@ Map.propTypes = {
     name: PropTypes.string,
     longitude: PropTypes.string,
     latitude: PropTypes.string,
-  }))
+  })),
+  searchMap: PropTypes.bool,
 }
 Map.defaultProps = {
-  locations: []
+  locations: [],
+  searchMap: false,
 }

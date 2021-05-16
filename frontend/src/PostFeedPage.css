@@ -105,9 +105,43 @@
 }
 
 .theMap {
-    /* display:flex; */
     position: relative;
     width: 723px;
     height: 995px;
-    margin-top:100px;
+    margin-top:135px;
+    margin-left: 17px;
+    margin-bottom: 94px;
+    margin-right:50px;
+}
+
+.searchMapButton {
+  position:relative;
+  top:-1035px;
+  left:300px;
+  font-family: "Noto Sans", sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  text-align: left;
+  color: var(--primary-color);
+}
+
+.toggleMapButton {
+    position:relative;
+    top:50px;
+    left:-100px;
+    font-family: "Noto Sans", sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+    text-align: left;
+    color: var(--primary-color); 
+}
+
+.mapIcon {
+    width: 20px;
+    height: 20px;
+
+    position:relative;
+    top:48px;
+    left:-220px;
+    color: var(--primary-color); 
 }

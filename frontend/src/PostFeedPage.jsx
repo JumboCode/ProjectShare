@@ -4,6 +4,7 @@ import DropdownButton from 'react-bootstrap/DropdownButton';
 import Dropdown from 'react-bootstrap/esm/Dropdown';
 import DropdownItem from 'react-bootstrap/esm/DropdownItem';
 import { Link} from 'react-router-dom';
+import { Map as MapIcon } from 'react-feather';
 import PostFeed from "./PostFeed";
 import './PostFeedPage.css';
 import Map from "./MapboxMap";
@@ -33,6 +34,10 @@ class PostFeedPage extends React.Component {
         .then(res => res.json())
         .then(res => this.setState({ posts: res }));
     }
+  }
+
+  handleClick() {
+    this.setState(({ isMapOpen }) => ({ isMapOpen: !isMapOpen }));
   }
 
   render() {
@@ -85,11 +90,18 @@ class PostFeedPage extends React.Component {
             <PostFeed posts={posts} featured={featured} subtitle={subtitle} title={title} />
           )}
         </div>
-        {  isMapOpen === true && (
+        {  isMapOpen === true && locationList.length > 0 && (
           <div className="theMap">
-            <Map locations={locationList} />
+            <Map locations={locationList} searchMap />
+            <a className="searchMapButton" role="button" onClick={() => {this.handleClick()}}> Close Map </a>
           </div>
         ) }
+        {  isMapOpen === false && (
+          <div> 
+            <a className="toggleMapButton" role="button" onClick={() => {this.handleClick()}}> Toggle Map </a>
+            <MapIcon className="mapIcon" />
+          </div>
+        )}
       </div>
     );
   }
