@@ -12,11 +12,14 @@ from django.views.decorators.csrf import csrf_exempt
 from django.db import IntegrityError
 from django.conf import settings
 from collections import defaultdict
+from io import BytesIO
+from django.core.files import File
 import codecs
 import csv
 from datetime import datetime
 import json
 import os
+import base64
 
 
 class TagViewSet(viewsets.ModelViewSet):
@@ -177,17 +180,18 @@ def upload_csv(request, methods='POST'):
 
     line_count = 0
     for row in csv_reader:
-        if line_count > 2:
+        print(row['id'])
+        if line_count > 2 and row['title'] != "":
             try:
                 pdf_file = None
                 if row['pdf'] != "":
-                    pdf_file = open(os.path.join(settings.MEDIA_ROOT, row['pdf']))
+                    pdf_file, created = models.Pdf.objects.get_or_create(pdf_file=File(open(os.path.join(settings.MEDIA_ROOT, row['pdf']), "rb")))
 
                 image_names = row['images'].split(';')
                 image_list = []
                 for name in image_names:
                     if name != "":
-                        image_list.append(open(os.path.join(settings.MEDIA_ROOT, name)))
+                        image_list.append(models.Image.objects.get_or_create(img_file=File(open(os.path.join(settings.MEDIA_ROOT, name), "rb")))[0])
 
                 tag_list = [models.Tag.objects.get_or_create(name=tag)[0] for tag in row['tags'].split(';')]
                 cat, created = models.Category.objects.get_or_create(name=row['category'])
