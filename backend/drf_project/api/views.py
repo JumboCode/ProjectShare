@@ -10,6 +10,11 @@ from django.core.mail import BadHeaderError
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.db import IntegrityError
+from django.conf import settings
+from collections import defaultdict
+import codecs
+import csv
+import datetime
 import json
 import os
 
@@ -145,3 +150,59 @@ def bulk_add_categories(request, methods='POST'):
                              'message': 'Added categories to database.'})
     return JsonResponse({'status': 'fail',
                          'message': 'Please send a list of categories.'})
+
+
+@csrf_exempt
+def upload_csv(request, methods='POST'):
+    locations = defaultdict(lambda: [])
+    loc_file = request.FILES['locations']
+    csv_reader = csv.DictReader(codecs.iterdecode(loc_file, 'utf-8'),
+                                ['desc', 'lat', 'long', 'post_id'])
+
+    line_count = 0
+    for row in csv_reader:
+        if line_count > 2:
+            loc = models.Location.objects.create(
+                latitude=row['lat'],
+                longitude=row['long'],
+                name=row['desc'])
+            locations[row['post_id']].append(loc)
+        line_count += 1
+
+    csv_file = request.FILES['csv']
+    csv_reader = csv.DictReader(codecs.iterdecode(csv_file, 'utf-8'),
+                                ['id', 'title', 'content', 'language',
+                                 'images', 'tags', 'category', 'date',
+                                 'has_map', 'pdf', 'region'])
+
+    line_count = 0
+    for row in csv_reader:
+        if line_count > 2:
+            try:
+                pdf_file = None
+                if row['pdf'] != "":
+                    pdf_file = open(os.path.join(settings.MEDIA_ROOT, row['pdf']))
+                image_names = row['images'].split(';')
+                image_list = []
+                for name in image_names:
+                    if name != "":
+                        image_list.append(open(os.path.join(settings.MEDIA_ROOT, name)))
+
+                tag_list = [models.Tag.objects.get_or_create(name=tag)[0] for tag in row['tags'].split(';')]
+                cat, created = models.Category.objects.get_or_create(name=row['category'])
+                post, updated = models.Post.objects.update_or_create(
+                    title=row['title'],
+                    date=datetime.datetime.strptime(row['date'], '%m/%d/%y %H:%M'),
+                    category=cat,
+                    pdf=pdf_file,
+                    content=row['content'],
+                    language=row['language'])
+                post.tags.set(tag_list)
+                post.images.set(image_list)
+                post.locations.set(locations[row['id']])
+            except IntegrityError as err:
+                return JsonResponse({'status': 'fail', 'message': str(err)})
+        line_count += 1
+
+    return JsonResponse({'status': 'sucess',
+                         'message': 'CSV uploaded and processed.'})
