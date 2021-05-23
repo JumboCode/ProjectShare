@@ -14,7 +14,7 @@ from django.conf import settings
 from collections import defaultdict
 import codecs
 import csv
-import datetime
+from datetime import datetime
 import json
 import os
 
@@ -182,6 +182,7 @@ def upload_csv(request, methods='POST'):
                 pdf_file = None
                 if row['pdf'] != "":
                     pdf_file = open(os.path.join(settings.MEDIA_ROOT, row['pdf']))
+
                 image_names = row['images'].split(';')
                 image_list = []
                 for name in image_names:
@@ -192,7 +193,7 @@ def upload_csv(request, methods='POST'):
                 cat, created = models.Category.objects.get_or_create(name=row['category'])
                 post, updated = models.Post.objects.update_or_create(
                     title=row['title'],
-                    date=datetime.datetime.strptime(row['date'], '%m/%d/%y %H:%M'),
+                    date=datetime.strptime(row['date'], '%m/%d/%y %H:%M'),
                     category=cat,
                     pdf=pdf_file,
                     content=row['content'],
