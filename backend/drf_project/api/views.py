@@ -180,25 +180,30 @@ def upload_csv(request, methods='POST'):
 
     line_count = 0
     for row in csv_reader:
-        print(row['id'])
         if line_count > 2 and row['title'] != "":
             try:
                 pdf_file = None
                 if row['pdf'] != "":
-                    pdf_file, created = models.Pdf.objects.get_or_create(pdf_file=File(open(os.path.join(settings.MEDIA_ROOT, row['pdf']), "rb")))
+                    pdf_file = models.Pdf.objects.get_or_create(
+                        pdf_file=File(open(os.path.join(
+                            settings.MEDIA_ROOT, row['pdf']), "rb")))[0]
 
                 image_names = row['images'].split(';')
                 image_list = []
                 for name in image_names:
                     if name != "":
-                        image_list.append(models.Image.objects.get_or_create(img_file=File(open(os.path.join(settings.MEDIA_ROOT, name), "rb")))[0])
+                        image_list.append(models.Image.objects.get_or_create(
+                            img_file=File(open(os.path.join(
+                                settings.MEDIA_ROOT, name), "rb")))[0])
 
-                tag_list = [models.Tag.objects.get_or_create(name=tag)[0] for tag in row['tags'].split(';')]
-                cat, created = models.Category.objects.get_or_create(name=row['category'])
+                tag_list = [models.Tag.objects.get_or_create(name=tag)[0] 
+                            for tag in row['tags'].split(';')]
+                category = models.Category.objects.get_or_create(
+                    name=row['category'])[0]
                 post, updated = models.Post.objects.update_or_create(
                     title=row['title'],
                     date=datetime.strptime(row['date'], '%m/%d/%y %H:%M'),
-                    category=cat,
+                    category=category,
                     pdf=pdf_file,
                     content=row['content'],
                     language=row['language'])
