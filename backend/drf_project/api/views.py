@@ -17,6 +17,7 @@ from django.core.files import File
 import codecs
 import csv
 from datetime import datetime
+import pytz
 import json
 import os
 import base64
@@ -200,9 +201,12 @@ def upload_csv(request, methods='POST'):
                             for tag in row['tags'].split(';')]
                 category = models.Category.objects.get_or_create(
                     name=row['category'])[0]
+                date = datetime.strptime(row['date'], '%m/%d/%y %H:%M')
+                timezone = pytz.timezone("US/Eastern")
+                date = timezone.localize(date)
                 post, updated = models.Post.objects.update_or_create(
                     title=row['title'],
-                    date=datetime.strptime(row['date'], '%m/%d/%y %H:%M'),
+                    date=date,
                     category=category,
                     pdf=pdf_file,
                     content=row['content'],

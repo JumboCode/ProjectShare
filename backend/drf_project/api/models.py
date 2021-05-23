@@ -34,7 +34,7 @@ class Post(models.Model):
     ]
 
     title = models.CharField(max_length=5000)
-    date = models.DateTimeField(default=timezone.now())
+    date = models.DateTimeField(default=timezone.now)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     pdf = models.ForeignKey(Pdf, on_delete=models.CASCADE, blank=True, null=True)
     tags = models.ManyToManyField(Tag, related_name='posts')
