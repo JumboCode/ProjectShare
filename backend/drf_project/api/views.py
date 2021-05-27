@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 from rest_framework import viewsets, permissions, filters
-from django.db.models import Q
+from django.db.models import Q, F
 from . import serializers
 from . import models
 from sendgrid import SendGridAPIClient
@@ -60,6 +60,18 @@ class PostViewSet(viewsets.ModelViewSet):
         body text.
         """
         queryset = models.Post.objects.all()
+
+        sort_by = self.request.query_params.get('sort_by', 'Newest')
+        if sort_by == 'Newest':
+            queryset = queryset.order_by('-date')
+        elif sort_by == 'Oldest':
+            queryset = queryset.order_by('date')
+        else:
+            queryset = queryset.order_by(
+                F('featured_post_order').desc(nulls_last=True),
+                '-date')
+            queryset = queryset.order_by('-date')
+
         post_id = self.request.query_params.get('post_id', None)
         tag_id = self.request.query_params.get('tag_id', None)
         category_id = self.request.query_params.get('category_id', None)
