@@ -21,8 +21,9 @@ import SearchResultsPage from './SearchResultsPage';
 import Post from './Post';
 import LoginSignupPage from './LoginSignupPage';
 import ScrollToTop from './ScrollToTop';
+import UpdateFeaturedPost from './UpdateFeaturedPost';
 
-function AppRouter({updateAuth, isAuthenticated }) {
+function AppRouter({updateAuth, isAuthenticated, authToken }) {
   
   const auth = updateAuth;
  
@@ -59,7 +60,18 @@ function AppRouter({updateAuth, isAuthenticated }) {
             />
             <Route path="/post/:postId" component={Post} />
             <ProtectedRoute path="/add-post" Component={PostComposer} isAuthenticated={isAuthenticated} />
-            <ProtectedRoute path="/dashboard" Component={AdminDashboard} isAuthenticated={isAuthenticated} />
+            <ProtectedRoute
+              path="/dashboard"
+              Component={AdminDashboard}
+              isAuthenticated={isAuthenticated} 
+              authToken={authToken}
+            />
+            <ProtectedRoute 
+              path="/featured-post"
+              Component={UpdateFeaturedPost}
+              isAuthenticated={isAuthenticated}
+              authToken={authToken} 
+            />
             <Route component={NotFound} />
           </Switch>
         </ScrollToTop>
@@ -71,11 +83,13 @@ function AppRouter({updateAuth, isAuthenticated }) {
 
 AppRouter.defaultProps = {
   updateAuth: null,
+  authToken: null,
 }
 
 AppRouter.propTypes = {
   updateAuth: PropTypes.func,
   isAuthenticated: PropTypes.bool.isRequired,
+  authToken: PropTypes.string,
 };
 
 export default AppRouter;

@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Redirect } from 'react-router-dom';
+import { Redirect, Route } from 'react-router-dom';
 
 class ProtectedRoute extends React.Component {
   constructor(props) {
@@ -10,11 +10,13 @@ class ProtectedRoute extends React.Component {
   }
 
   render() {
-    const { Component } = this.props;
-    const { isAuthenticated } = this.props;
+    const { Component,
+      isAuthenticated,
+      authToken,
+    } = this.props;
 
     return isAuthenticated ? (
-      <Component />
+      <Component authToken={authToken} isAuthenticated={isAuthenticated} />
     ) : (
       <Redirect to="/login" />
     )
@@ -24,11 +26,13 @@ class ProtectedRoute extends React.Component {
 ProtectedRoute.defaultProps = {
   Component: null,
   isAuthenticated: null,
+  authToken: null,
 }
 
 ProtectedRoute.propTypes = {
   Component: PropTypes.elementType,
   isAuthenticated: PropTypes.bool,
+  authToken: PropTypes.string,
 };
 
 export default ProtectedRoute;

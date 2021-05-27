@@ -12,7 +12,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.db import IntegrityError
 import json
 import os
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseBadRequest
 
 
 class TagViewSet(viewsets.ModelViewSet):
@@ -166,15 +166,16 @@ def bulk_add_categories(request, methods='POST'):
 
 @csrf_exempt
 def set_featured_posts(request, methods=['POST']):
-    fp_1_id = request.POST.get("fp_1", "")
-    fp_2_id = request.POST.get("fp_2", "")
-    fp_3_id = request.POST.get("fp_3", "")
-    fp_4_id = request.POST.get("fp_4", "")
-    fp_5_id = request.POST.get("fp_5", "")
+    data = json.loads(request.body.decode("utf-8"))
+    fp_1_id = data.get('fp_1', "")
+    fp_2_id = data.get('fp_2', "")
+    fp_3_id = data.get('fp_3', "")
+    fp_4_id = data.get('fp_4', "")
+    fp_5_id = data.get('fp_5', "")
 
     if (fp_1_id == "" or fp_2_id == "" or fp_3_id == ""
        or fp_4_id == "" or fp_5_id == ""):
-        return HttpResponse("Error, Provide Post Body")
+        return HttpResponseBadRequest("Error, Provide Post Body")
 
     models.Post.objects.update(featured_post_order=None)
     models.Post.objects.filter(id=fp_1_id).update(featured_post_order=1)
