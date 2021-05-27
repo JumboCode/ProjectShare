@@ -1,3 +1,6 @@
 .admin-page-container {
     margin: 30px 10vw;
 }
+.add-post-button a {
+    color: white;
+}

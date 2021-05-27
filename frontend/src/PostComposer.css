@@ -1,7 +1,11 @@
 .form-post-composer {
   width: 50%;
-  margin: 2%;
+  margin: 75px auto;
   text-align: left;
+}
+
+.editor {
+  border: 1px solid var(--shade-color);
 }
 
 .btn {
