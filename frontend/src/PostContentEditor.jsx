@@ -27,7 +27,6 @@ class MyEditor extends React.Component {
   constructor(props) {
     super(props);
     const { setTextFormatted, initialContent } = this.props;
-    console.log(initialContent);
     if (initialContent) {
       this.state = { editorState: EditorState.createWithContent(ContentState.createFromText(initialContent))}
     } else {

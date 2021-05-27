@@ -9,6 +9,7 @@ import Alert from 'react-bootstrap/Alert';
 import Tooltip from 'react-bootstrap/Tooltip';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import { withRouter } from 'react-router-dom';
+import { PropTypes } from 'prop-types';
 import PostContentEditor from './PostContentEditor';
 import './PostComposer.css';
 import { BACKEND_URL } from './fetch';
@@ -38,7 +39,7 @@ class PostComposer extends React.Component {
       addTagClicked: false,
       newTagName: '',
       "date": new Date().toISOString(),
-      "featured_post_order": null,
+      "featuredPostOrder": null,
       newLongitude: '',
       newLatitude: '',
       newLocationName: '',
@@ -95,7 +96,7 @@ class PostComposer extends React.Component {
         "region": postData.region,
         "date": postData.date,
         "locations": postData.locations,
-        "featured_post_order": postData.featured_post_order,
+        "featuredPostOrder": postData.featured_post_order,
       });
     }
   }
@@ -146,7 +147,7 @@ class PostComposer extends React.Component {
 
   // Get information of chosen file and upload to server
   handleUploadPdf = () => {
-    const { selectedPdfFile, pdf } = this.state;
+    const { selectedPdfFile } = this.state;
     const { authToken } = this.props;
 
     // no file chosen
@@ -259,7 +260,7 @@ class PostComposer extends React.Component {
 
   // Schema model for posting to server when form is submitted
   postModel() {
-    const { title, content, category, selectedTags, locations, images, region, pdf, date, featured_post_order } = this.state;
+    const { title, content, category, selectedTags, locations, images, region, pdf, date, featuredPostOrder } = this.state;
     return ({
       "title": title,
       "content": content,
@@ -271,7 +272,7 @@ class PostComposer extends React.Component {
       "region": region,
       "date": date,
       "locations": locations,
-      "featured_post_order": featured_post_order,
+      "featuredPostOrder": featuredPostOrder,
     });
   }
 
@@ -795,11 +796,11 @@ class PostComposer extends React.Component {
         </Form>
 
         {editMode && (
-          <>
+          <div className="delete-post-block">
             <h3> Delete This Post</h3>
             <p> Clicking on the button below will delete this resource. This operation is irreversible. </p>
             <Button onClick={this.deletePost} variant="danger">Delete this Resource</Button>
-          </>
+          </div>
         )}
       </div>
     );
@@ -807,3 +808,33 @@ class PostComposer extends React.Component {
 }
 
 export default withRouter(PostComposer);
+
+PostComposer.propTypes = {
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      postId: PropTypes.string,
+    })
+  }),
+  location: PropTypes.shape({
+    state: PropTypes.shape({
+      post: PropTypes.string,
+    })
+  }),
+  history: PropTypes.shape({
+    push: PropTypes.func
+  }).isRequired,
+  authToken: PropTypes.string.isRequired,
+};
+
+PostComposer.defaultProps = {
+  location: {
+    state: {
+      pageName: null,
+    }
+  },
+  match: {
+    params: {
+      postId: null,
+    }
+  }
+}
