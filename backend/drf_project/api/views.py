@@ -77,8 +77,8 @@ class PostViewSet(viewsets.ModelViewSet):
                         | Q(content__icontains=keyword)
                         | Q(tags__name__icontains=keyword))
             queryset = queryset.filter(q_object).distinct()
-        if  featured is not None:
-            queryset = queryset.filter(featured__isnull=True)
+        if featured is not None:
+            queryset = queryset.filter(featured_post_order__isnull=False)
         return queryset
 
     serializer_class = serializers.PostSerializer

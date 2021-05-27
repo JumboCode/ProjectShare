@@ -1,4 +1,3 @@
-from __future__ import all_feature_names
 from rest_framework import serializers
 from .models import Post, Location, Tag, Category, Image, Pdf
 
@@ -73,14 +72,13 @@ class PostSerializer(serializers.ModelSerializer):
     region = serializers.CharField(max_length=64)
     images = ImageSerializer(many=True)
     language = serializers.CharField(max_length=20, required=False)
-    featured = serializers.BooleanField()
     locations = LocationSerializer(many=True)
     featured_post_order = serializers.IntegerField()
 
     class Meta:
         model = Post
-        fields = ['id', 'title', 'date', 'category', 'tags', 'region'
-                  'content', 'images', 'language', 'locations',
+        fields = ['id', 'title', 'date', 'category', 'tags', 'region',
+                  'content', 'images', 'language', 'locations', 'pdf',
                   'featured_post_order']
 
     def create(self, validated_data):
