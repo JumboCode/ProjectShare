@@ -40,6 +40,8 @@ class Post(models.Model):
     images = models.ManyToManyField(Image, related_name='posts', blank=True)
     locations = models.ManyToManyField(Location, related_name='posts', blank=True)
     content = models.TextField()
+    featured_post_order = models.IntegerField(blank=True, null=True)
+    region = models.CharField(max_length=64, blank=True, null=True)
     language = models.CharField(
         max_length=20,
         choices=LANG_CHOICES,
