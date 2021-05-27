@@ -13,10 +13,19 @@ class ProtectedRoute extends React.Component {
     const { Component,
       isAuthenticated,
       authToken,
+      path,
     } = this.props;
 
     return isAuthenticated ? (
-      <Component authToken={authToken} isAuthenticated={isAuthenticated} />
+      <Route 
+        path={path}
+        render={() => (
+          <Component 
+            authToken={authToken}
+            isAuthenticated={isAuthenticated}
+          />
+        )}
+      />
     ) : (
       <Redirect to="/login" />
     )
@@ -33,6 +42,7 @@ ProtectedRoute.propTypes = {
   Component: PropTypes.elementType,
   isAuthenticated: PropTypes.bool,
   authToken: PropTypes.string,
+  path: PropTypes.string.isRequired,
 };
 
 export default ProtectedRoute;

@@ -129,9 +129,11 @@ class PostSerializer(serializers.ModelSerializer):
         instance.title = validated_data.get('title', instance.title)
         instance.date = validated_data.get('date', instance.date)
         instance.content = validated_data.get('content', instance.content)
-        instance.category = validated_data.get('category', instance.category)
+        category, _ = Category.objects.get_or_create(
+            **validated_data.get('category', instance.category))
+        instance.category = category
         instance.language = validated_data.get('language', instance.language)
-        instance.pdf = validated_data.get('pdf', instance.pdf)
+        instance.pdf = Pdf.objects.get(**validated_data.get('pdf', instance.pdf))
         if 'region' in validated_data and validated_data['region']:
             region, _ = Region.objects.get_or_create(
                 **validated_data['region']

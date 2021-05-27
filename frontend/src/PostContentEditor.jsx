@@ -4,7 +4,7 @@
  */
 import React from "react";
 import { Editor } from "react-draft-wysiwyg";
-import { EditorState, convertToRaw } from 'draft-js';
+import { EditorState, convertToRaw, ContentState } from 'draft-js';
 import draftToMarkdown from 'draftjs-to-markdown';
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import PropTypes from 'prop-types';
@@ -26,8 +26,13 @@ class MyEditor extends React.Component {
 
   constructor(props) {
     super(props);
-    const { setTextFormatted } = this.props;
-    this.state = { editorState: EditorState.createEmpty() };
+    const { setTextFormatted, initialContent } = this.props;
+    console.log(initialContent);
+    if (initialContent) {
+      this.state = { editorState: EditorState.createWithContent(ContentState.createFromText(initialContent))}
+    } else {
+      this.state = { editorState: EditorState.createEmpty() };
+    }
     this.onChange = editorState => {
       this.setState({ editorState });
       setTextFormatted(this.getMarkdown());
@@ -69,11 +74,13 @@ class MyEditor extends React.Component {
 }
 
 MyEditor.propTypes = {
-  setTextFormatted: PropTypes.func
+  setTextFormatted: PropTypes.func,
+  initialContent: PropTypes.string,
 };
 
 MyEditor.defaultProps = {
-  setTextFormatted: () => {}
+  setTextFormatted: () => {},
+  initialContent: null,
 };
 
 export default MyEditor;

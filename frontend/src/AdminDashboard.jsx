@@ -50,7 +50,11 @@ class Dashboard extends React.Component {
             <tbody>
               {fetchData.map((post,index) => (
                 <tr key={index}>
-                  <td>{post.title}</td>
+                  <td>
+                    <Link to={{ pathname: `edit-post/${post.id}`, state: {post} }}>
+                      {post.title}
+                    </Link>
+                  </td>
                   <td>{new Date(post.date).toLocaleDateString("en-US", dateOptions)}</td>
                   <td>
                     {post.tags.map((tags, i) => 
