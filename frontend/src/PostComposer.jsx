@@ -24,9 +24,12 @@ class PostComposer extends React.Component {
       title: '',
       content: '',
       category: '',
+      region: '',
+      regions: [],
       selectedTags: [],
       locations: [],
       images: [],
+      pdf: null,
       categories: [],
       tags: [],
       addCategoryClicked: false,
@@ -63,6 +66,7 @@ class PostComposer extends React.Component {
   componentDidMount() {
     this.getCategoriesList();
     this.getTagsList();
+    this.getRegionsList();
   } 
 
   // Get list of categories to populate dropdown selector
@@ -73,6 +77,18 @@ class PostComposer extends React.Component {
         (result) => {
           this.setState({
             categories: result
+          });
+        });
+  }
+
+  // Get list of regions to populate dropdown selector
+  getRegionsList = () => {
+    fetch(`${BACKEND_URL}/api/regions`)
+      .then(res => res.json())
+      .then(
+        (result) => {
+          this.setState({
+            regions: result
           });
         });
   }
@@ -89,22 +105,6 @@ class PostComposer extends React.Component {
         });
   }
   
-  // Schema model for posting to server when form is submitted
-  postModel() {
-    const {title, content, category, selectedTags, locations, images} = this.state;
-
-    return ({
-      "title": title,
-      "content": content,
-      "language": "EN",
-      "images": images,
-      "tags": selectedTags,
-      "category": category,
-      "date": new Date().toISOString(),
-      "locations": locations
-    });
-  }
-
   // Update text field as user inputs
   handleInputChange(event) {
     const {target} = event;
@@ -118,12 +118,16 @@ class PostComposer extends React.Component {
 
   // When form is submitted, create a new post and send to server
   handleSubmit(event) {
+    const { authToken } = this.props;
     event.preventDefault();
     const post = this.postModel();       
     
     fetch(`${BACKEND_URL}/api/posts/add`, {
       method: 'POST',
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "Content-Type": "application/json",
+        'Authorization': `Token ${authToken}`
+      },
       body: JSON.stringify(post)
     })
       .then((response) => {
@@ -151,6 +155,8 @@ class PostComposer extends React.Component {
       title: '',
       content: '',
       category: '',
+      region: '',
+      pdf: null,
       selectedTags: [],
       locations: [],
       images: [],
@@ -163,6 +169,30 @@ class PostComposer extends React.Component {
     const selectedCategory = { name: event };  
     this.setState({ category: selectedCategory })
   }
+
+  handleSelectRegion = (event) => {
+    const selectedRegion = { name: event };
+    this.setState({ region: selectedRegion })
+  }
+
+  // Schema model for posting to server when form is submitted
+  postModel() {
+    const { title, content, category, selectedTags, locations, images, region, pdf } = this.state;
+    return ({
+      "title": title,
+      "content": content,
+      "language": "EN",
+      "images": images,
+      "pdf": pdf,
+      "tags": selectedTags,
+      "category": category,
+      "region": region,
+      "date": new Date().toISOString(),
+      "locations": locations,
+      "featured_post_order": null,
+    });
+  }
+
 
   handleSetContent(contentFormatted) {
     this.setState({ content: contentFormatted });
@@ -188,6 +218,17 @@ class PostComposer extends React.Component {
     this.setState({ category: data });
     // Set create category input field to empty
     this.setState({ newCategoryName: '', addCategoryClicked: false });
+  }
+
+  // When user add a new region, apply region to post
+  handleAddRegion() {
+    const { newRegionName } = this.state;
+
+    // Get added region and apply to current post
+    const data = { name: newRegionName };
+    this.setState({ region: data });
+    // Set create region input field to empty
+    this.setState({ newRegionName: '', addRegionClicked: false });
   }
 
   // When user add a new tag, apply tag to post
@@ -236,6 +277,7 @@ class PostComposer extends React.Component {
   // Get information of chosen file and upload to server
   handleUploadImage() {
     const { selectedFile, images } = this.state;
+    const { authToken } = this.props;
 
     // no file chosen
     if (selectedFile === '') { 
@@ -248,7 +290,10 @@ class PostComposer extends React.Component {
     
     const requestOptions = {
       method: 'POST',
-      body: formdata
+      body: formdata,
+      headers: {
+        'Authorization': `Token ${authToken}`
+      }
     };
 
     // POST request to upload image and append to list of post's images 
@@ -267,7 +312,8 @@ class PostComposer extends React.Component {
       newCategoryName, tags, addTagClicked, 
       newTagName, selectedTags, locations, addLocationClicked, newLatitude, 
       newLongitude, newLocationName, images, errors, success, selectedFile,
-      show } = this.state;
+      show, regions, region, addRegionClicked,
+      newRegionName, } = this.state;
 
     return (
       <div>
@@ -362,6 +408,61 @@ class PostComposer extends React.Component {
               <Button onClick={this.handleAddCategory}> + </Button>
             </Form.Group>
           )}
+
+
+          {/* Region Choose or Add buttons */}
+          <Form.Group>
+            <Form.Label>Region</Form.Label>
+            <Badge
+              variant="secondary" className="categoryBadge"
+            >
+              {region.name}
+            </Badge>
+            {errors.region && (
+              <Alert variant="danger">
+                {`${errors.region.non_field_errors}`}
+              </Alert>
+            )}
+            <div className="groupButtons">
+              <DropdownButton
+                title="Choose a Region"
+                name="regionName"
+                onClick={this.getRegionsList}
+                onSelect={this.handleSelectRegion}
+              >
+                {regions.map(regionItem =>
+                  (
+                    <Dropdown.Item
+                      eventKey={regionItem.name}
+                      key={regionItem.name}
+                    >
+                      {regionItem.name}
+                    </Dropdown.Item>
+                  ))}
+              </DropdownButton>
+
+              <Button
+                className="addButton"
+                onClick={() => this.setState({ addRegionClicked: true })}
+              >
+                Add a New Region
+              </Button>
+            </div>
+          </Form.Group>
+          {/* Render input box for new Region if Add button clicked */}
+          {addRegionClicked && (
+            <Form.Group className="addForm">
+              <Form.Control
+                type="text"
+                name="newRegionName"
+                placeholder="Enter region name"
+                value={newRegionName}
+                onChange={this.handleInputChange}
+              />
+              <Button onClick={this.handleAddRegion}> + </Button>
+            </Form.Group>
+          )}
+
 
           {/* Tags Form */}
           <Form.Group>

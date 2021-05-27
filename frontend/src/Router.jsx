@@ -59,7 +59,12 @@ function AppRouter({updateAuth, isAuthenticated, authToken }) {
               )}
             />
             <Route path="/post/:postId" component={Post} />
-            <ProtectedRoute path="/add-post" Component={PostComposer} isAuthenticated={isAuthenticated} />
+            <ProtectedRoute
+              path="/add-post"
+              Component={PostComposer}
+              isAuthenticated={isAuthenticated}
+              authToken={authToken}
+            />
             <ProtectedRoute
               path="/dashboard"
               Component={AdminDashboard}

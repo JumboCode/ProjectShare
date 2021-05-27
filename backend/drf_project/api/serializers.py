@@ -75,13 +75,13 @@ class PostSerializer(serializers.ModelSerializer):
     date = serializers.DateTimeField()
     category = CategorySerializer()
     tags = TagSerializer(many=True)
-    pdf = PdfSerializer()
+    pdf = PdfSerializer(required=False, allow_null=True)
     content = serializers.CharField()
     region = RegionSerializer()
     images = ImageSerializer(many=True)
     language = serializers.CharField(max_length=20, required=False)
     locations = LocationSerializer(many=True)
-    featured_post_order = serializers.IntegerField()
+    featured_post_order = serializers.IntegerField(required=False, allow_null=True)
 
     class Meta:
         model = Post
