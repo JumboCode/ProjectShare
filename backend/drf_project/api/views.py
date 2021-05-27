@@ -47,8 +47,6 @@ class PostViewSet(viewsets.ModelViewSet):
     lookup_url_kwarg = 'post_id'
     serializer_class = serializers.PostSerializer
     filter_backends = [filters.OrderingFilter]
-    ordering_fields = ['featured_post_order', '-date']
-    ordering = ['featured_post_order', '-date']
 
     def get_queryset(self):
         """
@@ -68,9 +66,8 @@ class PostViewSet(viewsets.ModelViewSet):
             queryset = queryset.order_by('date')
         else:
             queryset = queryset.order_by(
-                F('featured_post_order').desc(nulls_last=True),
+                F('featured_post_order').asc(nulls_last=True),
                 '-date')
-            queryset = queryset.order_by('-date')
 
         post_id = self.request.query_params.get('post_id', None)
         tag_id = self.request.query_params.get('tag_id', None)
