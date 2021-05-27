@@ -1,6 +1,7 @@
 import React from "react";
 import { Table } from 'react-bootstrap';
 import './AdminDashboard.css';
+import UpdateFeaturedPost from './UpdateFeaturedPost';
 import { BACKEND_URL } from './fetch';
 
 class Dashboard extends React.Component {
@@ -25,7 +26,8 @@ class Dashboard extends React.Component {
   }
 
   render() {
-    const { isLoading, fetchData } = this.state
+    const { isLoading, fetchData } = this.state;
+    const { authToken } = this.props;
     if(!isLoading) {
       return (
         <div className="admin-page-container">
@@ -53,6 +55,7 @@ class Dashboard extends React.Component {
               )}
             </tbody>
           </Table>
+          <UpdateFeaturedPost authToken={authToken} />
         </div>
       );
     } 
