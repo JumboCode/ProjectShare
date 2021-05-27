@@ -29,6 +29,7 @@ def generate_urls(viewset, obj_name, obj_name_pl):
 
 tag_urls = generate_urls(views.TagViewSet, 'tag', 'tags')
 category_urls = generate_urls(views.CategoryViewSet, 'category', 'categories')
+region_urls = generate_urls(views.RegionViewSet, 'region', 'regions')
 post_urls = generate_urls(views.PostViewSet, 'post', 'posts')
 location_urls = generate_urls(views.LocationViewSet, 'location', 'locations')
 
@@ -71,4 +72,5 @@ featured_posts_urls = [
 
 urlpatterns = (tag_urls + category_urls + image_urls + post_urls
                + location_urls + contact_url + add_tags_url
-               + add_cats_url + pdf_urls + featured_posts_urls)
+               + add_cats_url + pdf_urls + featured_posts_urls
+               + region_urls)

@@ -1,6 +1,7 @@
 import React from "react";
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
+import { withRouter } from "react-router-dom";
 import { PropTypes } from 'prop-types';
 import './HelpModal.css';
 import { BACKEND_URL } from './fetch';
@@ -9,15 +10,23 @@ import { BACKEND_URL } from './fetch';
 class HelpModal extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { tags: [], selectedTags: [], modalPage: "tags" }
+    this.state = {
+      tags: [],
+      selectedTags: [],
+      modalPage: "tags",
+      regions: [],
+      selectedRegion: '',
+    }
     this.onTagClick = this.onTagClick.bind(this);
   }
 
   componentDidMount() {
     fetch(`${BACKEND_URL}/api/tags`)
       .then(res => res.json())
-      // .then(res => console.log(res))
       .then(res => this.setState({tags: res}))
+    fetch(`${BACKEND_URL}/api/regions`)
+      .then(res => res.json())
+      .then(res => this.setState({ regions: res }))
   }
 
   onTagClick(event) {
@@ -38,8 +47,27 @@ class HelpModal extends React.Component {
 
   }
 
-  modalPage = () => {
-    this.setState({modalPage: "locations"})
+  setRegion = e => {
+    this.setState({
+      selectedRegion: e.target.value,
+    });
+  }
+
+  getResources = () => {
+    const { history } = this.props;
+    const { selectedRegion, selectedTags } = this.state;
+    let searchPageString = ''
+    if (selectedRegion === "-1") {
+      searchPageString = `search?`;
+    } else {
+      searchPageString = `search?region_id=${selectedRegion}`;
+    }
+    
+    selectedTags.forEach(tag => {
+      searchPageString += `&tag_id=${tag.id}`
+    })
+    this.closeModal();
+    history.push(searchPageString);
   }
 
   closeModal = () => {
@@ -47,9 +75,13 @@ class HelpModal extends React.Component {
     updateIsModalOpen(false);
   }
 
+  modalPage = () => {
+    this.setState({ modalPage: "locations" })
+  }
+
   render() {
     const { isModalOpen, updateIsModalOpen } = this.props;
-    const {tags, modalPage} = this.state
+    const {tags, modalPage, regions} = this.state;
     return (
       <div>
         <Modal show={isModalOpen} size="lg" onHide={updateIsModalOpen}>
@@ -76,12 +108,58 @@ class HelpModal extends React.Component {
               </Modal.Body>
             </div>
           )}
+          {modalPage === "locations" && (
+            <div>
+              <Modal.Body>
+                <h5 className="modal-p-text"> Select your region</h5>
+                <div className="modal-tags-list-wrapper">
+                  <form>
+                    <input
+                      value={-1}
+                      type="radio"
+                      className="checkbox"
+                      variant="primary"
+                      onClick={this.setRegion}
+                      name="region"
+                    />
+                    <label htmlFor={-1} className="tagid" variant="paragraph">
+                      Any Region
+                    </label>
+                    {regions && regions.map(region => (
+                      <div key={region.id}>       
+                        <input
+                          value={region.id}
+                          type="radio"
+                          className="checkbox"
+                          variant="primary"
+                          onClick={this.setRegion}
+                          name="region"
+                        />
+                        <label htmlFor={region.id} className="tagid" variant="paragraph">
+                          {' '}
+                          {region.name}
+                          {' '}
+                        </label>
+                      </div>
+                    ))}
+                  </form>
+                </div>
+
+              </Modal.Body>
+            </div>
+          )}
           <Modal.Footer>
             <Button variant="outline-primary" onClick={this.closeModal}>Cancel</Button>
             {' '}
             {modalPage === "tags" && (
               <div>
                 <Button variant="primary" onClick={this.modalPage}>Next</Button>
+                {' '}
+              </div>
+            )}
+            {modalPage === "locations" && (
+              <div>
+                <Button variant="primary" onClick={this.getResources}>Find Resources</Button>
                 {' '}
               </div>
             )}
@@ -93,10 +171,13 @@ class HelpModal extends React.Component {
 }
 
 
-export default HelpModal;
+export default withRouter(HelpModal);
 
 
 HelpModal.propTypes = {
   updateIsModalOpen: PropTypes.func.isRequired,
   isModalOpen: PropTypes.bool.isRequired,
+  history: PropTypes.shape({
+    push: PropTypes.func
+  }).isRequired,
 }

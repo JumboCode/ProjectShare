@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Post, Location, Tag, Category, Image, Pdf
+from .models import Post, Location, Tag, Category, Image, Pdf, Region
 
 
 class LocationSerializer(serializers.ModelSerializer):
@@ -31,6 +31,14 @@ class CategorySerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Category
+        fields = ['id', 'name']
+
+
+class RegionSerializer(serializers.ModelSerializer):
+    name = serializers.CharField(max_length=30)
+
+    class Meta:
+        model = Region
         fields = ['id', 'name']
 
 
@@ -69,7 +77,7 @@ class PostSerializer(serializers.ModelSerializer):
     tags = TagSerializer(many=True)
     pdf = PdfSerializer()
     content = serializers.CharField()
-    region = serializers.CharField(max_length=64)
+    region = RegionSerializer()
     images = ImageSerializer(many=True)
     language = serializers.CharField(max_length=20, required=False)
     locations = LocationSerializer(many=True)
@@ -92,7 +100,10 @@ class PostSerializer(serializers.ModelSerializer):
             'category': category,
         }
         if 'region' in validated_data:
-            data['region'] = validated_data['region']
+            region, _ = Region.objects.get_or_create(
+                **validated_data['region']
+            )
+            data['region'] = region
         if 'language' in validated_data:
             data['language'] = validated_data['language']
         if 'pdf' in validated_data:
@@ -122,7 +133,10 @@ class PostSerializer(serializers.ModelSerializer):
         instance.language = validated_data.get('language', instance.language)
         instance.pdf = validated_data.get('pdf', instance.pdf)
         if 'region' in validated_data:
-            instance.region = validated_data.region
+            region, _ = Region.objects.get_or_create(
+                **validated_data['region']
+            )
+            instance.region = region
         if 'images' in validated_data:
             for image_data in validated_data['images']:
                 image, created = Image.objects.update_or_create(**image_data)
