@@ -12,7 +12,7 @@ import { BACKEND_URL } from './fetch';
 class PostFeedPage extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {posts:[], tags:[], sortBy:'Newest'};
+    this.state = {posts:[], tags:[], sortBy:'Featured'};
   }
   
   componentDidMount() {
@@ -38,6 +38,14 @@ class PostFeedPage extends React.Component {
   updateIsModalOpen = (val) => {
     this.setState({ isModalOpen: val })
   }
+  
+  handleSortSelect = (e) => {
+    const { fetchEndpoint } = this.props;
+    this.setState({ sortBy: e })
+    fetch(`${fetchEndpoint}?sort_by=${e}`)
+      .then(res => res.json())
+      .then(res => this.setState({ posts: res }))
+  }
 
   render() {
     const { tags } = this.state;
@@ -54,14 +62,7 @@ class PostFeedPage extends React.Component {
     );
     const {featured, title, subtitle} = this.props
     const {posts, isModalOpen, sortBy} = this.state
-    const {fetchEndpoint} = this.props
-    const handleSortSelect=(e)=>{
-      this.setState({sortBy:e})
-      fetch(`${fetchEndpoint}?sort_by=${e}`)
-        .then(res => res.json())
-        .then(res => this.setState({posts: res}))
-    }
-
+    
     return (
       <div className="postfeedPage">
         {isModalOpen && (
@@ -72,7 +73,7 @@ class PostFeedPage extends React.Component {
             <h3 className="sortByHeader"> Sort By </h3>
             <DropdownButton 
               variant="outline-primary" className="sorting" 
-              title={sortBy} onSelect={handleSortSelect}
+              title={sortBy} onSelect={this.handleSortSelect}
             > 
               <DropdownItem eventKey='Newest'> Newest </DropdownItem>
               <DropdownItem eventKey='Oldest'> Oldest </DropdownItem>
