@@ -61,7 +61,7 @@ class PostSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Post
-        fields = ['id', 'title', 'date', 'category', 'tags',
+        fields = ['id', 'title', 'date', 'category', 'tags', 'region',
                   'content', 'images', 'language', 'locations']
 
     def create(self, validated_data):
@@ -74,6 +74,8 @@ class PostSerializer(serializers.ModelSerializer):
             'content': validated_data['content'],
             'category': category,
         }
+        if 'region' in validated_data:
+            data['region'] = validated_data['region']
         if 'language' in validated_data:
             data['language'] = validated_data['language']
         instance = Post.objects.create(**data)
@@ -99,6 +101,8 @@ class PostSerializer(serializers.ModelSerializer):
         instance.content = validated_data.get('content', instance.content)
         instance.category = validated_data.get('category', instance.category)
         instance.language = validated_data.get('language', instance.language)
+        if 'region' in validated_data:
+            instance.region = validated_data.region
         if 'images' in validated_data:
             for image_data in validated_data['images']:
                 image, created = Image.objects.update_or_create(**image_data)
