@@ -1,7 +1,7 @@
 import React from "react";
 import { Table, Alert, Button } from 'react-bootstrap';
 import Modal from "react-bootstrap/Modal";
-import 'bootstrap/dist/css/bootstrap.min.css';
+import { BACKEND_URL } from './fetch';
 
 class UpdateFeaturedPost extends React.Component {
   constructor(props) {
@@ -26,12 +26,11 @@ class UpdateFeaturedPost extends React.Component {
       featuredPost4: 0,
       featuredPost5: 0,
       response: 0,
-      fetchdata: "",
     };
   }
 
   componentDidMount() {
-    fetch('http://localhost:8000/api/posts?featured=true')
+    fetch('http://localhost:8000/api/posts?featured=True&sort_by=Featured')
       .then(response => {
         this.setState({
           response: response.status,
@@ -136,16 +135,15 @@ class UpdateFeaturedPost extends React.Component {
   }
 
   handleUpdate() {
-    const { featuredPost1 } = this.state;
-    const { featuredPost2 } = this.state;
-    const { featuredPost3 } = this.state;
-    const { featuredPost4 } = this.state;
-    const { featuredPost5 } = this.state;
+    const { featuredPost1, featuredPost2, featuredPost3, featuredPost4, featuredPost5 } = this.state;
+    const { authToken } = this.props;
 
-    fetch('http://localhost:8000/api/posts?featured=true', {
+    fetch(`${BACKEND_URL}/api/posts/set_featured_posts`, {
       method: 'POST',
+      mode: 'cors',
       headers: {
         'Content-Type': 'application/json',
+        'Authorization': `Token ${authToken}`
       },
       body: JSON.stringify({
         fp_1: featuredPost1,
@@ -215,11 +213,11 @@ class UpdateFeaturedPost extends React.Component {
               </tr>
             </thead>
             <tbody>
-              {featuredData.map((post,index) => (
-                <tr key={index}>
+              {featuredData.map((post) => (
+                <tr key={post.id}>
                   <td>
                     Featured Post&nbsp;
-                    {post.id}
+                    {post.featured_post_order}
                   </td>
                   <td>{post.title}</td>
                 </tr>
@@ -228,78 +226,76 @@ class UpdateFeaturedPost extends React.Component {
             </tbody>
           </Table>
 
-          <Modal show={showModal} onHide={this.handleClose}>
-            <Modal.Dialog>
-              <Modal.Header closeButton>
-                <Modal.Title>Update Featured Posts</Modal.Title>
-              </Modal.Header>
+          <Modal show={showModal} onHide={this.handleClose} size="lg">
+            <Modal.Header closeButton>
+              <Modal.Title>Update Featured Posts</Modal.Title>
+            </Modal.Header>
 
-              <Modal.Body>
-                <p>Select Posts to Update: </p>
-                <label htmlFor="featured-select">
-                  Choose post 1:&nbsp;
-                </label>
-                <select name="feature1" id="featured-select" onChange={this.handleFeature1}>
-                  <option value="default" selected disabled hidden>Select Post</option>
-                  {postData.map((post, index) => (
-                    <option key={index} value={post.id}>{post.title}</option>
-                  ))}
-                </select>
+            <Modal.Body>
+              <p>Select Posts to Update: </p>
+              <label htmlFor="featured-select">
+                Choose post 1:&nbsp;
+              </label>
+              <select name="feature1" id="featured-select" onChange={this.handleFeature1}>
+                <option value="default" selected disabled hidden>Select Post</option>
+                {postData.map((post) => (
+                  <option key={post.id} value={post.id}>{post.title}</option>
+                ))}
+              </select>
 
-                <br />
+              <br />
 
-                <label htmlFor="featured-select">
-                  Choose post 2:&nbsp;
-                </label>
-                <select name="feature2" id="featured-select" onChange={this.handleFeature2}>
-                  <option value="default" selected disabled hidden>Select Post</option>
-                  {postData.map((post, index) => (
-                    <option key={index} value={post.id}>{post.title}</option>
-                  ))}
-                </select>
+              <label htmlFor="featured-select">
+                Choose post 2:&nbsp;
+              </label>
+              <select name="feature2" id="featured-select" onChange={this.handleFeature2}>
+                <option value="default" selected disabled hidden>Select Post</option>
+                {postData.map((post) => (
+                  <option key={post.id} value={post.id}>{post.title}</option>
+                ))}
+              </select>
 
-                <br />
+              <br />
 
-                <label htmlFor="featured-select">
-                  Choose post 3:&nbsp;
-                </label>
-                <select name="feature3" id="featured-select" onChange={this.handleFeature3}>
-                  <option value="default" selected disabled hidden>Select Post</option>
-                  {postData.map((post, index) => (
-                    <option key={index} value={post.id}>{post.title}</option>
-                  ))}
-                </select>
+              <label htmlFor="featured-select">
+                Choose post 3:&nbsp;
+              </label>
+              <select name="feature3" id="featured-select" onChange={this.handleFeature3}>
+                <option value="default" selected disabled hidden>Select Post</option>
+                {postData.map((post) => (
+                  <option key={post.id} value={post.id}>{post.title}</option>
+                ))}
+              </select>
 
-                <br />
+              <br />
 
-                <label htmlFor="featured-select">
-                  Choose post 4:&nbsp;
-                </label>
-                <select name="feature4" id="featured-select" onChange={this.handleFeature4}>
-                  <option value="default" selected disabled hidden>Select Post</option>
-                  {postData.map((post, index) => (
-                    <option key={index} value={post.id}>{post.title}</option>
-                  ))}
-                </select>
+              <label htmlFor="featured-select">
+                Choose post 4:&nbsp;
+              </label>
+              <select name="feature4" id="featured-select" onChange={this.handleFeature4}>
+                <option value="default" selected disabled hidden>Select Post</option>
+                {postData.map((post) => (
+                  <option key={post.id} value={post.id}>{post.title}</option>
+                ))}
+              </select>
 
-                <br />
+              <br />
 
-                <label htmlFor="featured-select">
-                  Choose post 5:&nbsp;
-                </label>
-                <select name="feature5" id="featured-select" onChange={this.handleFeature5}>
-                  <option value="default" selected disabled hidden>Select Post</option>
-                  {postData.map((post, index) => (
-                    <option key={index} value={post.id}>{post.title}</option>
-                  ))}
-                </select>
-              </Modal.Body>
+              <label htmlFor="featured-select">
+                Choose post 5:&nbsp;
+              </label>
+              <select name="feature5" id="featured-select" onChange={this.handleFeature5}>
+                <option value="default" selected disabled hidden>Select Post</option>
+                {postData.map((post) => (
+                  <option key={post.id} value={post.id}>{post.title}</option>
+                ))}
+              </select>
+            </Modal.Body>
 
-              <Modal.Footer>
-                <Button variant="secondary" onClick={this.handleClose}>Close</Button>
-                <Button variant="primary" onClick={this.handleUpdate}>Update</Button>
-              </Modal.Footer>
-            </Modal.Dialog>
+            <Modal.Footer>
+              <Button variant="secondary" onClick={this.handleClose}>Close</Button>
+              <Button variant="primary" onClick={this.handleUpdate}>Update</Button>
+            </Modal.Footer>
           </Modal>
 
           <Button className="update" variant="primary" type="button" onClick={this.handleClick}>
