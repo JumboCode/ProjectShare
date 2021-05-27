@@ -142,8 +142,6 @@
     width: 100%;
     padding: 10px;
     border-radius: 3px;
-    grid-gap: 10px;
-    gap: 10px;
     box-shadow: 0px 8px 10px 0px rgba(0,0,0,0.15); 
     border: none;
     border-radius: 3px;
@@ -159,10 +157,11 @@ input::placeholder {
     color:var(--paragraph-color);
 }
 
-.nav-search-result {
+.nav-search-result, .nav-search-result a {
     text-align: left;
     margin: 2.5px 0;
     font-family: 'Noto Sans', sans-serif;
+    color: var(--header-color);
 }
 
 .search-results-type {
@@ -176,4 +175,9 @@ input::placeholder {
     height: fit-content;
     float: right;
     margin-right: 10px;
+}
+
+.postSearchResults, .category {
+    padding-bottom: 2px;
+    border-bottom: 2px solid var(--shade-color);
 }

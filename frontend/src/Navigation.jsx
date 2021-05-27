@@ -1,7 +1,7 @@
 import React from 'react';
 import './Navigation.css';
 import { Link, NavLink, withRouter } from "react-router-dom";
-import * as Icon from 'react-feather';
+import { Hash, X, Search, FileText } from 'react-feather';
 import { PropTypes } from 'prop-types';
 import logo from './static/projectSHARELogo.jpeg';
 import HelpModal from './HelpModal';
@@ -95,7 +95,7 @@ class Navigation extends React.Component {
               />
             </Link>
             <div className="SearchBox">
-              <Icon.Search color="lightgrey" className="search-icon-nav" />
+              <Search color="lightgrey" className="search-icon-nav" />
               <input 
                 className="SearchBar"
                 placeholder="Search for a resource" 
@@ -110,7 +110,7 @@ class Navigation extends React.Component {
                 tabIndex="0"
                 onKeyDown={this.clearSearchBar}
               >
-                <Icon.X color="var(--primary)" />
+                <X color="var(--primary)" />
               </div>
               {shouldDisplayResults && (
                 <div className="searchResults"> 
@@ -118,6 +118,7 @@ class Navigation extends React.Component {
                     {searchInput !== "" && (
                       postSearchResults.map(post => (
                         <p className="nav-search-result" key={post.id}>
+                          <FileText size={18} color="#094067" />
                           <Link to={`/post/${post.id}/`} onClick={this.clearSearchBar}> 
                             {' '}
                             {post.title}
@@ -131,7 +132,11 @@ class Navigation extends React.Component {
                   <div className="category">
                     {categoriesFiltered.map(categoryFiltered => (
                       <p className="nav-search-result" key={categoryFiltered.id}>
-                        <Link to={`/category/${categoryFiltered.id}`} onClick={this.clearSearchBar}> 
+                        <Hash size={18} color="#094067" />
+                        <Link 
+                          to={{ pathname: `/category/${categoryFiltered.id}`, state: { pageName: categoryFiltered.name } }}
+                          onClick={this.clearSearchBar}
+                        > 
                           {' '}
                           {categoryFiltered.name}
                           {' '}
@@ -143,7 +148,11 @@ class Navigation extends React.Component {
                   <div className="tags-wrapper">
                     {tagsFiltered.map(tagFiltered => (
                       <p className="nav-search-result" key={tagFiltered.id}>
-                        <Link to={`/tag/${tagFiltered.id}`} onClick={this.clearSearchBar}> 
+                        <Hash size={18} color="#094067" />
+                        <Link 
+                          to={{ pathname: `/tag/${tagFiltered.id}`, state: { pageName: tagFiltered.name } }}
+                          onClick={this.clearSearchBar}
+                        > 
                           {' '}
                           {tagFiltered.name}
                           {' '}
