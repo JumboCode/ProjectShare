@@ -164,7 +164,7 @@ class PostComposer extends React.Component {
       title: '',
       content: '',
       category: '',
-      region: '',
+      region: null,
       pdf: null,
       selectedTags: [],
       locations: [],
