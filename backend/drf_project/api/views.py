@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
-from rest_framework import viewsets, permissions
+from rest_framework import viewsets, permissions, filters
 from django.db.models import Q
 from . import serializers
 from . import models
@@ -12,6 +12,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.db import IntegrityError
 import json
 import os
+from django.http import HttpResponse
 
 
 class TagViewSet(viewsets.ModelViewSet):
@@ -44,6 +45,10 @@ class PdfViewSet(viewsets.ModelViewSet):
 
 class PostViewSet(viewsets.ModelViewSet):
     lookup_url_kwarg = 'post_id'
+    serializer_class = serializers.PostSerializer
+    filter_backends = [filters.OrderingFilter]
+    ordering_fields = ['featured_post_order', '-date']
+    ordering = ['featured_post_order', '-date']
 
     def get_queryset(self):
         """
@@ -145,3 +150,25 @@ def bulk_add_categories(request, methods='POST'):
                              'message': 'Added categories to database.'})
     return JsonResponse({'status': 'fail',
                          'message': 'Please send a list of categories.'})
+
+
+@csrf_exempt
+def set_featured_posts(request, methods=['POST']):
+    fp_1_id = request.POST.get("fp_1", "")
+    fp_2_id = request.POST.get("fp_2", "")
+    fp_3_id = request.POST.get("fp_3", "")
+    fp_4_id = request.POST.get("fp_4", "")
+    fp_5_id = request.POST.get("fp_5", "")
+
+    if (fp_1_id == "" or fp_2_id == "" or fp_3_id == ""
+       or fp_4_id == "" or fp_5_id == ""):
+        return HttpResponse("Error, Provide Post Body")
+
+    models.Post.objects.update(featured_post_order=None)
+    models.Post.objects.filter(id=fp_1_id).update(featured_post_order=1)
+    models.Post.objects.filter(id=fp_2_id).update(featured_post_order=2)
+    models.Post.objects.filter(id=fp_3_id).update(featured_post_order=3)
+    models.Post.objects.filter(id=fp_4_id).update(featured_post_order=4)
+    models.Post.objects.filter(id=fp_5_id).update(featured_post_order=5)
+
+    return HttpResponse("Success, set featured post Ids")

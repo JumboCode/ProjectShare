@@ -37,7 +37,7 @@ class CategorySerializer(serializers.ModelSerializer):
 class ImageSerializer(serializers.ModelSerializer):
     id = serializers.IntegerField(required=False)
     img_file = serializers.ImageField(required=False)
-    
+
     class Meta:
         model = Image
         fields = ['id', 'img_file']
@@ -72,12 +72,12 @@ class PostSerializer(serializers.ModelSerializer):
     images = ImageSerializer(many=True)
     language = serializers.CharField(max_length=20, required=False)
     locations = LocationSerializer(many=True)
+    featured_post_order = serializers.IntegerField()
 
     class Meta:
         model = Post
         fields = ['id', 'title', 'date', 'category', 'tags',
-                  'content', 'images', 'language', 'locations',
-                  'pdf']
+                  'content', 'images', 'language', 'locations', 'featured_post_order']
 
     def create(self, validated_data):
         category, _ = Category.objects.get_or_create(
