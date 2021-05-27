@@ -19,10 +19,6 @@ class Category(models.Model):
 
 class Image(models.Model):
     img_file = models.ImageField()
-    img_name = models.CharField(
-        max_length=50,
-        blank=True,
-        unique=True)
 
 
 class Post(models.Model):
@@ -38,13 +34,10 @@ class Post(models.Model):
     images = models.ManyToManyField(Image, related_name='posts')
     locations = models.ManyToManyField(Location, related_name='posts')
     content = models.TextField()
-    featured_post_order = models.IntegerField()
+    featured_post_order = models.IntegerField(blank=True, null=True)
     language = models.CharField(
         max_length=20,
         choices=LANG_CHOICES,
         default="EN",
         blank=True,
     )
-    #featured_post_order = models.DecimalField()
-   
-
