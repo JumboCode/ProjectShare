@@ -1,28 +1,28 @@
 .mapComponent {
-      position: absolute;
-      width:100%;
-      height: 100%;
-      /* to get rid of */
-      top: -450px;
+    position: relative;
+    width: 1090px;
+    height: 480px;
+    display: flex;
+    left: -189px;
+    flex-direction: row;
 }
 
 .mapLocationListContainer {
-  position: relative;
-  /* width: 0%;
-  height: 0%; */
   width: 400px;
   height:450px;
-  left: 670px; 
-  top:450px;
   overflow-y: scroll;
+  margin-left: 50px;
 }
 
 .mapLocationRectangles {
   width: 349px;
-  height: 70px;
-  margin: 0px 210px 20px 30px;
-  border-radius: 3px;
-  border: 2px solid#efefef;
+    height: 70px;
+    border-radius: 3px;
+    border: 2px solid#efefef;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
 }
 
 .mapAddressName {
@@ -30,10 +30,14 @@
   font-size: 16px;
   font-weight: 600; 
   color: #094067;
-  margin: 10px 0px 0 44px;
+  margin: 0;
   line-height: normal;
   text-align: left;
   list-style-type: circle;
+}
+
+.mapAddressCircle {
+  margin-right: 15px;
 }
 
 .mapAddress {
@@ -55,11 +59,12 @@
 }
 
 .locationButtons {
-  position: relative;
-  width: 349px;
-  height: 70px;
-  top: -100px;
-  opacity:0;
+    position: absolute;
+    width: 100%;
+    opacity: 0;
+    width: 349px;
+    height: 70px;
+    padding: 0;
 }
 
 .locationButtons:hover {

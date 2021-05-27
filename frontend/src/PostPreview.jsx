@@ -26,7 +26,7 @@ function PostPreview({ Data }) {
       <p className="TagsLarge">
         {Data.tags.map(tag => (
           <Link 
-            to={{ pathname: `/tag/${tag.id}`, state: { tagName: tag.name } }} 
+            to={{ pathname: `/tag/${tag.id}`, state: { pageName: tag.name } }} 
             className="tagElemPostLarge" 
             key={tag.id}
           >

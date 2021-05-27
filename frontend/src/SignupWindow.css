@@ -1,5 +1,9 @@
 .signupForm {
     padding: 50px 0px 50px 0px;
+    width: 40vw;
+}
+.nav-tabs {
+    width: 40vw;
 }
 
 .email {

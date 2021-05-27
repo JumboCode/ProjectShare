@@ -1,7 +1,8 @@
 import React from "react";
-import { Form } from "react-bootstrap";
-import { Button } from "react-bootstrap";
-import { Alert } from "react-bootstrap";
+import PropTypes from 'prop-types';
+import { Form , Button , Alert } from "react-bootstrap";
+import { BACKEND_URL } from './fetch';
+
 import "./SignupWindow.css";
 
 class Signup extends React.Component {
@@ -13,17 +14,15 @@ class Signup extends React.Component {
       useremail: "",
       userpassword1: "",
       userpassword2: "",
-      key: "",
       error: false,
       passMatch: true,
       response: 0
     };
   }
 
-  childFunction = () => {
-    const { key } = this.state;
-    const { callbackFromParent } = this.props;
-    callbackFromParent(key);
+  childFunction = (key) => {
+    const { authUpdate } = this.props;
+    authUpdate(true, key);
   }
 
   handleSubmit(props) {
@@ -38,43 +37,47 @@ class Signup extends React.Component {
         passMatch: false,
       })
     } else {
-      fetch('http://localhost:8000/auth/signup/', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          email: useremail,
-          password1: userpassword1,
-          password2: userpassword2
-        })
-      })
-        .then(response => {
-          this.setState({
-            response: response.status,
+      if (localStorage.getItem('pshare') === null) {
+        fetch(`${BACKEND_URL}/auth/signup/`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            email: useremail,
+            password1: userpassword1,
+            password2: userpassword2
           })
-          if (response.status >= 200 && response.status <= 299) {
-            return response.json()
-          }
-          this.setState({
-            error: true,
-          })
-          return "error"
         })
-        .then(data => { 
-          this.setState({
-            key: data.key,
-          })
-          this.childFunction();
-        })
-        .catch( error => {
-          const { response } = this.state;
-          if (response < 200 || response > 299) {
+          .then(response => {
+            this.setState({
+              response: response.status,
+            })
+            if (response.status >= 200 && response.status <= 299) {
+              return response.json()
+            }
             this.setState({
               error: true,
             })
-          }
-        })
+            return "error"
+          })
+          .then(data => {
+            localStorage.setItem('pshare', data.key);
+            this.childFunction(data.key);
+          })
+          .catch( error => {
+            const { response } = this.state;
+            if (response < 200 || response > 299) {
+              this.setState({
+                error: true,
+              })
+              localStorage.removeItem('pshare');
+            }
+          })
+      } else {
+        const authToken = localStorage.getItem('pshare');
+        this.childFunction(authToken);
+      }
     }
   }
 
@@ -97,7 +100,7 @@ class Signup extends React.Component {
       )
     }
     return (
-      <Form className="signupForm" onSubmit={ this.handleSubmit }>
+      <Form className="signupForm" onSubmit={this.handleSubmit}>
         <Form.Group className="email" controlid="useremail">
           <Form.Label>Email   </Form.Label>
           <Form.Control 
@@ -133,5 +136,13 @@ class Signup extends React.Component {
       
   }
 }
+
+Signup.defaultProps = {
+  authUpdate: null,
+}
+
+Signup.propTypes = {
+  authUpdate: PropTypes.func,
+};
 
 export default Signup;

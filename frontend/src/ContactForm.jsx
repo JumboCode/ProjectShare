@@ -1,6 +1,7 @@
 import React from 'react';
 import PopUpAlert from './PopUpAlert';
 import './ContactForm.css';
+import { BACKEND_URL } from './fetch';
 
 class ContractForm extends React.Component {
   constructor(props) {
@@ -31,7 +32,7 @@ class ContractForm extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    fetch('http://localhost:8000/api/contact', {
+    fetch(`${BACKEND_URL}/api/contact`, {
       method: "POST",
       body: JSON.stringify(this.state),
       credentials: "same-origin",
@@ -66,7 +67,7 @@ class ContractForm extends React.Component {
           visible={alert}
           message={status ? 'Your message was sent!' : 'Error in sending message. Please try again.'}
         />
-        <h2 className="title-text">Send us a message!</h2>
+        <h2 className="about-page-heading">Send us a message!</h2>
         <p className="additional-text">
           Lorem ipsum dolor sit amet, consectetur adipiscing elit.
         </p>

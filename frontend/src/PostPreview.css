@@ -24,15 +24,7 @@
 }
 
 .DatePostedLarge {
-  position: relative;
-  font-family: 'Noto Sans', sans-serif;
-  font-size: 16px;
-  font-weight: 500;
   color: #556474;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: normal;
-  letter-spacing: normal;
   text-align: left;
 }
 
@@ -63,7 +55,7 @@ a.TitleLarge {
   font-size: 14px;
   font-weight: 100;
   text-align: left;
-  padding: 5px 5px 5px 5px;
+  padding: 5px 10px;
   border-radius: 3px;
   border: solid 1px;
   border-color: #3da9fc;

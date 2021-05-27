@@ -1,16 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import DropdownButton from 'react-bootstrap/DropdownButton';
-import Dropdown from 'react-bootstrap/esm/Dropdown';
+// import Dropdown from 'react-bootstrap/esm/Dropdown';
 import DropdownItem from 'react-bootstrap/esm/DropdownItem';
 import { Link} from 'react-router-dom';
 import PostFeed from "./PostFeed";
+import HelpModal from './HelpModal';
 import './PostFeedPage.css';
+import { BACKEND_URL } from './fetch';
 
 class PostFeedPage extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {posts:[], tags: []};
+    this.state = {posts:[], tags:[], sortBy:'Featured'};
   }
   
   componentDidMount() {
@@ -18,7 +20,7 @@ class PostFeedPage extends React.Component {
     fetch (fetchEndpoint) 
       .then(res => res.json())
       .then(res => this.setState({posts: res}));
-    fetch('http://localhost:8000/api/tags')
+    fetch(`${BACKEND_URL}/api/tags`)
       .then(res => res.json())
       .then(res => this.setState({tags: res}))
   }
@@ -33,12 +35,24 @@ class PostFeedPage extends React.Component {
     }
   }
 
+  updateIsModalOpen = (val) => {
+    this.setState({ isModalOpen: val })
+  }
+  
+  handleSortSelect = (e) => {
+    const { fetchEndpoint } = this.props;
+    this.setState({ sortBy: e })
+    fetch(`${fetchEndpoint}?sort_by=${e}`)
+      .then(res => res.json())
+      .then(res => this.setState({ posts: res }))
+  }
+
   render() {
     const { tags } = this.state;
     const listItems = tags.map((tag) => (
       <li key={tag.id.toString()}>
         <Link
-          to={{ pathname: `/tag/${tag.id}`, state: { tagName: tag.name } }}
+          to={{ pathname: `/tag/${tag.id}`, state: { pageName: tag.name } }}
           key={tag.id}
         >
           {tag.name}
@@ -46,17 +60,24 @@ class PostFeedPage extends React.Component {
       </li>
     )
     );
-    const {featured,title, subtitle} = this.props
-    const {posts} = this.state
-
+    const {featured, title, subtitle} = this.props
+    const {posts, isModalOpen, sortBy} = this.state
+    
     return (
       <div className="postfeedPage">
+        {isModalOpen && (
+          <HelpModal updateIsModalOpen={this.updateIsModalOpen} isModalOpen={isModalOpen} />
+        )}
         <div className="sideBar">
           <div className="sortBy"> 
             <h3 className="sortByHeader"> Sort By </h3>
-            <DropdownButton variant="outline-primary" className="mostRecent" title="Most Recent"> 
-              <Dropdown.Item> Something </Dropdown.Item>
-              <DropdownItem> Something 2</DropdownItem>
+            <DropdownButton 
+              variant="outline-primary" className="sorting" 
+              title={sortBy} onSelect={this.handleSortSelect}
+            > 
+              <DropdownItem eventKey='Newest'> Newest </DropdownItem>
+              <DropdownItem eventKey='Oldest'> Oldest </DropdownItem>
+              <DropdownItem eventKey='Featured'> Featured </DropdownItem>
             </DropdownButton>
           </div>
           <div className="topicList"> 
@@ -70,7 +91,13 @@ class PostFeedPage extends React.Component {
           <div className="needHelp">  
             <h3 className="helpHeader"> Need Help? </h3>
             <p className="helpParagraph"> Use our resource finder to find the information you are looking for. </p>
-            <button type="button" className="helpButton"> Resource Finder </button>
+            <button
+              type="button"
+              className="helpButton"
+              onClick={() => this.setState({isModalOpen: true})}
+            >
+              Resource Finder 
+            </button>
           </div>
         </div>
         <div className="postfeedFormat">

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { PropTypes } from 'prop-types';
 import { Link } from "react-router-dom";
 import './FooterElement.css';
 
@@ -9,6 +10,7 @@ class FooterElement extends Component {
   }
 
   render() {
+    const { isAuthenticated } = this.props;
     return (
       <div className="footer-wrapper">
         <ul className="footer-credits">
@@ -18,12 +20,19 @@ class FooterElement extends Component {
           Spreading Health Access, Resources, and Education
         </ul>
         <Link className="About" to="/about"> About </Link>
-        <ul className="Contact-Us">
-          Contact Us 
-        </ul>
+        {isAuthenticated ? (
+          <Link className="Contact-Us" to="/logout"> Logout </Link>
+        ) : (
+          <Link className="Contact-Us" to="/login"> Admin Login </Link>
+        )}
+        
       </div>
 
     );
   }
 }
 export default FooterElement;
+
+FooterElement.propTypes = {
+  isAuthenticated: PropTypes.bool.isRequired,
+}

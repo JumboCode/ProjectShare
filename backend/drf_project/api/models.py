@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 from django.db import models
+from rest_framework import serializers
 
 
 class Location(models.Model):
@@ -21,6 +22,10 @@ class Image(models.Model):
     img_file = models.ImageField()
 
 
+class Pdf(models.Model):
+    pdf_file = models.FileField()
+
+
 class Post(models.Model):
     LANG_CHOICES = [
             ('EN', 'English'),
@@ -30,10 +35,13 @@ class Post(models.Model):
     title = models.CharField(max_length=5000)
     date = models.DateTimeField(auto_now_add=True)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
+    pdf = models.ForeignKey(Pdf, on_delete=models.CASCADE, blank=True, null=True)
     tags = models.ManyToManyField(Tag, related_name='posts')
     images = models.ManyToManyField(Image, related_name='posts', blank=True)
     locations = models.ManyToManyField(Location, related_name='posts', blank=True)
     content = models.TextField()
+    featured_post_order = models.IntegerField(blank=True, null=True)
+    region = models.CharField(max_length=64, blank=True, null=True)
     language = models.CharField(
         max_length=20,
         choices=LANG_CHOICES,
