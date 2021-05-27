@@ -24,7 +24,7 @@ class PostComposer extends React.Component {
       title: '',
       content: '',
       category: '',
-      region: '',
+      region: null,
       regions: [],
       selectedTags: [],
       locations: [],
@@ -40,6 +40,7 @@ class PostComposer extends React.Component {
       newLatitude: '',
       newLocationName: '',
       addLocationClicked: false,
+      selectedPdfFile: '',
       selectedFile: '',
       errors: {},
       success: null,
@@ -47,6 +48,7 @@ class PostComposer extends React.Component {
     };
 
     this.fileInput = React.createRef();
+    this.filePdfInput = React.createRef();
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleSetContent = this.handleSetContent.bind(this);
@@ -105,6 +107,12 @@ class PostComposer extends React.Component {
         });
   }
   
+
+  handleSelectRegion = (event) => {
+    const selectedRegion = { name: event };
+    this.setState({ region: selectedRegion })
+  }
+
   // Update text field as user inputs
   handleInputChange(event) {
     const {target} = event;
@@ -142,6 +150,7 @@ class PostComposer extends React.Component {
           success: "New post successfully created!" 
         })
         this.clearForm();
+        window.scrollTo(0, 0);
         return response.json();
       })
       .catch((error) => {     
@@ -170,10 +179,6 @@ class PostComposer extends React.Component {
     this.setState({ category: selectedCategory })
   }
 
-  handleSelectRegion = (event) => {
-    const selectedRegion = { name: event };
-    this.setState({ region: selectedRegion })
-  }
 
   // Schema model for posting to server when form is submitted
   postModel() {
@@ -306,13 +311,45 @@ class PostComposer extends React.Component {
   }
 
 
+  // Get information of chosen file and upload to server
+  handleUploadPdf = () => {
+    const { selectedPdfFile, pdf } = this.state;
+    const { authToken } = this.props;
+
+    // no file chosen
+    if (selectedPdfFile === '') {
+      this.setState({ selectedPdfFile: null });
+      return;
+    };
+
+    const formdata = new FormData();
+    formdata.append("pdf_file", selectedPdfFile);
+
+    const requestOptions = {
+      method: 'POST',
+      body: formdata,
+      headers: {
+        'Authorization': `Token ${authToken}`
+      }
+    };
+
+    // POST request to upload pdf
+    fetch(`${BACKEND_URL}/api/pdfs/add`, requestOptions)
+      .then(response => response.json())
+      .then(data => this.setState({ pdf: {id: data.id} }))
+      // reset input Pdf file
+      .then(() => { this.filePdfInput.current.value = '' })
+      .then(() => this.setState({ selectedPdfFile: '' }));
+  }
+
+
   render() {
 
     const { title, categories, category, addCategoryClicked, 
       newCategoryName, tags, addTagClicked, 
       newTagName, selectedTags, locations, addLocationClicked, newLatitude, 
       newLongitude, newLocationName, images, errors, success, selectedFile,
-      show, regions, region, addRegionClicked,
+      show, regions, region, addRegionClicked, pdf, selectedPdfFile,
       newRegionName, } = this.state;
 
     return (
@@ -413,11 +450,13 @@ class PostComposer extends React.Component {
           {/* Region Choose or Add buttons */}
           <Form.Group>
             <Form.Label>Region</Form.Label>
-            <Badge
-              variant="secondary" className="categoryBadge"
-            >
-              {region.name}
-            </Badge>
+            {region && (
+              <Badge
+                variant="secondary" className="categoryBadge"
+              >
+                {region.name}
+              </Badge>
+            )}
             {errors.region && (
               <Alert variant="danger">
                 {`${errors.region.non_field_errors}`}
@@ -613,6 +652,7 @@ class PostComposer extends React.Component {
               </Form.Group>
             )}
           </Form.Group>
+
           {/* Add Image */}
           <Form.Group>
             <Form.Label> Images </Form.Label>
@@ -648,6 +688,40 @@ class PostComposer extends React.Component {
             </Form.Text>
           </Form.Group>
           
+          {/* Add Image */}
+          <Form.Group>
+            <Form.Label> Pdf </Form.Label>
+            {(selectedPdfFile === null) && (
+              <Alert variant="danger">
+                Pdf must be selected.
+              </Alert>
+            )}
+            {pdf && (
+              <Badge
+                key={pdf.id}
+                variant="secondary" className="stickyBadge"
+              >
+                {`IMG ${pdf.id}`}
+              </Badge>
+            )}
+            <Form.Group className="addForm">
+              <Form.File
+                className="chooseFileButton"
+                ref={this.filePdfInput}
+                onChange={(e) => this.setState({ selectedPdfFile: e.target.files[0] })}
+              />
+              <Button
+                variant="primary"
+                onClick={this.handleUploadPdf}
+              >
+                Upload
+              </Button>
+            </Form.Group>
+            <Form.Text className="text-muted">
+              (You need to upload image before submitting post)
+            </Form.Text>
+          </Form.Group>
+
           {/* Submit button */}
           <Button className="submitButton" variant="primary" type="submit">  
             Submit

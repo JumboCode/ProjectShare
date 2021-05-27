@@ -77,7 +77,7 @@ class PostSerializer(serializers.ModelSerializer):
     tags = TagSerializer(many=True)
     pdf = PdfSerializer(required=False, allow_null=True)
     content = serializers.CharField()
-    region = RegionSerializer()
+    region = RegionSerializer(allow_null=True)
     images = ImageSerializer(many=True)
     language = serializers.CharField(max_length=20, required=False)
     locations = LocationSerializer(many=True)
@@ -99,15 +99,15 @@ class PostSerializer(serializers.ModelSerializer):
             'content': validated_data['content'],
             'category': category,
         }
-        if 'region' in validated_data:
+        if 'region' in validated_data and validated_data['region']:
             region, _ = Region.objects.get_or_create(
                 **validated_data['region']
             )
             data['region'] = region
         if 'language' in validated_data:
             data['language'] = validated_data['language']
-        if 'pdf' in validated_data:
-            data['pdf'] = validated_data['pdf']
+        if 'pdf' in validated_data and validated_data['pdf']:
+            data['pdf'] = Pdf.objects.get(**validated_data['pdf'])
         instance = Post.objects.create(**data)
 
         for image_data in validated_data['images']:
@@ -132,7 +132,7 @@ class PostSerializer(serializers.ModelSerializer):
         instance.category = validated_data.get('category', instance.category)
         instance.language = validated_data.get('language', instance.language)
         instance.pdf = validated_data.get('pdf', instance.pdf)
-        if 'region' in validated_data:
+        if 'region' in validated_data and validated_data['region']:
             region, _ = Region.objects.get_or_create(
                 **validated_data['region']
             )
