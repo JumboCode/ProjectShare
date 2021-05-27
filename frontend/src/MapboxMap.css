@@ -41,6 +41,7 @@
   line-height: normal;
   text-align: left;
   list-style-type: circle;
+  margin: 5px;
 }
 
 .mapAddressCircle {

@@ -118,14 +118,16 @@
 }
 
 .searchMapButton {
-  position:relative;
-  top:-1035px;
-  left:300px;
+  float: right;
+  display: block;
+  position: relative;
+  top: -4rem;
   font-family: "Noto Sans", sans-serif;
   font-size: 16px;
   font-weight: 500;
-  text-align: left;
+  text-align: right;
   color: var(--primary-color);
+  background-color: transparent;
 }
 
 .toggleMapButton {
@@ -137,14 +139,14 @@
     font-weight: 500;
     text-align: left;
     color: var(--primary-color); 
+    background-color: transparent;
 }
 
 .mapIcon {
     width: 20px;
     height: 20px;
-
     position:relative;
-    top:48px;
-    left:-220px;
+    top: 25px;
+    left: -30px;
     color: var(--primary-color); 
 }

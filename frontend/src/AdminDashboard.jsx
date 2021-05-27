@@ -2,6 +2,7 @@ import React from "react";
 import { Table , Button } from 'react-bootstrap';
 import './AdminDashboard.css';
 import { Link } from "react-router-dom";
+import { PropTypes } from 'prop-types';
 import UpdateFeaturedPost from './UpdateFeaturedPost';
 import { BACKEND_URL } from './fetch';
 
@@ -23,7 +24,7 @@ class Dashboard extends React.Component {
           isLoading: false,
         })
       )
-      .catch(error => console.error('Error: Could not fetch data.'));
+      .catch(error => console.error(error));
   }
 
   render() {
@@ -48,8 +49,8 @@ class Dashboard extends React.Component {
               </tr>
             </thead>
             <tbody>
-              {fetchData.map((post,index) => (
-                <tr key={index}>
+              {fetchData.map((post) => (
+                <tr key={post.id}>
                   <td>
                     <Link to={{ pathname: `edit-post/${post.id}`, state: {post} }}>
                       {post.title}
@@ -57,8 +58,8 @@ class Dashboard extends React.Component {
                   </td>
                   <td>{new Date(post.date).toLocaleDateString("en-US", dateOptions)}</td>
                   <td>
-                    {post.tags.map((tags, i) => 
-                      <p key={i}>{tags.name}</p> )}
+                    {post.tags.map((tags) => 
+                      <p key={post.id}>{tags.name}</p> )}
                   </td>
                   <td>{post.category.name}</td>
                 </tr>
@@ -79,3 +80,8 @@ class Dashboard extends React.Component {
 }
 
 export default Dashboard;
+
+
+Dashboard.propTypes = {
+  authToken: PropTypes.string.isRequired,
+};

@@ -3,7 +3,7 @@ import * as React from 'react';
 import { Component } from 'react';
 import MapGL, { Marker, WebMercatorViewport } from 'react-map-gl';
 import PropTypes from 'prop-types';
-import { MapPin, Circle } from 'react-feather';
+import { MapPin } from 'react-feather';
 import "./MapboxMap.css";
 
 const MAPBOX_TOKEN = process.env.REACT_APP_MAPBOX_ACCESS_TOKEN;
@@ -82,6 +82,31 @@ class Map extends Component {
     const { locations, searchMap } = this.props;
     return (
       <div className={searchMap ? 'mapComponentTwo' : 'mapComponent'}>
+        <MapGL
+          width={viewport.width}
+          height={viewport.height}
+          viewState={viewState}
+          mapStyle="mapbox://styles/mapbox/light-v10"
+          onViewportChange={vs => this.setState({ viewState: vs })}
+          mapboxApiAccessToken={MAPBOX_TOKEN}
+        >
+          {
+            locations.map(
+              loc =>
+                (
+                  <Marker
+                    key={loc.id}
+                    longitude={Number(loc.longitude)}
+                    latitude={Number(loc.latitude)}
+                    offsetLeft={-32 / 2}
+                    offsetTop={-32}
+                  >
+                    <MapPin size={32} color='#3da9fc' />
+                  </Marker>
+                )
+            )
+          }
+        </MapGL>
         {  !searchMap &&  (
           <div className="mapLocationListContainer">
             {locations.map((loc) => (
@@ -103,52 +128,7 @@ class Map extends Component {
           </div>
         )}
         
-        <MapGL
-          width={viewport.width}
-          height={viewport.height}
-          viewState={viewState}
-          mapStyle="mapbox://styles/mapbox/light-v10"
-          onViewportChange={vs => this.setState({viewState: vs})}
-          mapboxApiAccessToken={MAPBOX_TOKEN}
-        >
-          {
-            locations.map(
-              loc => 
-                (
-                  <Marker
-                    key={loc.id}
-                    longitude={Number(loc.longitude)}
-                    latitude={Number(loc.latitude)}
-                    offsetLeft={-32/2}
-                    offsetTop={-32}
-                  >
-                    <MapPin size={32} color='#3da9fc' />
-                  </Marker>
-                )
-            )
-          }
-        </MapGL>
-        {/* <div className="mapLocationListContainer">
-          {locations.map((loc) => (
-            <div className="mapLocationRectangles" key={loc.id}>
-              <p className="mapAddressName">
-                <Circle size={12} color="#3da9fc" className="mapAddressCircle" />
-                {loc.name}
-              </p>
-              {loc.address && (
-                <p className="mapAddress">
-                  {loc.address}
-                </p>
-              )}
-              <button
-                className="locationButtons"
-                type="button"
-                onClick={() => this.onLocationClick(Number(loc.latitude), Number(loc.longitude))}
-                aria-label="Move map to this location"
-              />
-            </div>
-          ))}
-        </div> */}
+        
       </div>
     );
   }
