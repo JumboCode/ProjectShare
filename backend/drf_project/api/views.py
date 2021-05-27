@@ -70,14 +70,14 @@ class PostViewSet(viewsets.ModelViewSet):
                 '-date')
 
         post_id = self.request.query_params.get('post_id', None)
-        tag_id = self.request.query_params.get('tag_id', None)
+        tag_ids = self.request.query_params.getlist('tag_id', None)
         category_id = self.request.query_params.get('category_id', None)
         keyword = self.request.query_params.get('keyword', None)
         featured = self.request.query_params.get('featured', None)
         if post_id is not None:
             queryset = queryset.filter(id=post_id)
-        if tag_id is not None:
-            queryset = queryset.filter(tags__id=tag_id)
+        if len(tag_ids) != 0:
+            queryset = queryset.filter(tags__id__in=tag_ids)
         if category_id is not None:
             queryset = queryset.filter(category_id=category_id)
         if keyword is not None:
