@@ -8,7 +8,9 @@ function SearchResultsPage(props) {
   const { location: { search } } = props;
   const endpoint = `${BACKEND_URL}/api/posts${search}`;
   return (
-    <PostFeedPage fetchEndpoint={endpoint} subtitle={`Search Results > ${search.substring(9)}`} featured={false} /> 
+    <div>
+      <PostFeedPage fetchEndpoint={endpoint} subtitle={`Search Results > ${search.substring(9)}`} featured={false} mapDefaultOpen />
+    </div>
   );
 }
 export default SearchResultsPage;

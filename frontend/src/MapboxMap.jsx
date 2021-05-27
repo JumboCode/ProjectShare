@@ -28,7 +28,7 @@ class Map extends Component {
     const { locations } = this.props;
     if (locations.length === 1) {
       this.onLocationClick(Number(locations[0].latitude), Number(locations[0].longitude))
-    } else {
+    } else if (locations.length > 1) {
       /* Calculate pairs of min lnglat and max lnglat */
       const lat = locations.map(location => Number(location.latitude));
       const lng = locations.map(location => Number(location.longitude));
@@ -42,10 +42,12 @@ class Map extends Component {
 
       const vp = new WebMercatorViewport(viewport);
       const { longitude, latitude, zoom } = vp.fitBounds(bounds, { padding: 10 });
-
+     
+      const { searchMap } = this.props;
+      const mapWidth = searchMap ? '100%' : '50%';
       this.setState({
         viewport: {
-          width: "50%",
+          width: mapWidth,
           height: "100%",
         },
         viewState: {
@@ -59,10 +61,11 @@ class Map extends Component {
   }
 
   onLocationClick = (newLatitude, newLongitude) => {
-    
+    const { searchMap } = this.props;
+    const mapWidth = searchMap ? '100%' : '50%';
     this.setState({ 
       viewport: {
-        width: "50%",
+        width: mapWidth,
         height: "100%",
       }, 
       viewState: {
@@ -76,10 +79,29 @@ class Map extends Component {
 
   render() {
     const { viewport, viewState } = this.state;
-    const { locations } = this.props;
+    const { locations, searchMap } = this.props;
     return (
-      <div className="mapComponent">
-        
+      <div className={searchMap ? 'mapComponentTwo' : 'mapComponent'}>
+        {  !searchMap &&  (
+          <div className="mapLocationListContainer">
+            {locations.map((loc) => (
+              <div className="mapLocationRectangles" key={loc.id}>
+                <li className="mapAddressName">  
+                  {loc.name} 
+                </li>
+                <p className="mapAddress">
+                  {loc.address}
+                </p>
+                <button
+                  className="locationButtons"
+                  type="button"
+                  onClick={() => this.onLocationClick(Number(loc.latitude), Number(loc.longitude))}
+                  aria-label="Move map to this location"
+                />
+              </div>
+            ))}
+          </div>
+        )}
         
         <MapGL
           width={viewport.width}
@@ -106,7 +128,7 @@ class Map extends Component {
             )
           }
         </MapGL>
-        <div className="mapLocationListContainer">
+        {/* <div className="mapLocationListContainer">
           {locations.map((loc) => (
             <div className="mapLocationRectangles" key={loc.id}>
               <p className="mapAddressName">
@@ -126,7 +148,7 @@ class Map extends Component {
               />
             </div>
           ))}
-        </div>
+        </div> */}
       </div>
     );
   }
@@ -139,8 +161,10 @@ Map.propTypes = {
     name: PropTypes.string,
     longitude: PropTypes.string,
     latitude: PropTypes.string,
-  }))
+  })),
+  searchMap: PropTypes.bool,
 }
 Map.defaultProps = {
-  locations: []
+  locations: [],
+  searchMap: false,
 }
