@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+
 from __future__ import unicode_literals
 from rest_framework import viewsets, permissions, filters
 from django.db.models import Q, F
@@ -12,7 +12,6 @@ from django.views.decorators.csrf import csrf_exempt
 from django.db import IntegrityError
 from django.conf import settings
 from collections import defaultdict
-from io import BytesIO
 from django.core.files import File
 import codecs
 import csv
@@ -21,7 +20,7 @@ import pytz
 import json
 import os
 from django.http import HttpResponse, HttpResponseBadRequest
-import base64
+from string import capwords
 
 
 class TagViewSet(viewsets.ModelViewSet):
@@ -204,6 +203,9 @@ def set_featured_posts(request, methods=['POST']):
     models.Post.objects.filter(id=fp_5_id).update(featured_post_order=5)
 
     return HttpResponse("Success, set featured post Ids")
+
+
+@csrf_exempt
 def upload_csv(request, methods='POST'):
     locations = defaultdict(lambda: [])
     loc_file = request.FILES['locations']
@@ -232,27 +234,33 @@ def upload_csv(request, methods='POST'):
             try:
                 pdf_file = None
                 if row['pdf'] != "":
-                    pdf_file = models.Pdf.objects.get_or_create(
-                        pdf_file=File(open(os.path.join(
-                            settings.MEDIA_ROOT, row['pdf']), "rb")))[0]
+                    file = File(
+                        open(os.path.join(settings.MEDIA_ROOT, row['pdf']), "rb"),
+                        name=row['pdf'])
+                    pdf_file = models.Pdf.objects.create(pdf_file=file)
 
                 image_names = row['images'].split(';')
                 image_list = []
                 for name in image_names:
                     if name != "":
-                        image_list.append(models.Image.objects.get_or_create(
-                            img_file=File(open(os.path.join(
-                                settings.MEDIA_ROOT, name), "rb")))[0])
+                        img_file = File(
+                            open(os.path.join(settings.MEDIA_ROOT, name), "rb"),
+                            name=name)
+                        img_obj = models.Image.objects.create(img_file=img_file)
+                        image_list.append(models.Image.objects.get(id=img_obj.id))
 
-                tag_list = [models.Tag.objects.get_or_create(name=tag)[0] 
-                            for tag in row['tags'].split(';')]
+                tag_list = [models.Tag.objects.get_or_create(name=capwords(tag.strip()))[0]
+                            for tag in row['tags'].split(';') if len(tag.strip()) > 0]
                 category = models.Category.objects.get_or_create(
-                    name=row['category'])[0]
+                    name=row['category'].title())[0]
+                region = models.Region.objects.get_or_create(
+                    name=row['region'].title())[0]
                 date = datetime.strptime(row['date'], '%m/%d/%y %H:%M')
                 timezone = pytz.timezone("US/Eastern")
                 date = timezone.localize(date)
                 post, updated = models.Post.objects.update_or_create(
                     title=row['title'],
+                    region=region,
                     date=date,
                     category=category,
                     pdf=pdf_file,
