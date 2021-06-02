@@ -10,9 +10,18 @@ from django.core.mail import BadHeaderError
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.db import IntegrityError
+from django.conf import settings
+from collections import defaultdict
+from io import BytesIO
+from django.core.files import File
+import codecs
+import csv
+from datetime import datetime
+import pytz
 import json
 import os
 from django.http import HttpResponse, HttpResponseBadRequest
+import base64
 
 
 class TagViewSet(viewsets.ModelViewSet):
@@ -195,3 +204,66 @@ def set_featured_posts(request, methods=['POST']):
     models.Post.objects.filter(id=fp_5_id).update(featured_post_order=5)
 
     return HttpResponse("Success, set featured post Ids")
+def upload_csv(request, methods='POST'):
+    locations = defaultdict(lambda: [])
+    loc_file = request.FILES['locations']
+    csv_reader = csv.DictReader(codecs.iterdecode(loc_file, 'utf-8'),
+                                ['desc', 'lat', 'long', 'post_id'])
+
+    line_count = 0
+    for row in csv_reader:
+        if line_count > 2:
+            loc = models.Location.objects.create(
+                latitude=row['lat'],
+                longitude=row['long'],
+                name=row['desc'])
+            locations[row['post_id']].append(loc)
+        line_count += 1
+
+    csv_file = request.FILES['csv']
+    csv_reader = csv.DictReader(codecs.iterdecode(csv_file, 'utf-8'),
+                                ['id', 'title', 'content', 'language',
+                                 'images', 'tags', 'category', 'date',
+                                 'has_map', 'pdf', 'region'])
+
+    line_count = 0
+    for row in csv_reader:
+        if line_count > 2 and row['title'] != "":
+            try:
+                pdf_file = None
+                if row['pdf'] != "":
+                    pdf_file = models.Pdf.objects.get_or_create(
+                        pdf_file=File(open(os.path.join(
+                            settings.MEDIA_ROOT, row['pdf']), "rb")))[0]
+
+                image_names = row['images'].split(';')
+                image_list = []
+                for name in image_names:
+                    if name != "":
+                        image_list.append(models.Image.objects.get_or_create(
+                            img_file=File(open(os.path.join(
+                                settings.MEDIA_ROOT, name), "rb")))[0])
+
+                tag_list = [models.Tag.objects.get_or_create(name=tag)[0] 
+                            for tag in row['tags'].split(';')]
+                category = models.Category.objects.get_or_create(
+                    name=row['category'])[0]
+                date = datetime.strptime(row['date'], '%m/%d/%y %H:%M')
+                timezone = pytz.timezone("US/Eastern")
+                date = timezone.localize(date)
+                post, updated = models.Post.objects.update_or_create(
+                    title=row['title'],
+                    date=date,
+                    category=category,
+                    pdf=pdf_file,
+                    content=row['content'],
+                    language=row['language'])
+                post.tags.set(tag_list)
+                post.images.set(image_list)
+                post.locations.set(locations[row['id']])
+            except IntegrityError as err:
+                return JsonResponse({'status': 'fail', 'message': str(err)})
+        line_count += 1
+
+    return JsonResponse({'status': 'sucess',
+                         'message': 'CSV uploaded and processed.'})

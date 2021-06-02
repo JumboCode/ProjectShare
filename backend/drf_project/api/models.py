@@ -2,6 +2,7 @@
 from __future__ import unicode_literals
 from django.db import models
 from rest_framework import serializers
+from django.utils import timezone
 
 
 class Location(models.Model):
@@ -37,7 +38,7 @@ class Post(models.Model):
     ]
 
     title = models.CharField(max_length=5000)
-    date = models.DateTimeField(auto_now_add=True)
+    date = models.DateTimeField(default=timezone.now)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     pdf = models.ForeignKey(Pdf, on_delete=models.CASCADE, blank=True, null=True)
     tags = models.ManyToManyField(Tag, related_name='posts')

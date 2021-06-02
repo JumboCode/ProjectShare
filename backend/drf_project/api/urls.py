@@ -60,6 +60,8 @@ pdf_urls = [
     ),
 ]
 
+csv_url = [path('upload_csv', views.upload_csv, name='upload_csv')]
+
 add_tags_url = [path('add_tags_bulk', views.bulk_add_tags)]
 add_cats_url = [path('add_categories_bulk', views.bulk_add_categories)]
 
@@ -73,4 +75,4 @@ featured_posts_urls = [
 urlpatterns = (tag_urls + category_urls + image_urls + post_urls
                + location_urls + contact_url + add_tags_url
                + add_cats_url + pdf_urls + featured_posts_urls
-               + region_urls)
+               + region_urls + csv_url)
