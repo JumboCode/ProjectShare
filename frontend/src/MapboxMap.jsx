@@ -4,6 +4,8 @@ import { Component } from 'react';
 import MapGL, { Marker, WebMercatorViewport } from 'react-map-gl';
 import PropTypes from 'prop-types';
 import { MapPin } from 'react-feather';
+import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
+import Tooltip from 'react-bootstrap/Tooltip';
 import "./MapboxMap.css";
 
 const MAPBOX_TOKEN = process.env.REACT_APP_MAPBOX_ACCESS_TOKEN;
@@ -101,7 +103,12 @@ class Map extends Component {
                     offsetLeft={-32 / 2}
                     offsetTop={-32}
                   >
-                    <MapPin size={32} color='#3da9fc' />
+                    <OverlayTrigger
+                      placement="top"
+                      overlay={<Tooltip id="button-tooltip-2">{loc.name}</Tooltip>}
+                    >
+                      <MapPin size={32} color='#3da9fc' />
+                    </OverlayTrigger>
                   </Marker>
                 )
             )
