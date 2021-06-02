@@ -15,7 +15,6 @@ class Navigation extends React.Component {
       tags: [],
       categories: [],
       isModalOpen: false,
-      // eslint-disable-next-line react/no-unused-state
       postSearchResults: [],
       // should i add a post search result here to get rid of parsing error
     };
@@ -74,8 +73,6 @@ class Navigation extends React.Component {
       categories.filter(category => category.name.includes(searchInput)); 
     const tagsFiltered = searchInput === "" ? [] :
       tags.filter(tag => tag.name.includes(searchInput));
-    // tags array is formatted so that each element formatted is an object that has 2 items (name and ID),
-    // so like a list of objects. so when filter your tags
     const shouldDisplayResults = (searchInput !== '' && 
       (tagsFiltered.length !== 0 || postSearchResults.length !== 0 || categoriesFiltered.length !== 0 ))
 
@@ -116,12 +113,12 @@ class Navigation extends React.Component {
                 <div className="searchResults"> 
                   <div className="postSearchResults">
                     {searchInput !== "" && (
-                      postSearchResults.map(post => (
+                      postSearchResults.slice(0, 15).map(post => (
                         <p className="nav-search-result" key={post.id}>
                           <FileText size={18} color="#094067" />
                           <Link to={`/post/${post.id}/`} onClick={this.clearSearchBar}> 
                             {' '}
-                            {post.title}
+                            {post.title.length <= 50 ? post.title : `${post.title.substring(0,50)}...`}
                             {' '}
                           </Link>
                           <span className="search-results-type">POST</span>
@@ -146,7 +143,7 @@ class Navigation extends React.Component {
                     ))}
                   </div>
                   <div className="tags-wrapper">
-                    {tagsFiltered.map(tagFiltered => (
+                    {tagsFiltered.slice(0, 15).map(tagFiltered => (
                       <p className="nav-search-result" key={tagFiltered.id}>
                         <Hash size={18} color="#094067" />
                         <Link 
@@ -174,7 +171,7 @@ class Navigation extends React.Component {
             </button>
           </div>
           <div className="navbarLink">
-            {categories.map(cat => (
+            {categories.slice(0, 15).map(cat => (
               <NavLink 
                 key={cat.id}
                 className="tuftsResources"
