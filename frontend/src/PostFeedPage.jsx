@@ -14,35 +14,37 @@ class PostFeedPage extends React.Component {
   constructor(props) {
     super(props);
     const { mapDefaultOpen } = this.props;
-    this.state = { posts: [], tags: [], sortBy: 'Featured', isMapOpen: mapDefaultOpen};
+    this.state = { posts: [], tags: [], sortBy: 'Featured', isMapOpen: mapDefaultOpen, isLoading: false};
   }
   
   componentDidMount() {
-    const {fetchEndpoint} = this.props
-    fetch (fetchEndpoint) 
-      .then(res => res.json())
-      .then(res => this.setState({posts: res}));
+    const {fetchEndpoint} = this.props;
+    this.setState({isLoading: true});
     fetch(`${BACKEND_URL}/api/tags`)
       .then(res => res.json())
-      .then(res => this.setState({tags: res}))
+      .then(res => this.setState({ tags: res }))
+    fetch (fetchEndpoint) 
+      .then(res => res.json())
+      .then(res => this.setState({posts: res, isLoading: false}));
   }
 
   componentDidUpdate(prevProps) {
     const { fetchEndpoint } = this.props;
     if (fetchEndpoint !== prevProps.fetchEndpoint)
     {
+      this.setState({ isLoading: true });
       fetch(fetchEndpoint)
         .then(res => res.json())
-        .then(res => this.setState({ posts: res }));
+        .then(res => this.setState({ posts: res, isLoading: false }));
     }
   }
   
   handleSortSelect = (e) => {
     const { fetchEndpoint } = this.props;
-    this.setState({ sortBy: e })
+    this.setState({ sortBy: e, isLoading: true })
     fetch(`${fetchEndpoint}?sort_by=${e}`)
       .then(res => res.json())
-      .then(res => this.setState({ posts: res }))
+      .then(res => this.setState({ posts: res, isLoading: false }))
   }
   
   handleClick() {
@@ -63,7 +65,7 @@ class PostFeedPage extends React.Component {
     )
     );
     const {featured, title, subtitle } = this.props
-    const { posts, isMapOpen, sortBy } = this.state
+    const { posts, isMapOpen, sortBy, isLoading } = this.state;
     const locationList = posts.map(post => post.locations).flat()
 
     return (
@@ -97,10 +99,10 @@ class PostFeedPage extends React.Component {
           </div>
         )}
         <div className="postfeedFormat">
-          {posts.length === 0 ? (
+          {posts.length === 0 && !isLoading ? (
             <p>No resources were found.</p>
           ) : (
-            <PostFeed posts={posts} featured={featured} subtitle={subtitle} title={title} />
+            <PostFeed posts={posts} featured={featured} subtitle={subtitle} title={title} isLoading={isLoading} />
           )}
         </div>
         {  isMapOpen === true && locationList.length > 0 && (

@@ -5,7 +5,7 @@ import SmallerPostPreview from "./SmallerPostPreview";
 import PostPreview from "./PostPreview";
 import './PostFeed.css';
 
-const PostFeed = ({title, subtitle, posts,featured}) => {
+const PostFeed = ({title, subtitle, posts,featured, isLoading}) => {
   return (
     <div className="postfeed">
       <h3 className="postfeed-title">
@@ -14,6 +14,7 @@ const PostFeed = ({title, subtitle, posts,featured}) => {
       <div className="subtitle">
         {subtitle}
       </div>
+      {isLoading && <p>Loading...</p>}
       { featured === true && posts.length !== 0 && (
         <div className="featuredPost" key={posts[0].id}>
           <PostPreview Data={posts[0]} /> 
@@ -39,9 +40,11 @@ export default PostFeed;
 PostFeed.defaultProps = {
   featured: false,
   subtitle: "",
+  isLoading: false,
 };
 
 PostFeed.propTypes = {
+  isLoading: PropTypes.bool,
   title: PropTypes.string.isRequired,
   posts: PropTypes.arrayOf(PropTypes.shape({
     category: PropTypes.objectOf(PropTypes.oneOfType([
