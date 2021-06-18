@@ -2,6 +2,8 @@ import React from "react";
 import { Table , Button} from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import './AdminDashboard.css';
+import { PropTypes } from 'prop-types';
+import UpdateFeaturedPost from './UpdateFeaturedPost';
 import { BACKEND_URL } from './fetch';
 
 class Dashboard extends React.Component {
@@ -22,17 +24,21 @@ class Dashboard extends React.Component {
           isLoading: false,
         })
       )
-      .catch(error => console.error('Error: Could not fetch data.'));
+      .catch(error => console.error(error));
   }
 
   render() {
-    const { isLoading, fetchData } = this.state
+    const { isLoading, fetchData } = this.state;
+    const { authToken } = this.props;
+    const dateOptions = { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' };
     if(!isLoading) {
       return (
         <div className="admin-page-container">
-          <Button className="add-post-button" variant="primary">
-            <Link to="/add-post">Add Post</Link>
+          <h2>Add A New Resource</h2>
+          <Button className="add-post-button" variant="primary" type="button">
+            <Link to="add-post">Add A Resource</Link>
           </Button>
+          <h2>Manage All Resources</h2>
           <Table striped bordered className="DataTable">
             <thead>
               <tr>
@@ -43,13 +49,17 @@ class Dashboard extends React.Component {
               </tr>
             </thead>
             <tbody>
-              {fetchData.map((post,index) => (
-                <tr key={index}>
-                  <td>{post.title}</td>
-                  <td>{post.date}</td>
+              {fetchData.map((post) => (
+                <tr key={post.id}>
                   <td>
-                    {post.tags.map((tags, i) => 
-                      <p key={i}>{tags.name}</p> )}
+                    <Link to={{ pathname: `edit-post/${post.id}`, state: {post} }}>
+                      {post.title}
+                    </Link>
+                  </td>
+                  <td>{new Date(post.date).toLocaleDateString("en-US", dateOptions)}</td>
+                  <td>
+                    {post.tags.map((tags) => 
+                      <p key={post.id}>{tags.name}</p> )}
                   </td>
                   <td>{post.category.name}</td>
                 </tr>
@@ -57,6 +67,8 @@ class Dashboard extends React.Component {
               )}
             </tbody>
           </Table>
+          <h2>Manage Featured Resources</h2>
+          <UpdateFeaturedPost authToken={authToken} />
         </div>
       );
     } 
@@ -68,3 +80,8 @@ class Dashboard extends React.Component {
 }
 
 export default Dashboard;
+
+
+Dashboard.propTypes = {
+  authToken: PropTypes.string.isRequired,
+};

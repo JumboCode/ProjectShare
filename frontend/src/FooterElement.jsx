@@ -21,7 +21,10 @@ class FooterElement extends Component {
         </ul>
         <Link className="About" to="/about"> About </Link>
         {isAuthenticated ? (
-          <Link className="Contact-Us" to="/logout"> Logout </Link>
+          <span className="Contact-Us">
+            <Link to="/dashboard"> Dashboard </Link>
+            <Link to="/logout"> Logout </Link>
+          </span>
         ) : (
           <Link className="Contact-Us" to="/login"> Admin Login </Link>
         )}

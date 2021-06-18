@@ -3,7 +3,9 @@ import * as React from 'react';
 import { Component } from 'react';
 import MapGL, { Marker, WebMercatorViewport } from 'react-map-gl';
 import PropTypes from 'prop-types';
-import { MapPin, Circle } from 'react-feather';
+import { MapPin } from 'react-feather';
+import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
+import Tooltip from 'react-bootstrap/Tooltip';
 import "./MapboxMap.css";
 
 const MAPBOX_TOKEN = process.env.REACT_APP_MAPBOX_ACCESS_TOKEN;
@@ -28,7 +30,7 @@ class Map extends Component {
     const { locations } = this.props;
     if (locations.length === 1) {
       this.onLocationClick(Number(locations[0].latitude), Number(locations[0].longitude))
-    } else {
+    } else if (locations.length > 1) {
       /* Calculate pairs of min lnglat and max lnglat */
       const lat = locations.map(location => Number(location.latitude));
       const lng = locations.map(location => Number(location.longitude));
@@ -42,10 +44,12 @@ class Map extends Component {
 
       const vp = new WebMercatorViewport(viewport);
       const { longitude, latitude, zoom } = vp.fitBounds(bounds, { padding: 10 });
-
+     
+      const { searchMap } = this.props;
+      const mapWidth = searchMap ? '100%' : '50%';
       this.setState({
         viewport: {
-          width: "50%",
+          width: mapWidth,
           height: "100%",
         },
         viewState: {
@@ -59,10 +63,11 @@ class Map extends Component {
   }
 
   onLocationClick = (newLatitude, newLongitude) => {
-    
+    const { searchMap } = this.props;
+    const mapWidth = searchMap ? '100%' : '50%';
     this.setState({ 
       viewport: {
-        width: "50%",
+        width: mapWidth,
         height: "100%",
       }, 
       viewState: {
@@ -76,57 +81,61 @@ class Map extends Component {
 
   render() {
     const { viewport, viewState } = this.state;
-    const { locations } = this.props;
+    const { locations, searchMap } = this.props;
     return (
-      <div className="mapComponent">
-        
-        
+      <div className={searchMap ? 'mapComponentTwo' : 'mapComponent'}>
         <MapGL
           width={viewport.width}
           height={viewport.height}
           viewState={viewState}
           mapStyle="mapbox://styles/mapbox/light-v10"
-          onViewportChange={vs => this.setState({viewState: vs})}
+          onViewportChange={vs => this.setState({ viewState: vs })}
           mapboxApiAccessToken={MAPBOX_TOKEN}
         >
           {
             locations.map(
-              loc => 
+              loc =>
                 (
                   <Marker
                     key={loc.id}
                     longitude={Number(loc.longitude)}
                     latitude={Number(loc.latitude)}
-                    offsetLeft={-32/2}
+                    offsetLeft={-32 / 2}
                     offsetTop={-32}
                   >
-                    <MapPin size={32} color='#3da9fc' />
+                    <OverlayTrigger
+                      placement="top"
+                      overlay={<Tooltip id="button-tooltip-2">{loc.name}</Tooltip>}
+                    >
+                      <MapPin size={32} color='#3da9fc' />
+                    </OverlayTrigger>
                   </Marker>
                 )
             )
           }
         </MapGL>
-        <div className="mapLocationListContainer">
-          {locations.map((loc) => (
-            <div className="mapLocationRectangles" key={loc.id}>
-              <p className="mapAddressName">
-                <Circle size={12} color="#3da9fc" className="mapAddressCircle" />
-                {loc.name}
-              </p>
-              {loc.address && (
+        {  !searchMap &&  (
+          <div className="mapLocationListContainer">
+            {locations.map((loc) => (
+              <div className="mapLocationRectangles" key={loc.id}>
+                <li className="mapAddressName">  
+                  {loc.name} 
+                </li>
                 <p className="mapAddress">
                   {loc.address}
                 </p>
-              )}
-              <button
-                className="locationButtons"
-                type="button"
-                onClick={() => this.onLocationClick(Number(loc.latitude), Number(loc.longitude))}
-                aria-label="Move map to this location"
-              />
-            </div>
-          ))}
-        </div>
+                <button
+                  className="locationButtons"
+                  type="button"
+                  onClick={() => this.onLocationClick(Number(loc.latitude), Number(loc.longitude))}
+                  aria-label="Move map to this location"
+                />
+              </div>
+            ))}
+          </div>
+        )}
+        
+        
       </div>
     );
   }
@@ -139,8 +148,10 @@ Map.propTypes = {
     name: PropTypes.string,
     longitude: PropTypes.string,
     latitude: PropTypes.string,
-  }))
+  })),
+  searchMap: PropTypes.bool,
 }
 Map.defaultProps = {
-  locations: []
+  locations: [],
+  searchMap: false,
 }

@@ -15,12 +15,23 @@ class App extends React.Component {
     };
   }
 
+  componentDidMount() {
+    const key = localStorage.getItem('pshare');
+    if (key !== null) {
+      this.setState({
+        isAuthenticated: true,
+        authToken: key,
+      })
+    };
+  }
+
   updateAuthentication(isAuthenticated, authToken) {
     this.setState({
       isAuthenticated,
       authToken
     })
   }
+  
 
   render() {
     const { authToken, isAuthenticated } = this.state;

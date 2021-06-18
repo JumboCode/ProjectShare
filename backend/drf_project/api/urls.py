@@ -29,6 +29,7 @@ def generate_urls(viewset, obj_name, obj_name_pl):
 
 tag_urls = generate_urls(views.TagViewSet, 'tag', 'tags')
 category_urls = generate_urls(views.CategoryViewSet, 'category', 'categories')
+region_urls = generate_urls(views.RegionViewSet, 'region', 'regions')
 post_urls = generate_urls(views.PostViewSet, 'post', 'posts')
 location_urls = generate_urls(views.LocationViewSet, 'location', 'locations')
 
@@ -59,9 +60,19 @@ pdf_urls = [
     ),
 ]
 
+csv_url = [path('upload_csv', views.upload_csv, name='upload_csv')]
+
 add_tags_url = [path('add_tags_bulk', views.bulk_add_tags)]
 add_cats_url = [path('add_categories_bulk', views.bulk_add_categories)]
 
+featured_posts_urls = [
+    path(
+        'posts/set_featured_posts',
+        views.set_featured_posts
+        ),
+]
+
 urlpatterns = (tag_urls + category_urls + image_urls + post_urls
                + location_urls + contact_url + add_tags_url
-               + add_cats_url + pdf_urls)
+               + add_cats_url + pdf_urls + featured_posts_urls
+               + region_urls + csv_url)

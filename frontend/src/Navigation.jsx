@@ -1,7 +1,7 @@
 import React from 'react';
 import './Navigation.css';
 import { Link, NavLink, withRouter } from "react-router-dom";
-import * as Icon from 'react-feather';
+import { Hash, X, Search, FileText } from 'react-feather';
 import { PropTypes } from 'prop-types';
 import logo from './static/projectSHARELogo.jpeg';
 import HelpModal from './HelpModal';
@@ -15,7 +15,6 @@ class Navigation extends React.Component {
       tags: [],
       categories: [],
       isModalOpen: false,
-      // eslint-disable-next-line react/no-unused-state
       postSearchResults: [],
       // should i add a post search result here to get rid of parsing error
     };
@@ -74,8 +73,6 @@ class Navigation extends React.Component {
       categories.filter(category => category.name.includes(searchInput)); 
     const tagsFiltered = searchInput === "" ? [] :
       tags.filter(tag => tag.name.includes(searchInput));
-    // tags array is formatted so that each element formatted is an object that has 2 items (name and ID),
-    // so like a list of objects. so when filter your tags
     const shouldDisplayResults = (searchInput !== '' && 
       (tagsFiltered.length !== 0 || postSearchResults.length !== 0 || categoriesFiltered.length !== 0 ))
 
@@ -95,7 +92,7 @@ class Navigation extends React.Component {
               />
             </Link>
             <div className="SearchBox">
-              <Icon.Search color="lightgrey" className="search-icon-nav" />
+              <Search color="lightgrey" className="search-icon-nav" />
               <input 
                 className="SearchBar"
                 placeholder="Search for a resource" 
@@ -110,17 +107,18 @@ class Navigation extends React.Component {
                 tabIndex="0"
                 onKeyDown={this.clearSearchBar}
               >
-                <Icon.X color="var(--primary)" />
+                <X color="var(--primary)" />
               </div>
               {shouldDisplayResults && (
                 <div className="searchResults"> 
                   <div className="postSearchResults">
                     {searchInput !== "" && (
-                      postSearchResults.map(post => (
+                      postSearchResults.slice(0, 15).map(post => (
                         <p className="nav-search-result" key={post.id}>
+                          <FileText size={18} color="#094067" />
                           <Link to={`/post/${post.id}/`} onClick={this.clearSearchBar}> 
                             {' '}
-                            {post.title}
+                            {post.title.length <= 50 ? post.title : `${post.title.substring(0,50)}...`}
                             {' '}
                           </Link>
                           <span className="search-results-type">POST</span>
@@ -131,7 +129,11 @@ class Navigation extends React.Component {
                   <div className="category">
                     {categoriesFiltered.map(categoryFiltered => (
                       <p className="nav-search-result" key={categoryFiltered.id}>
-                        <Link to={`/category/${categoryFiltered.id}`} onClick={this.clearSearchBar}> 
+                        <Hash size={18} color="#094067" />
+                        <Link 
+                          to={{ pathname: `/category/${categoryFiltered.id}`, state: { pageName: categoryFiltered.name } }}
+                          onClick={this.clearSearchBar}
+                        > 
                           {' '}
                           {categoryFiltered.name}
                           {' '}
@@ -141,9 +143,13 @@ class Navigation extends React.Component {
                     ))}
                   </div>
                   <div className="tags-wrapper">
-                    {tagsFiltered.map(tagFiltered => (
+                    {tagsFiltered.slice(0, 15).map(tagFiltered => (
                       <p className="nav-search-result" key={tagFiltered.id}>
-                        <Link to={`/tag/${tagFiltered.id}`} onClick={this.clearSearchBar}> 
+                        <Hash size={18} color="#094067" />
+                        <Link 
+                          to={{ pathname: `/tag/${tagFiltered.id}`, state: { pageName: tagFiltered.name } }}
+                          onClick={this.clearSearchBar}
+                        > 
                           {' '}
                           {tagFiltered.name}
                           {' '}
@@ -165,7 +171,7 @@ class Navigation extends React.Component {
             </button>
           </div>
           <div className="navbarLink">
-            {categories.map(cat => (
+            {categories.slice(0, 15).map(cat => (
               <NavLink 
                 key={cat.id}
                 className="tuftsResources"

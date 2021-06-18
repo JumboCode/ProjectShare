@@ -8,6 +8,8 @@ import Col from 'react-bootstrap/Col';
 import Alert from 'react-bootstrap/Alert';
 import Tooltip from 'react-bootstrap/Tooltip';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
+import { withRouter } from 'react-router-dom';
+import { PropTypes } from 'prop-types';
 import PostContentEditor from './PostContentEditor';
 import './PostComposer.css';
 import { BACKEND_URL } from './fetch';
@@ -24,26 +26,34 @@ class PostComposer extends React.Component {
       title: '',
       content: '',
       category: '',
+      region: null,
+      regions: [],
       selectedTags: [],
       locations: [],
       images: [],
+      pdf: null,
       categories: [],
       tags: [],
       addCategoryClicked: false,
       newCategoryName: '',
       addTagClicked: false,
       newTagName: '',
+      "date": new Date().toISOString(),
+      "featuredPostOrder": null,
       newLongitude: '',
       newLatitude: '',
       newLocationName: '',
       addLocationClicked: false,
+      selectedPdfFile: '',
       selectedFile: '',
       errors: {},
       success: null,
-      show: true
+      show: true,
+      editMode: false,
     };
 
     this.fileInput = React.createRef();
+    this.filePdfInput = React.createRef();
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleSetContent = this.handleSetContent.bind(this);
@@ -63,8 +73,34 @@ class PostComposer extends React.Component {
   componentDidMount() {
     this.getCategoriesList();
     this.getTagsList();
-  } 
-
+    this.getRegionsList();
+    const { match: { params } } = this.props;
+    if ('postId' in params) {
+      let postData = {};
+      this.setState({editMode: true});
+      const {location: { state } } = this.props;
+      if ('post' in state) {
+        postData = state.post;
+      } else {
+        fetch(`${BACKEND_URL}/api/posts?post_id=${params.postId}`)
+          .then(res => res.json())
+          .then(res => {postData = res});
+      }
+      this.setState({
+        "title": postData.title,
+        "content": postData.content,
+        "images": postData.images.map(img => ({ name: img.id })),
+        "pdf": postData.pdf ? {id: postData.pdf.id} : null,
+        "selectedTags": postData.tags.map(tag => ({ name: tag.name})),
+        "category": {name: postData.category.name},
+        "region": postData.region,
+        "date": postData.date,
+        "locations": postData.locations,
+        "featuredPostOrder": postData.featured_post_order,
+      });
+    }
+  }
+ 
   // Get list of categories to populate dropdown selector
   getCategoriesList() {
     fetch(`${BACKEND_URL}/api/categories`)
@@ -73,6 +109,18 @@ class PostComposer extends React.Component {
         (result) => {
           this.setState({
             categories: result
+          });
+        });
+  }
+
+  // Get list of regions to populate dropdown selector
+  getRegionsList = () => {
+    fetch(`${BACKEND_URL}/api/regions`)
+      .then(res => res.json())
+      .then(
+        (result) => {
+          this.setState({
+            regions: result
           });
         });
   }
@@ -89,41 +137,77 @@ class PostComposer extends React.Component {
         });
   }
   
-  // Schema model for posting to server when form is submitted
-  postModel() {
-    const {title, content, category, selectedTags, locations, images} = this.state;
 
-    return ({
-      "title": title,
-      "content": content,
-      "language": "EN",
-      "images": images,
-      "tags": selectedTags,
-      "category": category,
-      "date": new Date().toISOString(),
-      "locations": locations
-    });
+  handleSelectRegion = (event) => {
+    const selectedRegion = { name: event };
+    this.setState({ region: selectedRegion })
   }
 
-  // Update text field as user inputs
-  handleInputChange(event) {
-    const {target} = event;
-    const {value} = target;
-    const {name} = target;
 
-    this.setState({
-      [name]: value
-    });
+
+  // Get information of chosen file and upload to server
+  handleUploadPdf = () => {
+    const { selectedPdfFile } = this.state;
+    const { authToken } = this.props;
+
+    // no file chosen
+    if (selectedPdfFile === '') {
+      this.setState({ selectedPdfFile: null });
+      return;
+    };
+
+    const formdata = new FormData();
+    formdata.append("pdf_file", selectedPdfFile);
+
+    const requestOptions = {
+      method: 'POST',
+      body: formdata,
+      headers: {
+        'Authorization': `Token ${authToken}`
+      }
+    };
+
+    // POST request to upload pdf
+    fetch(`${BACKEND_URL}/api/pdfs/add`, requestOptions)
+      .then(response => response.json())
+      .then(data => this.setState({ pdf: { id: data.id } }))
+      // reset input Pdf file
+      .then(() => { this.filePdfInput.current.value = '' })
+      .then(() => this.setState({ selectedPdfFile: '' }));
+  }
+
+  deletePost = () => {
+    const { match: { params }, history, authToken } = this.props;
+
+    fetch(`${BACKEND_URL}/api/posts/${params.postId}/delete`, {
+      method: 'DELETE',
+      headers: {
+        'Authorization': `Token ${authToken}`
+      }
+    })
+      .then(response => response.json())
+    history.push('/dashboard');
   }
 
   // When form is submitted, create a new post and send to server
   handleSubmit(event) {
+    const { authToken } = this.props;
+    const { editMode } = this.state;
     event.preventDefault();
-    const post = this.postModel();       
-    
-    fetch(`${BACKEND_URL}/api/posts/add`, {
-      method: 'POST',
-      headers: { "Content-Type": "application/json" },
+    const post = this.postModel();
+
+    const { match: { params } } = this.props;
+    const fetchUrl = (editMode 
+      ? `${BACKEND_URL}/api/posts/${params.postId}/update`
+      : `${BACKEND_URL}/api/posts/add`);
+    const fetchMethod = editMode ? 'PATCH' : 'POST';
+
+    fetch(fetchUrl, {
+      method: fetchMethod,
+      headers: {
+        "Content-Type": "application/json",
+        'Authorization': `Token ${authToken}`
+      },
       body: JSON.stringify(post)
     })
       .then((response) => {
@@ -138,24 +222,33 @@ class PostComposer extends React.Component {
           success: "New post successfully created!" 
         })
         this.clearForm();
+        window.scrollTo(0, 0);
         return response.json();
       })
       .catch((error) => {     
         this.setState({ errors: error });        
       });
   }
+  
 
   // Clear out the form when post has successfully been created
   clearForm() {
+    const { editMode} =this.state;
+    const { history} =this.props;
     this.setState({
       title: '',
       content: '',
       category: '',
+      region: null,
+      pdf: null,
       selectedTags: [],
       locations: [],
       images: [],
       categories: []
     })
+    if (editMode) {
+      history.push('/dashboard');
+    }
   }
 
   // When a category is selected from dropdown, save to state 
@@ -163,6 +256,26 @@ class PostComposer extends React.Component {
     const selectedCategory = { name: event };  
     this.setState({ category: selectedCategory })
   }
+
+
+  // Schema model for posting to server when form is submitted
+  postModel() {
+    const { title, content, category, selectedTags, locations, images, region, pdf, date, featuredPostOrder } = this.state;
+    return ({
+      "title": title,
+      "content": content,
+      "language": "EN",
+      "images": images,
+      "pdf": pdf,
+      "tags": selectedTags,
+      "category": category,
+      "region": region,
+      "date": date,
+      "locations": locations,
+      "featuredPostOrder": featuredPostOrder,
+    });
+  }
+
 
   handleSetContent(contentFormatted) {
     this.setState({ content: contentFormatted });
@@ -188,6 +301,17 @@ class PostComposer extends React.Component {
     this.setState({ category: data });
     // Set create category input field to empty
     this.setState({ newCategoryName: '', addCategoryClicked: false });
+  }
+
+  // When user add a new region, apply region to post
+  handleAddRegion() {
+    const { newRegionName } = this.state;
+
+    // Get added region and apply to current post
+    const data = { name: newRegionName };
+    this.setState({ region: data });
+    // Set create region input field to empty
+    this.setState({ newRegionName: '', addRegionClicked: false });
   }
 
   // When user add a new tag, apply tag to post
@@ -236,6 +360,7 @@ class PostComposer extends React.Component {
   // Get information of chosen file and upload to server
   handleUploadImage() {
     const { selectedFile, images } = this.state;
+    const { authToken } = this.props;
 
     // no file chosen
     if (selectedFile === '') { 
@@ -248,7 +373,10 @@ class PostComposer extends React.Component {
     
     const requestOptions = {
       method: 'POST',
-      body: formdata
+      body: formdata,
+      headers: {
+        'Authorization': `Token ${authToken}`
+      }
     };
 
     // POST request to upload image and append to list of post's images 
@@ -261,13 +389,26 @@ class PostComposer extends React.Component {
   }
 
 
+  // Update text field as user inputs
+  handleInputChange(event) {
+    const { target } = event;
+    const { value } = target;
+    const { name } = target;
+
+    this.setState({
+      [name]: value
+    });
+  }
+
+
   render() {
 
     const { title, categories, category, addCategoryClicked, 
-      newCategoryName, tags, addTagClicked, 
+      newCategoryName, tags, addTagClicked, editMode, content,
       newTagName, selectedTags, locations, addLocationClicked, newLatitude, 
       newLongitude, newLocationName, images, errors, success, selectedFile,
-      show } = this.state;
+      show, regions, region, addRegionClicked, pdf, selectedPdfFile,
+      newRegionName, } = this.state;
 
     return (
       <div>
@@ -306,9 +447,17 @@ class PostComposer extends React.Component {
                 {`${errors.content}`} 
               </Alert>
             )}
-            <PostContentEditor
-              setTextFormatted={this.handleSetContent}
-            />
+            {editMode && content !== null && (
+              <PostContentEditor
+                setTextFormatted={this.handleSetContent}
+                initialContent={content}
+              />
+            )}
+            {!editMode && (
+              <PostContentEditor
+                setTextFormatted={this.handleSetContent}
+              />
+            )}
           </Form.Group>
           {/* Category Choose or Add buttons */}
           <Form.Group>
@@ -363,12 +512,69 @@ class PostComposer extends React.Component {
             </Form.Group>
           )}
 
+
+          {/* Region Choose or Add buttons */}
+          <Form.Group>
+            <Form.Label>Region</Form.Label>
+            {region && (
+              <Badge
+                variant="secondary" className="categoryBadge"
+              >
+                {region.name}
+              </Badge>
+            )}
+            {errors.region && (
+              <Alert variant="danger">
+                {`${errors.region.non_field_errors}`}
+              </Alert>
+            )}
+            <div className="groupButtons">
+              <DropdownButton
+                title="Choose a Region"
+                name="regionName"
+                onClick={this.getRegionsList}
+                onSelect={this.handleSelectRegion}
+              >
+                {regions.map(regionItem =>
+                  (
+                    <Dropdown.Item
+                      eventKey={regionItem.name}
+                      key={regionItem.name}
+                    >
+                      {regionItem.name}
+                    </Dropdown.Item>
+                  ))}
+              </DropdownButton>
+
+              <Button
+                className="addButton"
+                onClick={() => this.setState({ addRegionClicked: true })}
+              >
+                Add a New Region
+              </Button>
+            </div>
+          </Form.Group>
+          {/* Render input box for new Region if Add button clicked */}
+          {addRegionClicked && (
+            <Form.Group className="addForm">
+              <Form.Control
+                type="text"
+                name="newRegionName"
+                placeholder="Enter region name"
+                value={newRegionName}
+                onChange={this.handleInputChange}
+              />
+              <Button onClick={this.handleAddRegion}> + </Button>
+            </Form.Group>
+          )}
+
+
           {/* Tags Form */}
           <Form.Group>
             <Form.Label>Tags</Form.Label>
             {selectedTags.map(tag => ( 
               <OverlayTrigger
-                key='bottom'
+                key={tag.id}
                 placement='bottom'
                 overlay={(
                   <Tooltip id="tooltip-bottom">
@@ -512,6 +718,7 @@ class PostComposer extends React.Component {
               </Form.Group>
             )}
           </Form.Group>
+
           {/* Add Image */}
           <Form.Group>
             <Form.Label> Images </Form.Label>
@@ -547,15 +754,87 @@ class PostComposer extends React.Component {
             </Form.Text>
           </Form.Group>
           
+          {/* Add Image */}
+          <Form.Group>
+            <Form.Label> Pdf </Form.Label>
+            {(selectedPdfFile === null) && (
+              <Alert variant="danger">
+                Pdf must be selected.
+              </Alert>
+            )}
+            {pdf && (
+              <Badge
+                key={pdf.id}
+                variant="secondary" className="stickyBadge"
+              >
+                {`IMG ${pdf.id}`}
+              </Badge>
+            )}
+            <Form.Group className="addForm">
+              <Form.File
+                className="chooseFileButton"
+                ref={this.filePdfInput}
+                onChange={(e) => this.setState({ selectedPdfFile: e.target.files[0] })}
+              />
+              <Button
+                variant="primary"
+                onClick={this.handleUploadPdf}
+              >
+                Upload
+              </Button>
+            </Form.Group>
+            <Form.Text className="text-muted">
+              (You need to upload image before submitting post)
+            </Form.Text>
+          </Form.Group>
+
           {/* Submit button */}
           <Button className="submitButton" variant="primary" type="submit">  
             Submit
           </Button>
 
         </Form>
+
+        {editMode && (
+          <div className="delete-post-block">
+            <h3> Delete This Post</h3>
+            <p> Clicking on the button below will delete this resource. This operation is irreversible. </p>
+            <Button onClick={this.deletePost} variant="danger">Delete this Resource</Button>
+          </div>
+        )}
       </div>
     );
   };
 }
 
-export default PostComposer;
+export default withRouter(PostComposer);
+
+PostComposer.propTypes = {
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      postId: PropTypes.string,
+    })
+  }),
+  location: PropTypes.shape({
+    state: PropTypes.shape({
+      post: PropTypes.string,
+    })
+  }),
+  history: PropTypes.shape({
+    push: PropTypes.func
+  }).isRequired,
+  authToken: PropTypes.string.isRequired,
+};
+
+PostComposer.defaultProps = {
+  location: {
+    state: {
+      pageName: null,
+    }
+  },
+  match: {
+    params: {
+      postId: null,
+    }
+  }
+}

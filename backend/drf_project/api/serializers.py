@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Post, Location, Tag, Category, Image, Pdf
+from .models import Post, Location, Tag, Category, Image, Pdf, Region
 
 
 class LocationSerializer(serializers.ModelSerializer):
@@ -34,10 +34,18 @@ class CategorySerializer(serializers.ModelSerializer):
         fields = ['id', 'name']
 
 
+class RegionSerializer(serializers.ModelSerializer):
+    name = serializers.CharField(max_length=30)
+
+    class Meta:
+        model = Region
+        fields = ['id', 'name']
+
+
 class ImageSerializer(serializers.ModelSerializer):
     id = serializers.IntegerField(required=False)
     img_file = serializers.ImageField(required=False)
-    
+
     class Meta:
         model = Image
         fields = ['id', 'img_file']
@@ -67,17 +75,19 @@ class PostSerializer(serializers.ModelSerializer):
     date = serializers.DateTimeField()
     category = CategorySerializer()
     tags = TagSerializer(many=True)
-    pdf = PdfSerializer()
+    pdf = PdfSerializer(required=False, allow_null=True)
     content = serializers.CharField()
+    region = RegionSerializer(allow_null=True)
     images = ImageSerializer(many=True)
     language = serializers.CharField(max_length=20, required=False)
     locations = LocationSerializer(many=True)
+    featured_post_order = serializers.IntegerField(required=False, allow_null=True)
 
     class Meta:
         model = Post
-        fields = ['id', 'title', 'date', 'category', 'tags',
-                  'content', 'images', 'language', 'locations',
-                  'pdf']
+        fields = ['id', 'title', 'date', 'category', 'tags', 'region',
+                  'content', 'images', 'language', 'locations', 'pdf',
+                  'featured_post_order']
 
     def create(self, validated_data):
         category, _ = Category.objects.get_or_create(
@@ -89,10 +99,15 @@ class PostSerializer(serializers.ModelSerializer):
             'content': validated_data['content'],
             'category': category,
         }
+        if 'region' in validated_data and validated_data['region']:
+            region, _ = Region.objects.get_or_create(
+                **validated_data['region']
+            )
+            data['region'] = region
         if 'language' in validated_data:
             data['language'] = validated_data['language']
-        if 'pdf' in validated_data:
-            data['pdf'] = validated_data['pdf']
+        if 'pdf' in validated_data and validated_data['pdf']:
+            data['pdf'] = Pdf.objects.get(**validated_data['pdf'])
         instance = Post.objects.create(**data)
 
         for image_data in validated_data['images']:
@@ -114,9 +129,16 @@ class PostSerializer(serializers.ModelSerializer):
         instance.title = validated_data.get('title', instance.title)
         instance.date = validated_data.get('date', instance.date)
         instance.content = validated_data.get('content', instance.content)
-        instance.category = validated_data.get('category', instance.category)
+        category, _ = Category.objects.get_or_create(
+            **validated_data.get('category', instance.category))
+        instance.category = category
         instance.language = validated_data.get('language', instance.language)
-        instance.pdf = validated_data.get('pdf', instance.pdf)
+        instance.pdf = Pdf.objects.get(**validated_data.get('pdf', instance.pdf))
+        if 'region' in validated_data and validated_data['region']:
+            region, _ = Region.objects.get_or_create(
+                **validated_data['region']
+            )
+            instance.region = region
         if 'images' in validated_data:
             for image_data in validated_data['images']:
                 image, created = Image.objects.update_or_create(**image_data)

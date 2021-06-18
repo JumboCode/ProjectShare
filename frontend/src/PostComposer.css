@@ -1,13 +1,33 @@
 .form-post-composer {
   width: 50%;
-  margin: 2%;
+  margin: 75px auto;
   text-align: left;
+}
+
+.editor {
+  border: 1px solid var(--shade-color);
+}
+
+.form-label, .badge {
+  font-family: 'Noto Sans', sans-serif;
 }
 
 .btn {
   background-color: white;
   color: #3CA9FC;
   border-color: #3CA9FC;
+}
+
+.delete-post-block {
+  width: 50%;
+  text-align: left;
+  margin: 50px auto;
+}
+
+.btn-danger {
+  color: #fff;
+  background-color: #dc3545;
+  border-color: #dc3545;
 }
 
 .dropdown-item:hover {
