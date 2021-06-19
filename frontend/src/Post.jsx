@@ -19,6 +19,16 @@ class Post extends React.Component {
       .then(res => this.setState({posts: res}));
   }
 
+  componentDidUpdate(prevProps) {
+    const { match: { params: { postId } } } = this.props;
+    const { match: { params: { postId: prevPostId } } } = prevProps;
+    if (postId !== prevPostId) {
+      fetch(`${BACKEND_URL}/api/posts?post_id=${postId}`)
+        .then(res => res.json())
+        .then(res => this.setState({ posts: res }));
+    }
+  }
+
   render() {
     const {posts} = this.state
     let post;
